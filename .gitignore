@@ -1,0 +1,15 @@
+# Configurazione DB e file sensibili
+config/dbconfig.php
+.vscode/launch.json
+.vscode/sftp.json
+
+
+# Variabili d'ambiente
+.env
+
+# Dipendenze
+vendor/
+node_modules/
+
+# Cache e log
+*.log
