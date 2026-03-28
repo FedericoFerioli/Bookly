@@ -91,7 +91,7 @@ Progetto sviluppato da:
 
 - **Federico Ferioli** — [@FedericoFerioli](https://github.com/FedericoFerioli)
 - **Christian Facchini** — [@Giemme5](https://github.com/Giemme5)
-- **Majdoline ElCard** — [@majdo1ine](https://github.com/majdo1ine)
+- **Majdoline El Kard** — [@majdo1ine](https://github.com/majdo1ine)
 - **Riccardo Frabetti** — [@frabetti7949](https://github.com/frabetti7949)
 
 ---
