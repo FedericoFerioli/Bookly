@@ -18,7 +18,11 @@
     <main>
         <div class="forms-login">
             <form action="">
-                <input type="email" name="" id="">
+                <label for="email">Email</label><br>
+                <input type="email" name="" id="email" placeholder="Email"><br>
+                <label for="passwd">Password</label><br>
+                <input type="password" name="" id="passwd" placeholder="Password"><br>
+                <input type="submit" value="Accedi">
             </form>
         </div>
     </main>
