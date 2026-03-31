@@ -1,1 +1,23 @@
+name: Genera Documentazione
 
+on:
+  push:
+    branches: [main]
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Installa phpDocumentor
+        run: docker pull phpdoc/phpdoc
+
+      - name: Genera docs
+        run: docker run --rm -v "$(pwd):/data" phpdoc/phpdoc -d ./app -t ./docs/api
+
+      - name: Pubblica su GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/api

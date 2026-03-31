@@ -2,6 +2,7 @@
 config/dbconfig.php
 .vscode/launch.json
 .vscode/sftp.json
+config/dbconnect
 
 
 # Variabili d'ambiente
