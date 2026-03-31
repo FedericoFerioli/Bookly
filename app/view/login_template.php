@@ -19,7 +19,6 @@ defined('APP') or die('Acceso negato');
             <section>
                 <?php include $view?>
             </section>
-
         </main>
         <footer></footer>
     </div>    

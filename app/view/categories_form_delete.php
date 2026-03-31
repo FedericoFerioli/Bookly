@@ -4,7 +4,7 @@ defined('APP') or die('Acceso negato');
 
 <h1>Elimina categoria</h1>
 
-<form action="index.php?page=categories&action=destroy" method="post">
+<form action="index.php?page=main&action=destroy" method="post">
     <h3>Nome</h3>
     <select name="name">
         <?php foreach($names as $name): ?>

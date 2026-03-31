@@ -23,7 +23,7 @@ defined('APP') or die('Accesso negato');
 
     <!-- MENU -->
     <nav class="mb-4">
-        <a href="index.php?page=categories&action=index" class="btn btn-primary me-2">
+        <a href="index.php?page=main&action=index" class="btn btn-primary me-2">
             Categorie
         </a>
 

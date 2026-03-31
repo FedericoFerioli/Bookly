@@ -12,12 +12,12 @@ if(isset($_SESSION['customer_id']) == false){
 
 }else{
     
-    $page = $_GET['page'] ?? 'categories';
+    $page = $_GET['page'] ?? 'main';
     $action = $_GET['action'] ?? 'index';
     $filename = ucfirst($page).'Controller';
     echo $filename;
 
-    require_once "controllers/{$filename}.php";
+    require_once "/controllers/{$filename}.php";
     $controller = new $filename();
 
     if (!method_exists($controller, $action)) {

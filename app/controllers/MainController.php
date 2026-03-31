@@ -3,16 +3,16 @@ defined('APP') or die('Acceso negato');
 ?>
 
 <?php
-require_once 'models/CategoriesModel.php';
+require_once 'models/MainModel.php';
 
 
-class CategoriesController{
+class MainController{
     public $model;
     public $page;
 
     public function __construct(){
-        $this->model = new CategoriesModel();
-        $this->page = 'Categories';
+        $this->model = new mainModel();
+        $this->page = 'main';
 
     }
 
@@ -25,20 +25,20 @@ class CategoriesController{
     public function create(){
         $table = $this->model->selectAll();
 
-        $view = 'views/categories_form_create.php';
+        $view = 'views/main_form_create.php';
         include 'views/template.php';
     }
 
     public function delete(){
         $table = $this->model->SelectAll();
         $names = $this->model->SelectNames();
-        $view = 'views/categories_form_delete.php';
+        $view = 'views/main_form_delete.php';
         include 'views/template.php';
     }
 
     public function update(){
         $table = $this->model->SelectAll();
-        $view = 'views/categories_form_update.php';
+        $view = 'views/main_form_update.php';
         include 'views/template.php';
     }
 

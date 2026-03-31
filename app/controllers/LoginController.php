@@ -1,7 +1,7 @@
 <?php  
 defined('APP') or die('Acceso negato');
 
-require_once 'models/LoginModel.php';
+require_once('models/LoginModel.php');
 
 class LoginController{
     private $model;
@@ -75,7 +75,7 @@ class LoginController{
         if($this->model->find($param)){
             session_start();
             $_SESSION['customer_id'] = true;
-            header('location:index.php?page=categories&action=index');
+            header('location:index.php?page=main&action=index');
             exit;
         }else{
             header('location:index.php?page=Login&action=login&msg=error');

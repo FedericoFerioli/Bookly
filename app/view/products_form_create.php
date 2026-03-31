@@ -8,7 +8,7 @@ defined('APP') or die('Acceso negato');
     <input type="text" name="amount" id="" placeholder="Inserisci il l'amount" required>
     <input type="number" name="price" id="" placeholder="Inserisci il price" required>
     <select name="category_id">
-        <?php foreach($categories as $category): ?>
+        <?php foreach($main as $category): ?>
         <option value="<?= $category['category_id']; ?>"><?= $category['name']; ?> </option>
     <?php endforeach?>
     <br>

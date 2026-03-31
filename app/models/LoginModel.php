@@ -1,8 +1,7 @@
 <?php
 if(!defined('APP')) die('Accesso negato');
 
-require_once 'config/dbconnect.php';
-
+require_once __DIR__ . '/../../config/dbconnect.php';
 class LoginModel
 {
   private $pdo;
@@ -41,7 +40,7 @@ class LoginModel
 //     $dql = "SELECT c.category_id AS id,
 //                    c.name AS nome,
 //                    c.description AS descrizione
-//             FROM st_categories c";
+//             FROM st_main c";
 //     $param = [];
 //     //-----------------------------------
 //     $stm = $this->pdo->prepare($dql);
@@ -53,7 +52,7 @@ class LoginModel
 //   // Metodo DQL per estrarre una colonna
 //   public function selectIds(): array
 //   {
-//     $dql = "SELECT category_id FROM st_categories ORDER BY category_id ASC";
+//     $dql = "SELECT category_id FROM st_main ORDER BY category_id ASC";
 //     $param = [];
 //     //-----------------------------------
 //     $stm = $this->pdo->prepare($dql);
@@ -64,7 +63,7 @@ class LoginModel
 //   // Metodo DML per cancellare un record
 //   public function deleteRecord(array $param): bool
 //   {
-//     $dml = "DELETE FROM st_categories WHERE category_id = ?";
+//     $dml = "DELETE FROM st_main WHERE category_id = ?";
 //     //-----------------------------------
 //     $stm = $this->pdo->prepare($dml);
 //     $stm->execute($param);
@@ -75,7 +74,7 @@ class LoginModel
 //   // Metodo DML per modificare un record
 //   public function updateRecord(array $param): bool
 //   {
-//     $dml = "UPDATE st_categories 
+//     $dml = "UPDATE st_main 
 //               SET `name` = ?, `description` = ?
 //               WHERE category_id = ?";
 //     //-----------------------------------
