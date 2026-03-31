@@ -1,6 +1,6 @@
 <?php
 define ('APP', true);
-$page = $_GET['page'] ?? 'categories';
+$page = $_GET['page'] ?? 'main';
 $action = $_GET['action'] ?? 'index';
 $filename = ucfirst($page). 'Controller';
 require_once "controller/{$filename}.php";
