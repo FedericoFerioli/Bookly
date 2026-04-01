@@ -12,7 +12,7 @@
             display: flex;
 
         }
-
+x
         .titles div{
             margin: 10px;
             padding: 20px;
