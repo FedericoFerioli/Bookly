@@ -15,17 +15,17 @@ class loginController{
 
     //funzione pulsanti pagina
     public function index(){
-        include 'views/template.php';
+        include 'views/main/main_template.php';
     }
 
     public function login(){
-        $view = 'views/login_form.php';
-        include 'views/login_template.php';
+        $view = 'views/login/login_form.php';
+        include 'views/login/login_template.php';
     }
 
     public function registration(){
-        $view = 'views/login_registration_form.php';
-        include 'views/login_template.php';
+        $view = 'views/login/login_registration_form.php';
+        include 'views/login/login_template.php';
     }
 
 
@@ -76,8 +76,8 @@ class loginController{
         $param = [$email, $password];
 
         if($this->model->find($param)){
-            session_start();
-            $_SESSION['customer_id'] = true;
+            session_regenerate_id(true); // Crea un nuovo ID sessione sicuro
+            $_SESSION['user_id'] = $user['id'];            
             header('location:index.php?page=main&action=index');
             exit;
         }else{

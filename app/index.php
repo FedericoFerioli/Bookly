@@ -1,7 +1,9 @@
 <?php
 define('APP',true);
+session_start();
 
-if(isset($_SESSION['customer_id']) == false){
+
+if(isset($_SESSION['user_id']) == false){
 
     $page =  $_GET['page'] ?? 'login';
     $action = $_GET['action'] ?? 'login';
