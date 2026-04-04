@@ -76,7 +76,7 @@ public function check(){
     
     if($user){
         session_regenerate_id(true); 
-        $_SESSION['user_id'] = $user['id'];            
+        $_SESSION['user_id'] = $user['user_id'];            
         header('location:index.php?page=main&action=index');
         exit;
     } else {

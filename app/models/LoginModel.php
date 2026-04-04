@@ -13,7 +13,7 @@ class loginModel
   }
 
     public function find(array $param){
-    $dql = "SELECT user_id AS id
+    $dql = "SELECT user_id
             FROM users
             WHERE email = ? and password = ?
             LIMIT 1";

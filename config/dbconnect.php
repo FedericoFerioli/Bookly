@@ -1,7 +1,6 @@
 <?php  
 defined('APP') or die('Acceso negato');
-?>
-<?php 
+
 require_once 'dbconfig.php'; #file contenente credenziali di accesso al database
 
 class DB{ #Classe del database
