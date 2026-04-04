@@ -17,4 +17,3 @@ class personalAreaModel{
 
     //funzione per eliminare un'inserzione
 }
-

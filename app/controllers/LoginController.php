@@ -63,32 +63,33 @@ class loginController{
         }
 
         //ricaricamneto della pagina
-        header('location: index.php?page=login&action=registration');
+        header('location: index.php?page=login&action=login');
         exit;
     }
 
-    public function check(){
-        // dati dal form 
-        $email = $_POST['email'];
-        $password = $_POST['password'];
+public function check(){
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $param = [$email, $password];
 
-        //richiesta al model 
-        $param = [$email, $password];
-
-        if($this->model->find($param)){
-            session_regenerate_id(true); // Crea un nuovo ID sessione sicuro
-            $_SESSION['user_id'] = $user['id'];            
-            header('location:index.php?page=main&action=index');
-            exit;
-        }else{
-            header('location:index.php?page=login&action=login&msg=error');
-        }
-    }
-
-    public function logout(){
-        session_destroy();
-        header('location: index.php');
+    $user = $this->model->find($param);
+    
+    if($user){
+        session_regenerate_id(true); 
+        $_SESSION['user_id'] = $user['id'];            
+        header('location:index.php?page=main&action=index');
+        exit;
+    } else {
+        header('location:index.php?page=login&action=login&msg=error');
         exit;
     }
+}
+
+public function logout(){
+    $_SESSION = []; 
+    session_destroy();
+    header('location: index.php');
+    exit;
+}
 }
 ?>

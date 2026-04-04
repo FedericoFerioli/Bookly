@@ -10,7 +10,7 @@ class listingsModel{
     }
 
 
-    //funzione che stragga tutti gli annunci
+    //funzione che estragga tutti gli annunci
     
     //funzioni che filtrano bisogna pensare bene come fare, io per adesso non ho idee
 

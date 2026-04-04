@@ -12,4 +12,3 @@ class mainModel{
     //Qua è necessaria una funzione che estragga le ultime 3 inserzioni inserite dagli utenti
 
 }
-

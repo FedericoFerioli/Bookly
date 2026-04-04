@@ -1,6 +1,6 @@
 <?php
-define('APP',true);
 session_start();
+define('APP',true);
 
 
 if(isset($_SESSION['user_id']) == false){

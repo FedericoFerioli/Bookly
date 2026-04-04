@@ -12,15 +12,15 @@ class loginModel
     $this->pdo = DB::connect();
   }
 
-    public function find(array $param): bool {
-    $dql = "SELECT 1 
+    public function find(array $param){
+    $dql = "SELECT user_id AS id
             FROM users
             WHERE email = ? and password = ?
             LIMIT 1";
     $stm = $this->pdo->prepare($dql);
     $stm->execute($param);
 
-    return $stm->fetchColumn() !== false;
+    return $stm->fetch(PDO::FETCH_ASSOC);
   }
 
   // Metodo DML per inserire un record
