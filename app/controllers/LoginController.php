@@ -74,6 +74,7 @@ class LoginController{
 
         //richiesta al model 
         $param = [$email, $password];
+        
         if($this->model->find($param)){
             session_start();
             $_SESSION['customer_id'] = true;
