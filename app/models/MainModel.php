@@ -9,7 +9,7 @@ class mainModel{
         $this->pdo = DB::connect();
     }
 
-    //Qua è necessaria una funzione che estragga le prime 3 inserzioni
+    //Qua è necessaria una funzione che estragga le ultime 3 inserzioni inserite dagli utenti
 
 
 }

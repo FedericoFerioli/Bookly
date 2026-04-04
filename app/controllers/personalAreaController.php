@@ -13,11 +13,7 @@ class MainController{
 
     }
 
-    //funzione pulsanti pagina
-    public function index(){
-        include 'views/template.php';
-    }
-
+    //funzione per accedere all view della creazione annuncio
 }
 
 ?>

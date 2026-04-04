@@ -9,7 +9,6 @@ class listingsModel{
         $this->pdo = DB::connect();
     }
 
-    //Qua è necessaria una funzione che estragga le prime 3 inserzioni
 
 
 }

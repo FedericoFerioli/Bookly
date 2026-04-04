@@ -17,20 +17,19 @@ class loginModel
             FROM users
             WHERE email = ? and password = ?
             LIMIT 1";
-    //-----------------------------------
     $stm = $this->pdo->prepare($dql);
     $stm->execute($param);
-    //-----------------------------------
+
     return $stm->fetchColumn() !== false;
   }
 
   // Metodo DML per inserire un record
   public function insertRecord(array $param): bool {
     $dml = "INSERT INTO users (`name`, `surname` ,`gender`, `email`, `dob`, `password`) VALUES (?, ?, ?, ?, ?, ?)";
-    //-----------------------------------
+    
     $stm = $this->pdo->prepare($dml);
     $stm->execute($param);
-    //-----------------------------------
+
     return $stm->rowCount() !== 0;
   }
 }
