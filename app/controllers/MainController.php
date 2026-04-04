@@ -19,6 +19,7 @@ class MainController{
         include 'views/template.php';
     }
 
+
 }
 
 ?>
