@@ -17,7 +17,7 @@ class LoginController{
     public function index(){
         include 'views/template.php';
     }
-    
+
     public function login(){
         $view = 'views/login_form.php';
         include 'views/login_template.php';
