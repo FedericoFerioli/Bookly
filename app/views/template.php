@@ -30,9 +30,9 @@
                 </div>
                 <div class="titles">
                     <div><h1>Bookly</h1></div>
-                    <div><h3>HOME</h3></div>
-                    <div><h3>BACHECA</h3></div>
-                    <div><h3>PUBBLICA</h3></div>
+                    <div><a href="index.php?page=main&action=index">HOME</a></div>
+                    <div><a href="index.php?page=listings&action=all">BACHECA</a></div>
+                    <div><a href="index.php?page=create&action=new_insertion">PUBBLICA</a></div>
                 </div>
             </section>
     </header>
