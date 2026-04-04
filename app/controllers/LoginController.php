@@ -36,10 +36,11 @@ class LoginController{
 
         $name = trim($_POST['name']);
         $surname = trim($_POST['surname']);
+        $gender = trim($_POST['gender']);
         $email = strtolower(trim($_POST['email']));
         $password = trim($_POST['password']);
         $confirm_password = trim($_POST['confirm_password']);
-        $phone = trim($_POST['phone']);
+        $dob = $_POST['dob'];
 
 
 
@@ -54,7 +55,7 @@ class LoginController{
  
         if(empty($errors)){
         //richiesta al model 
-        $param = [$name, $surname, $email, $phone, $password];
+        $param = [$name, $surname, $gender, $email, $dob ,$password];
         $this->model->insertRecord($param);
         }else{
             header('location:index.php?page=Login&action=login&msg=error');

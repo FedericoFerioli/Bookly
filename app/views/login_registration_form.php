@@ -49,8 +49,27 @@ if(!defined('APP')) die('Accesso negato');
             </div>
 
             <div class="mb-3">
-              <label class="form-label">Telefono</label>
-              <input type="tel" class="form-control" name="phone">
+              <label class="form-label d-block">Genere</label>
+              
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="genderM" value="M" checked>
+                <label class="form-check-label" for="genderM">M</label>
+              </div>
+              
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="genderF" value="F">
+                <label class="form-check-label" for="genderF">F</label>
+              </div>
+              
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="gender" id="genderO" value="O">
+                <label class="form-check-label" for="genderO">Altro</label>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Data di Nascita</label>
+              <input type="date" class="form-control" name="dob" required>
             </div>
 
             <div class="form-check mb-3">

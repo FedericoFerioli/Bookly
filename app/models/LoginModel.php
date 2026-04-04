@@ -14,7 +14,7 @@ class LoginModel
 
     public function find(array $param): bool {
     $dql = "SELECT 1 
-            FROM st_customers
+            FROM users
             WHERE email = ? and password = ?
             LIMIT 1";
     //-----------------------------------
@@ -26,7 +26,7 @@ class LoginModel
 
   // Metodo DML per inserire un record
   public function insertRecord(array $param): bool {
-    $dml = "INSERT INTO st_customers (`name`, `surname` , `email`, `phone`, `password`) VALUES (?, ?, ?, ?, ?)";
+    $dml = "INSERT INTO users (`name`, `surname` ,`gender`, `email`, `dob`, `password`) VALUES (?, ?, ?, ?, ?, ?)";
     //-----------------------------------
     $stm = $this->pdo->prepare($dml);
     $stm->execute($param);
