@@ -22,7 +22,7 @@ if(!defined('APP')) die('Accesso negato');
           }
           ?>
 
-          <form method="post" action="index.php?page=Login&action=check">
+          <form method="post" action="index.php?page=login&action=check">
 
             <div class="mb-3">
               <label class="form-label">Email</label>
@@ -45,7 +45,7 @@ if(!defined('APP')) die('Accesso negato');
           <hr>
 
           <div class="text-center mt-3">
-            <a href="index.php?page=Login&action=registration" class="text-decoration-none">
+            <a href="index.php?page=login&action=registration" class="text-decoration-none">
                 Non hai un account? Registrati qui
             </a>
           </div>

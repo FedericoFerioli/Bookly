@@ -1,15 +1,15 @@
 <?php  
 defined('APP') or die('Acceso negato');
 
-require_once('models/LoginModel.php');
+require_once('models/loginModel.php');
 
-class LoginController{
+class loginController{
     private $model;
     private $page;
 
     public function __construct(){
-        $this->model = new LoginModel();
-        $this->page = 'Login';
+        $this->model = new loginModel();
+        $this->page = 'login';
 
     }
 
@@ -58,12 +58,12 @@ class LoginController{
         $param = [$name, $surname, $gender, $email, $dob ,$password];
         $this->model->insertRecord($param);
         }else{
-            header('location:index.php?page=Login&action=login&msg=error');
+            header('location:index.php?page=login&action=login&msg=error');
             exit;
         }
 
         //ricaricamneto della pagina
-        header('location: index.php?page=Login&action=registration');
+        header('location: index.php?page=login&action=registration');
         exit;
     }
 
@@ -74,14 +74,14 @@ class LoginController{
 
         //richiesta al model 
         $param = [$email, $password];
-        
+
         if($this->model->find($param)){
             session_start();
             $_SESSION['customer_id'] = true;
             header('location:index.php?page=main&action=index');
             exit;
         }else{
-            header('location:index.php?page=Login&action=login&msg=error');
+            header('location:index.php?page=login&action=login&msg=error');
         }
     }
 

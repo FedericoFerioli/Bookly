@@ -2,7 +2,7 @@
 if(!defined('APP')) die('Accesso negato');
 
 require_once __DIR__ . '/../../config/dbconnect.php';
-class LoginModel
+class loginModel
 {
   private $pdo;
 

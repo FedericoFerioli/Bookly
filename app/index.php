@@ -3,7 +3,7 @@ define('APP',true);
 
 if(isset($_SESSION['customer_id']) == false){
 
-    $page =  $_GET['page'] ?? 'Login';
+    $page =  $_GET['page'] ?? 'login';
     $action = $_GET['action'] ?? 'login';
     $filename = ucfirst($page).'Controller';
     require_once "controllers/{$filename}.php";

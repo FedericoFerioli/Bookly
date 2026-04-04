@@ -21,7 +21,7 @@ if(!defined('APP')) die('Accesso negato');
           }
           ?>
 
-          <form method="post" action="index.php?page=Login&action=store">
+          <form method="post" action="index.php?page=login&action=store">
 
             <div class="mb-3">
               <label class="form-label">Nome</label>
