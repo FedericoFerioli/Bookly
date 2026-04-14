@@ -38,7 +38,7 @@ if(isset($_SESSION['user_id']) == false){
     $filename = ucfirst($page).'Controller';
     echo $filename;
 
-    require_once "/controllers/{$filename}.php";
+    require_once "controllers/{$filename}.php";
     $controller = new $filename();
     /**
      * Se l'azione non esiste mandiamo l'utente alla pagine princiapale
