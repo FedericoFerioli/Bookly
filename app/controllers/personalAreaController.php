@@ -1,16 +1,15 @@
 <?php  
 defined('APP') or die('Acceso negato');
 
-require_once 'models/MainModel.php';
+require_once 'models/PersonalareaModel.php';
 
-class MainController{
+class PersonalareaController{
     public $model;
     public $page;
 
     public function __construct(){
-        $this->model = new mainModel();
-        $this->page = 'main';
-
+        $this->model = new PersonalareaModel();
+        $this->page = 'Personalarea';
     }
 
     public function index(){

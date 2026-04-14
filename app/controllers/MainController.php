@@ -10,7 +10,6 @@ class MainController{
     public function __construct(){
         $this->model = new mainModel();
         $this->page = 'main';
-
     }
 
     //funzione pulsanti pagina

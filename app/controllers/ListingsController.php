@@ -14,6 +14,11 @@ class listingsController{
     }
 
     //funzione pulsanti pagina
+    public function all(){
+        $view = 'views/listings/listings_all.php';
+        include 'views/listings/listings_template.php';
+    }
+
     public function index(){
         include 'views/main/main_template.php';
     }
@@ -28,6 +33,23 @@ class listingsController{
         include 'views/login/login_template.php';
     }
 
+
+    public function takeall(){
+        // dati dal form 
+        $errors = [];
+ 
+        if(empty($errors)){
+        //richiesta al model per prendere tutti gli annunci
+        $table = $this->model->SelectAll();
+        }else{
+            header('location:index.php?page=login&action=login&msg=error');
+            exit;
+        }
+
+        //ricaricamneto della pagina
+        header('location: index.php?page=login&action=login');
+        exit;
+    }
 
     // public function filter(){
         
