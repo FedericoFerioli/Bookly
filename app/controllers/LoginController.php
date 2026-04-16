@@ -90,5 +90,6 @@ public function logout(){
     header('location: index.php');
     exit;
 }
+
 }
 ?>
