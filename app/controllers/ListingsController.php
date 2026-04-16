@@ -1,7 +1,7 @@
 <?php  
 defined('APP') or die('Acceso negato');
 
-require_once('models/listingsModel.php');
+require_once('models/ListingsModel.php');
 
 class listingsController{
     private $model;
@@ -15,6 +15,7 @@ class listingsController{
 
     //funzione pulsanti pagina
     public function all(){
+        $insertions = $this->model->SelectAll();
         $view = 'views/listings/listings_all.php';
         include 'views/listings/listings_template.php';
     }
@@ -34,18 +35,6 @@ class listingsController{
     }
 
 
-    public function takeall(){
-        // dati dal form 
-        $insertions = $this->model->SelectAll();
-
-        //ricaricamneto della pagina
-        header('location: index.php?page=listings&action=all');
-        exit;
-    }
-
-    // public function filter(){
-        
-    // }
 
 }
 ?>

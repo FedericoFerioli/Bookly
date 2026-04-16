@@ -6,9 +6,6 @@ $dati = $_SESSION['libro_precaricato'] ?? null;
 $errore = $_SESSION['msg_errore'] ?? null;
 $errore_inserzione = $_SESSION['msg_errore_inserzione'] ?? null;
 
-// Puliamo subito la sessione così al prossimo refresh il form torna vuoto
-unset($_SESSION['libro_precaricato']);
-unset($_SESSION['msg_errore']);
 ?>
 
 <div>
@@ -85,6 +82,7 @@ unset($_SESSION['msg_errore']);
             <?php foreach($courses as $course): ?>
                 <option value="<?= $course['course_id']; ?>"><?= $course['name']; ?> </option>
             <?php endforeach?>
+        </select>
     </div>
 
     <?php if($errore_inserzione) echo "<p style='color:red'>$errore_inserzione</p>"; ?>

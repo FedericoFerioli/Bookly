@@ -4,7 +4,6 @@
     <div class="annuncio">
         <h3><?= $insertion['title'] ?></h3>
         <p><?= $insertion['authors'] ?></p>
-        <p><?= $insertion['prezzo'] ?> €</p>
         <p><?= $insertion['name'] ?></p>
     </div>
 <?php endforeach; ?>
