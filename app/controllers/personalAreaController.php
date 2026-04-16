@@ -24,19 +24,28 @@ class PersonalareaController{
     }
 
     public function save_insertion(){
-        $book_id = trim($_SESSION['libro_precaricato']['book_id'] ?? '');
+
+
+
+        $book_id = $_SESSION['libro_precaricato']['book_id'] ?? null;
+
+        if (!$book_id) {
+            die("Errore: Sessione scaduta o libro non trovato. Riprova la ricerca ISBN.");
+        }
+
         $price = trim($_POST['my_price'] ?? '');
         $book_condition = trim($_POST['condition'] ?? '');
         $insertion_state = "selling";
         $description = trim($_POST['description'] ?? '');
         $insertion_state = "selling";
         $selling_user = trim($_SESSION['user_id'] ?? '');
-        $course = trim($_POST['course'] ?? '');
+        $course = trim($_POST['course_id'] ?? '');
 
-        $param = [ $price, $book_condition, $description, $insertion_state, $selling_user, $book_id, $course];
+        $param = [$price, $book_condition, $description, $insertion_state, $selling_user, $book_id, $course];
         $insertion = $this->model->newInsertion($param);
 
-        if($insertion){            
+        if($insertion){
+            unset($_SESSION['libro_precaricato']);            
             $_SESSION['msg_errore_inserzione'] = "Inserimento completato";        
             header('Location: index.php?page=Personalarea&action=new_insertion');
             exit;

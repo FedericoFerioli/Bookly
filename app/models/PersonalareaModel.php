@@ -9,7 +9,7 @@ class PersonalareaModel{
     }
 
     public function isbnResearch(array $param){
-        $dql = "SELECT books.book_id, books.title, books.authors, subjects.name, books.publisher, books.cod_volume, books.volume
+        $dql = "SELECT books.book_id, books.title, books.authors, subjects.name, books.publisher, books.volume
                 FROM books
                 JOIN subjects USING(subject_id)
                 WHERE books.isbn LIKE ?
