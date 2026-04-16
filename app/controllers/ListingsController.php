@@ -14,6 +14,11 @@ class listingsController{
     }
 
     //funzione pulsanti pagina
+    public function all(){
+        $view = 'views/listings/listings_all.php';
+        include 'views/listings/listings_template.php';
+    }
+
     public function index(){
         include 'views/main/main_template.php';
     }
@@ -28,6 +33,15 @@ class listingsController{
         include 'views/login/login_template.php';
     }
 
+
+    public function takeall(){
+        // dati dal form 
+        $insertions = $this->model->SelectAll();
+
+        //ricaricamneto della pagina
+        header('location: index.php?page=listings&action=all');
+        exit;
+    }
 
     // public function filter(){
         
