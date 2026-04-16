@@ -36,18 +36,10 @@ class listingsController{
 
     public function takeall(){
         // dati dal form 
-        $errors = [];
- 
-        if(empty($errors)){
-        //richiesta al model per prendere tutti gli annunci
-        $table = $this->model->SelectAll();
-        }else{
-            header('location:index.php?page=login&action=login&msg=error');
-            exit;
-        }
+        $insertions = $this->model->SelectAll();
 
         //ricaricamneto della pagina
-        header('location: index.php?page=login&action=login');
+        header('location: index.php?page=listings&action=all');
         exit;
     }
 

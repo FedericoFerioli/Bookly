@@ -74,8 +74,6 @@ class PersonalareaController{
 
     //view per accedere alla pagina per la modifica delle info personali
 
-    //funzione per accedere all view della creazione annuncio
-
     //funzione per accedere all view della modifica annuncio
 }
 
