@@ -33,7 +33,7 @@
                     </div>
                     
                     <div class="card-footer bg-transparent border-top-0 pb-3">
-                        <a href="index.php?page=listings&action=details&id=<?= $insertion['insertion_id'] ?>" 
+                        <a href="index.php?page=Viewlisting&action=details&id=<?= $insertion['insertion_id'] ?>" 
                            class="btn btn-outline-primary w-100">
                            Vedi Dettagli
                         </a>
