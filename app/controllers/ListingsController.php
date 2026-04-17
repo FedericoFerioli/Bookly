@@ -20,12 +20,6 @@ class listingsController{
         include 'views/listings/listings_template.php';
     }
 
-    public function details(){
-        $id = $_POST['id'] ?? 0;
-        $insertion = $this->model->getOne($id);
-        $view = 'views/listings/listings_details.php';
-        include 'views/listings/listings_template.php';
-    }
 
     public function index(){
         include 'views/main/main_template.php';

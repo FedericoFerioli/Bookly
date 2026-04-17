@@ -14,10 +14,12 @@ class ViewlistingController{
     }
 
     public function details(){
-        $id = $_POST['id'] ?? 0;
+        $id = $_GET['id'] ?? 0;
         $insertion = $this->model->getOne($id);
-        $view = 'views/Viewlisting/Viewlisting_details.php';
-        include 'views/Viewlisting/Viewlisting_template.php';
+
+
+        $view = 'views/viewlisting/Viewlisting_details.php';
+        include 'views/viewlisting/Viewlisting_template.php';
     }
 
     public function index(){

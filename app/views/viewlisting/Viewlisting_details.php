@@ -21,7 +21,7 @@
             <div class="card shadow">
                 <div class="card-body text-center">
                     <h3 class="text-success fw-bold"><?= number_format($insertion['price'], 2, ',', '.') ?> €</h3>
-                    <p class="small text-muted">Venduto da: <strong><?= htmlspecialchars($insertion['username']) ?></strong></p>
+                    <p class="small text-muted">Venduto da: <strong><?= htmlspecialchars($insertion['name']) ?> <?= htmlspecialchars($insertion['surname']) ?></strong></p>
                     <button class="btn btn-primary w-100 btn-lg">Contatta il venditore</button>
                 </div>
             </div>
