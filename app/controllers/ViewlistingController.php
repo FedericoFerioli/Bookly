@@ -1,25 +1,26 @@
 <?php  
 defined('APP') or die('Acceso negato');
 
-require_once('models/ListingsModel.php');
+require_once('models/ViewlistingModel.php');
 
-class listingsController{
+class ViewlistingController{
     private $model;
     private $page;
 
     public function __construct(){
-        $this->model = new listingsModel();
-        $this->page = 'listings';
+        $this->model = new ViewlistingModel();
+        $this->page = 'Viewlisting';
 
     }
 
-    //funzione pulsanti pagina
-    public function all(){
-        $insertions = $this->model->SelectAll();
-        $view = 'views/listings/listings_all.php';
-        include 'views/listings/listings_template.php';
-    }
+    public function details(){
+        $id = $_GET['id'] ?? 0;
+        $insertion = $this->model->getOne($id);
 
+
+        $view = 'views/viewlisting/Viewlisting_details.php';
+        include 'views/viewlisting/Viewlisting_template.php';
+    }
 
     public function index(){
         include 'views/main/main_template.php';

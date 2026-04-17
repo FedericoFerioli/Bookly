@@ -25,8 +25,6 @@ class PersonalareaController{
 
     public function save_insertion(){
 
-
-
         $book_id = $_SESSION['libro_precaricato']['book_id'] ?? null;
 
         if (!$book_id) {
@@ -75,8 +73,6 @@ class PersonalareaController{
 
     header('Location: index.php?page=Personalarea&action=new_insertion');
     }
-
-
 
 
     //view con annunci propri e info personali

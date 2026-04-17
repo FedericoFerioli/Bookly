@@ -29,11 +29,6 @@ $errore_inserzione = $_SESSION['msg_errore_inserzione'] ?? null;
     </div>
 
     <div>
-      <label>bookid</label>
-      <input type="text" name="authors" value="<?php echo $dati['authors'] ?? ''; ?>" readonly>
-    </div>
-
-    <div>
       <label>Autore/i</label>
       <input type="text" name="authors" value="<?php echo $dati['authors'] ?? ''; ?>" required>
     </div>
@@ -50,7 +45,7 @@ $errore_inserzione = $_SESSION['msg_errore_inserzione'] ?? null;
 
     <div>
       <label>Prezzo Consigliato (€)</label>
-      <input type="text" name="original_price" value="<?php echo $dati['price'] ?? ''; ?>" readonly>
+      <input type="text" name="original_price" value="<?php echo $dati['cover_price'] ?? ''; ?>" readonly>
       <small>(Dato originale non modificabile)</small>
     </div>
 
@@ -62,14 +57,39 @@ $errore_inserzione = $_SESSION['msg_errore_inserzione'] ?? null;
       <input type="number" step="0.01" name="my_price" required>
     </div>
 
-    <div>
-      <label>Condizioni del libro</label>
-      <select name="condition">
-          <option value="nuovo">Nuovo</option>
-          <option value="ottimo">Ottimo stato</option>
-          <option value="usato">Segni di usura</option>
-      </select>
+<div style="margin-top: 15px;">
+    <label style="font-weight: bold; display: block; margin-bottom: 10px;">Condizioni del libro:</label>
+    
+    <div style="margin-bottom: 10px;">
+        <input type="radio" id="cond_nuovo_c" name="condition" value="Nuovo con cartellino" required>
+        <label for="cond_nuovo_c"><strong>Nuovo con cartellino</strong></label>
+        <p style="margin: 0 0 5px 25px; font-size: 0.9em; color: #666;">Mai usato, ancora nel cellophane originale o con etichetta dell'editore.</p>
     </div>
+
+    <div style="margin-bottom: 10px;">
+        <input type="radio" id="cond_nuovo_s" name="condition" value="Nuovo senza cartellino">
+        <label for="cond_nuovo_s"><strong>Nuovo senza cartellino</strong></label>
+        <p style="margin: 0 0 5px 25px; font-size: 0.9em; color: #666;">Mai usato, ma privo di confezione originale. Pagine intonse e copertina perfetta.</p>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+        <input type="radio" id="cond_ottimo" name="condition" value="ottime condizioni">
+        <label for="cond_ottimo"><strong>Ottimo stato</strong></label>
+        <p style="margin: 0 0 5px 25px; font-size: 0.9em; color: #666;">Letto con cura. Nessuna sottolineatura, piega o segno evidente sulla copertina.</p>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+        <input type="radio" id="cond_leggero" name="condition" value="Leggermente usato">
+        <label for="cond_leggero"><strong>Leggermente usato</strong></label>
+        <p style="margin: 0 0 5px 25px; font-size: 0.9em; color: #666;">Qualche rara sottolineatura a matita o piccoli segni di usura negli angoli.</p>
+    </div>
+
+    <div style="margin-bottom: 10px;">
+        <input type="radio" id="cond_usato" name="condition" value="usato">
+        <label for="cond_usato"><strong>Usato / Segni di usura</strong></label>
+        <p style="margin: 0 0 5px 25px; font-size: 0.9em; color: #666;">Sottolineature (penna/evidenziatore), copertina vissuta o annotazioni ai margini.</p>
+    </div>
+</div>
 
     <div>
       <label>Description</label>
