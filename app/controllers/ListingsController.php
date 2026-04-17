@@ -20,6 +20,11 @@ class listingsController{
         include 'views/listings/listings_template.php';
     }
 
+    public function details(){
+        $view = 'views/listings/listings_all.php';
+        include 'views/listings/listings_template.php';
+    }
+
     public function index(){
         include 'views/main/main_template.php';
     }
