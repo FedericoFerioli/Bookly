@@ -25,14 +25,14 @@
             <section class="nonloso">
                 <div class="logo-container">
                     <a>
-                        <img src="/public/images/concept_logo_Bookly_1.png" alt="Logo di Bookly" class="logo">
+                        <img src="../public/images/concept_logo_Bookly_only_logo.png" alt="Logo di Bookly" height="70" width="70" class="logo">
                     </a>
                 </div>
                 <div class="titles">
                     <div><h1>Bookly</h1></div>
                     <div><a href="index.php?page=main&action=index">HOME</a></div>
                     <div><a href="index.php?page=listings&action=all">BACHECA</a></div>
-                    <div><a href="index.php?page=personalArea&action=new_insertion">PUBBLICA</a></div>
+                    <div><a href="index.php?page=Personalarea&action=new_insertion">PUBBLICA</a></div>
                 </div>
             </section>
     </header>
