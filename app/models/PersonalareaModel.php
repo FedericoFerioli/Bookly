@@ -43,10 +43,48 @@ class PersonalareaModel{
         $stm->execute($param);
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
-    }
+    
+
+
 
     //qua serve una funzione che estragga tutte le inserzioni di un utente
-
+    public function insertionsByUser(array $param){
+        $dql="SELECT insertions.*, books.title, books.authors, books.publisher, users.name AS `name`, users.surname AS `surname`, subjects.name AS subject_name
+            FROM insertions 
+            LEFT JOIN books USING(book_id) 
+            LEFT JOIN users ON insertions.selling_user = users.user_id
+            LEFT JOIN subjects USING(subject_id)
+            WHERE selling_user= ?";
+        $stm=$this->pdo->prepare($dql);
+        $stm->execute($param);
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
     //funzione per modificare un'inserzione
+        public function modifyInsertion(array $param){ //$param=[price, book_condition, description, insertion_id]
+        $dql="UPDATE insertions
+                SET price=?,
+                    exchange_day=exchange_day,
+                    book_condition=?,
+                    `description`=?,
+                    sell_time=sell_time,
+                    insertion_state=insertion_state,
+                    post_date=post_date,
+                    selling_user=selling_user,
+                    buying_user=buying_user,
+                    place_id=place_id,
+                    book_id=book_id,
+                    course_id=course_id
+                WHERE insertion_id=?"; //Query che modifica i valori tenendo i valori settati dove non si può modificare
+        $stm=$this->pdo->prepare($dql);
+        return $stm->execute($param); //esecuzione della Query
+    }
 
     //funzione per eliminare un'inserzione
+        public function deleteInsertion(array $param){ //$param=[insertion_id]
+        $dql="DELETE FROM insertions
+              WHERE insertion_id=?";
+        $stm=$this->pdo->prepare($dql);
+        $stm->execute($param);
+        return $stm->rowCount()!==0;
+    }
+}

@@ -17,8 +17,6 @@ class ViewlistingController{
     public function details(){
         $id = $_GET['id'] ?? 0;
         $insertion = $this->model->getOne($id);
-
-
         $view = 'views/viewlisting/Viewlisting_details.php';
         include 'views/viewlisting/Viewlisting_template.php';
     }
