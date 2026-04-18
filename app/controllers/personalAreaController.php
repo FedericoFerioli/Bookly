@@ -12,6 +12,10 @@ class PersonalareaController{
         $this->page = 'Personalarea';
     }
 
+    public function index(){
+        include 'views/main/main_template.php';
+    }
+
     public function listings(){
         $views = 'views/listings/listings_all.php';
         include 'views/listings/listings_template.php';

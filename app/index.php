@@ -46,5 +46,6 @@ if(isset($_SESSION['user_id']) == false){
     if (!method_exists($controller, $action)) {
         $action = 'index';
     }
+
     $controller->$action();
 }

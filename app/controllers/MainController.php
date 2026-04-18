@@ -16,6 +16,10 @@ class MainController{
     public function index(){
         include 'views/main/main_template.php';
     }
+    public function dashboard(){
+        $view = 'views/Personalarea/personalArea_dashboard.php';
+        include 'views/Personalarea/personalArea_template.php';
+    }
 
     public function listings(){
         include 'views/listings/listings_template.php';
