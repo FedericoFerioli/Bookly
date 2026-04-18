@@ -1,7 +1,7 @@
 <?php  
 defined('APP') or die('Acceso negato');
 
-require_once('models/listingsModel.php');
+require_once('models/ListingsModel.php');
 
 class listingsController{
     private $model;
@@ -14,6 +14,13 @@ class listingsController{
     }
 
     //funzione pulsanti pagina
+    public function all(){
+        $insertions = $this->model->SelectAll();
+        $view = 'views/listings/listings_all.php';
+        include 'views/listings/listings_template.php';
+    }
+
+
     public function index(){
         include 'views/main/main_template.php';
     }
@@ -27,11 +34,5 @@ class listingsController{
         $view = 'views/login/login_registration_form.php';
         include 'views/login/login_template.php';
     }
-
-
-    // public function filter(){
-        
-    // }
-
 }
 ?>

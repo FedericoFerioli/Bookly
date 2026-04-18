@@ -52,6 +52,7 @@ class loginController{
             $errors[] = "Le password non corrispondono";
         }
 
+        $password = hash("sha256", $password);
  
         if(empty($errors)){
         //richiesta al model 
@@ -70,8 +71,9 @@ class loginController{
 public function check(){
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $param = [$email, $password];
+    $password = hash("sha256", $password);
 
+    $param = [$email, $password];
     $user = $this->model->find($param);
     
     if($user){
@@ -91,5 +93,6 @@ public function logout(){
     header('location: index.php');
     exit;
 }
+
 }
 ?>

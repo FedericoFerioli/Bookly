@@ -12,13 +12,6 @@ class PersonalareaController{
         $this->page = 'Personalarea';
     }
 
-    public function isLogged(){
-        if($_SESSION['logged'] != true){
-            header('location: index.php?page=Login&action=login');
-            exit;
-        }
-    }
-
     public function index(){
         include 'views/main/main_template.php';
     }
@@ -29,17 +22,11 @@ class PersonalareaController{
     }
 
     public function dashboard(){
-        $this->isLogged();
         $view = 'views/Personalarea/personalArea_dashboard.php';
         include 'views/Personalarea/personalArea_template.php';
     }
 
-    public function new_insertion(){
-        echo "<pre>Contenuto sessione: "; 
-        print_r($_SESSION); 
-        echo "</pre>";
-        die();
-        $this->isLogged();   
+    public function new_insertion(){   
         $courses = $this->model->selectCourses();
         $view = 'views/Personalarea/Personalarea_new_insertion_form.php';
         include 'views/Personalarea/Personalarea_template.php';
