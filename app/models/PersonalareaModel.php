@@ -44,9 +44,6 @@ class PersonalareaModel{
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
     
-
-
-
     //qua serve una funzione che estragga tutte le inserzioni di un utente
     public function insertionsByUser(array $param){
         $dql="SELECT insertions.*, books.title, books.authors, books.publisher, users.name AS `name`, users.surname AS `surname`, subjects.name AS subject_name
@@ -59,8 +56,9 @@ class PersonalareaModel{
         $stm->execute($param);
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
+    
     //funzione per modificare un'inserzione
-        public function modifyInsertion(array $param){ //$param=[price, book_condition, description, insertion_id]
+    public function modifyInsertion(array $param){ //$param=[price, book_condition, description, insertion_id]
         $dql="UPDATE insertions
                 SET price=?,
                     exchange_day=exchange_day,
@@ -78,13 +76,14 @@ class PersonalareaModel{
         $stm=$this->pdo->prepare($dql);
         return $stm->execute($param); //esecuzione della Query
     }
-
+    
     //funzione per eliminare un'inserzione
-        public function deleteInsertion(array $param){ //$param=[insertion_id]
+    public function deleteInsertion(array $param){ //$param=[insertion_id]
         $dql="DELETE FROM insertions
               WHERE insertion_id=?";
         $stm=$this->pdo->prepare($dql);
         $stm->execute($param);
         return $stm->rowCount()!==0;
     }
+    
 }

@@ -10,15 +10,12 @@ class MainController{
     public function __construct(){
         $this->model = new mainModel();
         $this->page = 'main';
+
     }
 
     //funzione pulsanti pagina
     public function index(){
         include 'views/main/main_template.php';
-    }
-    public function dashboard(){
-        $view = 'views/Personalarea/personalArea_dashboard.php';
-        include 'views/Personalarea/personalArea_template.php';
     }
 
     public function listings(){
