@@ -1,4 +1,4 @@
-<?php  
+<?php
 defined('APP') or die('Acceso negato');
 
 require_once 'models/PersonalareaModel.php';
@@ -12,6 +12,13 @@ class PersonalareaController{
         $this->page = 'Personalarea';
     }
 
+    public function isLogged(){
+        if($_SESSION['logged'] != true){
+            header('location:index.php?page=login&action=login');
+            exit;
+        }
+    }
+
     public function index(){
         include 'views/main/main_template.php';
     }
@@ -22,6 +29,7 @@ class PersonalareaController{
     }
 
     public function dashboard(){
+        $this->isLogged();
         $view = 'views/Personalarea/personalArea_dashboard.php';
         include 'views/Personalarea/personalArea_template.php';
     }

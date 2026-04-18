@@ -14,6 +14,7 @@ class MainController{
 
     //funzione pulsanti pagina
     public function index(){
+        $threeListings = $this->model->select3last();
         include 'views/main/main_template.php';
     }
     public function dashboard(){

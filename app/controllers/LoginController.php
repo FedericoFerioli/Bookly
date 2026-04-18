@@ -77,7 +77,8 @@ public function check(){
     $user = $this->model->find($param);
     
     if($user){
-        session_regenerate_id(true); 
+        session_regenerate_id(true);
+        $_SESSION['logged'] = true;
         $_SESSION['user_id'] = $user['user_id'];            
         header('location:index.php?page=main&action=index');
         exit;
