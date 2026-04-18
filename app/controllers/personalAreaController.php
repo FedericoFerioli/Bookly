@@ -13,7 +13,13 @@ class PersonalareaController{
     }
 
     public function listings(){
+        $views = 'views/listings/listings_all.php';
         include 'views/listings/listings_template.php';
+    }
+
+    public function dashboard(){
+        $view = 'views/Personalarea/personalArea_dashboard.php';
+        include 'views/Personalarea/personalArea_template.php';
     }
 
     public function new_insertion(){   

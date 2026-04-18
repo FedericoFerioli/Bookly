@@ -34,6 +34,10 @@
                     <div><a href="index.php?page=listings&action=all">BACHECA</a></div>
                     <div><a href="index.php?page=Personalarea&action=new_insertion">PUBBLICA</a></div>
                 </div>
+                <div class="titles">
+                    <div><h1>Bookly</h1></div>
+                    <div><a href="index.php?page=Personalarea&action=dashboard">AREA PERSONALE</a></div>
+                </div>
             </section>
     </header>
     <main>

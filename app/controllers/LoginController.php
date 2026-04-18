@@ -52,6 +52,7 @@ class loginController{
             $errors[] = "Le password non corrispondono";
         }
 
+        $password = hash("sha256", $password);
  
         if(empty($errors)){
         //richiesta al model 
@@ -70,6 +71,8 @@ class loginController{
 public function check(){
     $email = $_POST['email'];
     $password = $_POST['password'];
+    $password = hash("sha256", $password);
+
     $param = [$email, $password];
     $user = $this->model->find($param);
     
