@@ -60,7 +60,7 @@ class PersonalareaModel{
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
     //funzione per modificare un'inserzione
-        public function modifyInsertion(array $param){ //$param=[price, book_condition, description, insertion_id]
+    public function modifyInsertion(array $param){ //$param=[price, book_condition, description, insertion_id]
         $dql="UPDATE insertions
                 SET price=?,
                     exchange_day=exchange_day,
@@ -80,11 +80,19 @@ class PersonalareaModel{
     }
 
     //funzione per eliminare un'inserzione
-        public function deleteInsertion(array $param){ //$param=[insertion_id]
+    public function deleteInsertion(array $param){ //$param=[insertion_id]
         $dql="DELETE FROM insertions
               WHERE insertion_id=?";
         $stm=$this->pdo->prepare($dql);
         $stm->execute($param);
         return $stm->rowCount()!==0;
+    }
+
+    public function getUserInfo(array $param){ //$param=[user_id]
+        $dql="SELECT * FROM users
+        WHERE user_id = ?"
+        $stm=$this->pdo->prepare($dql);
+        $stm->execute($param);
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 }

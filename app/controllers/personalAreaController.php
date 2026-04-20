@@ -30,11 +30,15 @@ class PersonalareaController{
 
     public function dashboard(){
         $this->isLogged();
+        $user_id = $_SESSION['user_id'];
+        $param = [$user_id];
+        $userData = $this->model->getUserInfo($param);
         $view = 'views/Personalarea/personalArea_dashboard.php';
         include 'views/Personalarea/personalArea_template.php';
     }
 
     public function new_insertion(){   
+        $this->isLogged();
         $courses = $this->model->selectCourses();
         $view = 'views/Personalarea/Personalarea_new_insertion_form.php';
         include 'views/Personalarea/Personalarea_template.php';
