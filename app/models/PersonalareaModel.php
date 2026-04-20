@@ -90,7 +90,7 @@ class PersonalareaModel{
 
     public function getUserInfo(array $param){ //$param=[user_id]
         $dql="SELECT * FROM users
-        WHERE user_id = ?"
+        WHERE user_id = ?";
         $stm=$this->pdo->prepare($dql);
         $stm->execute($param);
         return $stm->fetchAll(PDO::FETCH_ASSOC);
