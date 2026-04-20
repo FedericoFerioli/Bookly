@@ -100,10 +100,10 @@
                 <ul class="nav-list">
                     <li><a href="index.php?page=main&action=index">HOME</a></li>
                     <li><a href="index.php?page=listings&action=all">BACHECA</a></li>
-                    <li><a href="index.php?page=Personalarea&action=new_insertion">PUBBLICA</a></li>
+                    <li><a href="index.php?page=personalArea&action=new_insertion">PUBBLICA</a></li>
                 </ul>
                 <ul class="nav-list">
-                    <li><a href="index.php?page=Personalarea&action=dashboard">AREA PERSONALE</a></li>
+                    <li><a href="index.php?page=personalArea&action=dashboard">AREA PERSONALE</a></li>
                     <li><a href="index.php?page=Login&action=login">LOGIN</a></li>
                     <li><a href="index.php?page=Login&action=registration">REGISTRATI</a></li>
                 </ul>

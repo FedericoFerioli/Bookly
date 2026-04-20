@@ -9,7 +9,7 @@ $errore_inserzione = $_SESSION['msg_errore_inserzione'] ?? null;
 ?>
 
 <div>
-  <h3>Nuovo test</h3>
+  <h3>Nuova Inserzione</h3>
 
   <fieldset style="margin-bottom: 20px; padding: 15px;">
     <legend>Cerca nel database tramite ISBN</legend>

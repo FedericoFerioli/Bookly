@@ -1,7 +1,7 @@
 <?php  
 defined('APP') or die('Acceso negato');
 
-require_once('models/loginModel.php');
+require_once('models/LoginModel.php');
 
 class loginController{
     private $model;

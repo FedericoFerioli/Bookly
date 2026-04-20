@@ -40,7 +40,7 @@ class PersonalareaController{
     public function new_insertion(){   
         $this->isLogged();
         $courses = $this->model->selectCourses();
-        $view = 'views/Personalarea/Personalarea_new_insertion_form_2.php';
+        $view = 'views/Personalarea/Personalarea_new_insertion_form.php';
         include 'views/Personalarea/personalArea_template.php';
 
     }
@@ -48,7 +48,7 @@ class PersonalareaController{
     public function modify_insertion(){
         $this->isLogged();
         $courses = $this->model->selectCourses();
-        $view = 'views/Personalarea/Personalarea_new_insertion_form_2.php';
+        $view = 'views/Personalarea/Personalarea_modify_insertion.php';
         include 'views/Personalarea/personalArea_template.php';
 
     }

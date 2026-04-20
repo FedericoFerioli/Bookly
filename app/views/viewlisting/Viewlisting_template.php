@@ -32,7 +32,7 @@
                     <li class="nav-item"><a class="nav-link" href="index.php?page=main">HOME</a></li>
                     <li class="nav-item"><a class="nav-link text-primary" href="index.php?page=listings&action=all">BACHECA</a></li>
                     <li class="nav-item ms-lg-3">
-                        <a class="btn btn-primary rounded-pill px-4" href="index.php?page=Personalarea&action=new_insertion">
+                        <a class="btn btn-primary rounded-pill px-4" href="index.php?page=personalArea&action=new_insertion">
                             + PUBBLICA
                         </a>
                     </li>
