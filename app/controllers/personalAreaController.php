@@ -61,14 +61,14 @@ class PersonalAreaController{
         $this->isLogged();
         $id = $_GET['id'] ?? 0;
         $param = [$id];
-        $deletionInsertion = $this->model->deleteInsertion([$param]);
+        $deletionInsertion = $this->model->deleteInsertion($param);
 
         if($deletionInsertion){
-            $_SESSION['msg_errore_inserzione'] = "Inserimento completato";        
             header('Location: index.php?page=personalArea&action=dashboard');
             exit;
         }else{
             header('Location: index.php?page=personalArea&action=dashboard');
+            exit;
         }
 
     }
