@@ -3,13 +3,13 @@ defined('APP') or die('Acceso negato');
 
 require_once 'models/PersonalareaModel.php';
 
-class PersonalareaController{
+class PersonalAreaController{
     public $model;
     public $page;
 
     public function __construct(){
         $this->model = new PersonalareaModel();
-        $this->page = 'Personalarea';
+        $this->page = 'personalArea';
     }
 
     public function isLogged(){
@@ -30,6 +30,7 @@ class PersonalareaController{
 
     public function dashboard(){
         $this->isLogged();
+        echo $_SESSION['user_id'];
         $user_id = $_SESSION['user_id'];
         $param = [$user_id];
         $userData = $this->model->getUserInfo($param);
@@ -75,11 +76,11 @@ class PersonalareaController{
         if($insertion){
             unset($_SESSION['libro_precaricato']);            
             $_SESSION['msg_errore_inserzione'] = "Inserimento completato";        
-            header('Location: index.php?page=Personalarea&action=new_insertion');
+            header('Location: index.php?page=personalArea&action=new_insertion');
             exit;
         }else{
             $_SESSION['msg_errore_inserzione'] = "Non siamo riusciti a craere l'inserzione";        
-            header('Location: index.php?page=Personalarea&action=new_insertion');
+            header('Location: index.php?page=personalArea&action=new_insertion');
         }
 
     }
@@ -101,7 +102,7 @@ class PersonalareaController{
             $_SESSION['msg_errore'] = "Nessun libro trovato per questo ISBN.";        
         }
 
-    header('Location: index.php?page=Personalarea&action=new_insertion');
+    header('Location: index.php?page=personalArea&action=new_insertion');
     }
 
 

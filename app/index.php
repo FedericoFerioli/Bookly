@@ -35,7 +35,13 @@ define('APP',true);
 // }else{
     $page = $_GET['page'] ?? 'main';
     $action = $_GET['action'] ?? 'index';
-    $filename = ucfirst($page).'Controller';
+
+    if ($page === 'personalArea' || $page === 'personalarea') {
+        $filename = 'PersonalAreaController';
+    } else {
+        $filename = ucfirst($page) . 'Controller';
+    }
+
     echo $filename;
 
     require_once "controllers/{$filename}.php";

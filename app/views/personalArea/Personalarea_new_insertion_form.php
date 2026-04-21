@@ -13,7 +13,7 @@ $errore_inserzione = $_SESSION['msg_errore_inserzione'] ?? null;
 
   <fieldset style="margin-bottom: 20px; padding: 15px;">
     <legend>Cerca nel database tramite ISBN</legend>
-    <form method="post" action="index.php?page=Personalarea&action=search_isbn">
+    <form method="post" action="index.php?page=personalArea&action=search_isbn">
         <input type="text" name="isbn" placeholder="Inserisci ISBN..." required>
         <button type="submit">Cerca</button>
     </form>
@@ -22,7 +22,7 @@ $errore_inserzione = $_SESSION['msg_errore_inserzione'] ?? null;
 
   <hr>
 
-  <form method="post" action="index.php?page=Personalarea&action=save_insertion">
+  <form method="post" action="index.php?page=personalArea&action=save_insertion">
     <div>
       <label>Titolo Libro</label>
       <input type="text" name="title" value="<?php echo $dati['title'] ?? ''; ?>" required>
