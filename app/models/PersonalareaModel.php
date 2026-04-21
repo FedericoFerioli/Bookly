@@ -95,4 +95,14 @@ class PersonalareaModel{
         $stm->execute($param);
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function SelectInsertionOfUser(array $param=[]): array{
+        $dql ="SELECT * FROM insertions
+        join books USING(book_id)
+        join courses USING(course_id)
+        WHERE insertions.selling_user = ?"; //riporta il contenuto della tabella insertions
+        $stm=$this->pdo->prepare($dql); //prepara la query ricevuta da $dql
+        $stm->execute($param); //esegue la query usando $param come contenitore per il risultato
+        return $stm->fetchAll(PDO::FETCH_ASSOC); //il risultato viene trasformato in array associativo
+    }
 }

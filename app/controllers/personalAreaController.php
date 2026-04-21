@@ -30,10 +30,14 @@ class PersonalAreaController{
 
     public function dashboard(){
         $this->isLogged();
-        echo $_SESSION['user_id'];
-        $user_id = $_SESSION['user_id'];
-        $param = [$user_id];
+        
+        //echo $_SESSION['user_id'];
+        $param = [$_SESSION['user_id']];
+
+        $insertions = $this->model->SelectInsertionOfUser($param);
         $userData = $this->model->getUserInfo($param);
+
+        $userData = $userData[0];
         $view = 'views/Personalarea/Perosonalarea_dashboard.php';
         include 'views/Personalarea/personalArea_template.php';
     }
@@ -51,6 +55,21 @@ class PersonalAreaController{
         $courses = $this->model->selectCourses();
         $view = 'views/Personalarea/Personalarea_modify_insertion.php';
         include 'views/Personalarea/personalArea_template.php';
+
+    }
+    public function delete_insertion(){
+        $this->isLogged();
+        $id = $_GET['id'] ?? 0;
+        $param = [$id];
+        $deletionInsertion = $this->model->deleteInsertion([$param]);
+
+        if($deletionInsertion){
+            $_SESSION['msg_errore_inserzione'] = "Inserimento completato";        
+            header('Location: index.php?page=personalArea&action=dashboard');
+            exit;
+        }else{
+            header('Location: index.php?page=personalArea&action=dashboard');
+        }
 
     }
 
