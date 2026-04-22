@@ -48,6 +48,10 @@
                            class="btn btn-outline-primary w-100">
                            Elimina annuncio
                         </a>
+                        <a href="index.php?page=personalArea&action=modify_insertion&id=<?= $insertion['insertion_id'] ?>" 
+                           class="btn btn-outline-primary w-100">
+                           Modifica annuncio
+                        </a>
                     </div>
                 </div>
             </div>

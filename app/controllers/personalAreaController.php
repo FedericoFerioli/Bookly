@@ -31,7 +31,6 @@ class PersonalAreaController{
     public function dashboard(){
         $this->isLogged();
         
-        //echo $_SESSION['user_id'];
         $param = [$_SESSION['user_id']];
 
         $insertions = $this->model->SelectInsertionOfUser($param);
@@ -52,6 +51,9 @@ class PersonalAreaController{
 
     public function modify_insertion(){
         $this->isLogged();
+        $id = $_GET['id'] ?? 0;
+        $thisInsertion = $this->model->getOne($id);
+        $_SESSION['libro_precaricato'] = $thisInsertion;
         $courses = $this->model->selectCourses();
         $view = 'views/Personalarea/Personalarea_modify_insertion.php';
         include 'views/Personalarea/personalArea_template.php';
@@ -75,7 +77,7 @@ class PersonalAreaController{
 
     public function save_insertion(){
 
-        $book_id = $_SESSION['libro_precaricato']['book_id'] ?? null;
+        $book_id = $_SESSION['new_libro_precaricato']['book_id'] ?? null;
 
         if (!$book_id) {
             die("Errore: Sessione scaduta o libro non trovato. Riprova la ricerca ISBN.");
@@ -93,7 +95,7 @@ class PersonalAreaController{
         $insertion = $this->model->newInsertion($param);
 
         if($insertion){
-            unset($_SESSION['libro_precaricato']);            
+            unset($_SESSION['new_libro_precaricato']);            
             $_SESSION['msg_errore_inserzione'] = "Inserimento completato";        
             header('Location: index.php?page=personalArea&action=new_insertion');
             exit;
@@ -106,7 +108,26 @@ class PersonalAreaController{
 
     public function search_isbn(){
         // dati dal form 
+        $isbn = trim($_POST['isbn'] ?? '');
+ 
+        //richiesta al model 
+        $param = [$isbn];
+        $libro_trovato = $this->model->isbnResearch($param);
 
+        // 2. Verifichi se il libro è stato trovato
+        if ($libro_trovato) {
+            // Il libro viene salvato in una sessione se viene trovato
+            $_SESSION['new_libro_precaricato'] = $libro_trovato;
+        } else {
+            $_SESSION['msg_errore'] = "Nessun libro trovato per questo ISBN.";        
+        }
+
+    header('Location: index.php?page=personalArea&action=new_insertion');
+    }
+
+    public function search_isbn_for_modify(){
+        // dati dal form 
+        $id_inserzione= trim($_GET['id']);
         $isbn = trim($_POST['isbn'] ?? '');
  
         //richiesta al model 
@@ -121,7 +142,51 @@ class PersonalAreaController{
             $_SESSION['msg_errore'] = "Nessun libro trovato per questo ISBN.";        
         }
 
-    header('Location: index.php?page=personalArea&action=new_insertion');
+    header('Location: index.php?page=personalArea&action=modify_insertion&id='.$id_inserzione);
+    }
+
+    public function change_insertion(){
+
+        $book_id = $_SESSION['libro_precaricato']['book_id'] ?? null;
+
+        if (!$book_id) {
+            die("Errore: Sessione scaduta o libro non trovato. Riprova la ricerca ISBN.");
+        }
+
+
+        $title = trim($_POST['title'] ?? '');
+        $authors = trim($_POST['authors'] ?? '');
+        $publisher = trim($_POST['publisher'] ?? '');
+        $subject = trim($_POST['subject'] ?? '');
+        $my_price = trim($_POST['my_price'] ?? '');
+        $description = trim($_POST['description'] ?? '');
+        $condition = trim($_POST['condition'] ?? '');
+        $course = trim($_POST['course_id'] ?? '');
+        $insertion = trim($_POST['insertion_id'] ?? '');
+
+        //$param = [$book_id, $my_price, $condition, $description, $course, $insertion]
+        $param = [
+        $book_id,
+        $my_price,
+        $condition,
+        $description,
+        $course,
+        $insertion
+        ];
+            
+        $insertion = $this->model->modifyInsertion($param);
+
+        if($insertion){
+            unset($_SESSION['libro_precaricato']);            
+            $_SESSION['msg_errore_inserzione'] = "Modifica comletata con successo";        
+            header('Location: index.php?page=personalArea&action=dashboard');
+            exit;
+        }else{
+            $_SESSION['msg_errore_inserzione'] = "Non siamo riusciti a modificare l'inserzione";        
+            header('Location: index.php?page=personalArea&action=dashboard');
+        }
+
+    }
     }
 
 
@@ -130,6 +195,6 @@ class PersonalAreaController{
     //view per accedere alla pagina per la modifica delle info personali
 
     //funzione per accedere all view della modifica annuncio
-}
+
 
 ?>

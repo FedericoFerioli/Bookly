@@ -9,7 +9,7 @@ class PersonalareaModel{
     }
 
     public function isbnResearch(array $param){
-        $dql = "SELECT books.book_id, books.title, books.authors, subjects.name, books.publisher, books.volume, books.cover_price
+        $dql = "SELECT books.book_id, books.title, books.authors, subjects.name, books.publisher, books.volume, books.cover_price, books.isbn
                 FROM books
                 JOIN subjects USING(subject_id)
                 WHERE books.isbn LIKE ?
@@ -44,9 +44,6 @@ class PersonalareaModel{
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
     
-
-
-
     //qua serve una funzione che estragga tutte le inserzioni di un utente
     public function insertionsByUser(array $param){
         $dql="SELECT insertions.*, books.title, books.authors, books.publisher, users.name AS `name`, users.surname AS `surname`, subjects.name AS subject_name
@@ -59,10 +56,13 @@ class PersonalareaModel{
         $stm->execute($param);
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
+
     //funzione per modificare un'inserzione
-    public function modifyInsertion(array $param){ //$param=[price, book_condition, description, insertion_id]
+    public function modifyInsertion(array $param){ //$param = [$book_id, $my_price, $condition, $description, $course, $insertion]
         $dql="UPDATE insertions
-                SET price=?,
+                SET 
+                    book_id=?,
+                    price=?,
                     exchange_day=exchange_day,
                     book_condition=?,
                     `description`=?,
@@ -72,11 +72,12 @@ class PersonalareaModel{
                     selling_user=selling_user,
                     buying_user=buying_user,
                     place_id=place_id,
-                    book_id=book_id,
-                    course_id=course_id
+                    course_id=?
                 WHERE insertion_id=?"; //Query che modifica i valori tenendo i valori settati dove non si può modificare
         $stm=$this->pdo->prepare($dql);
         return $stm->execute($param); //esecuzione della Query
+
+        
     }
 
     //funzione per eliminare un'inserzione
@@ -104,5 +105,20 @@ class PersonalareaModel{
         $stm=$this->pdo->prepare($dql); //prepara la query ricevuta da $dql
         $stm->execute($param); //esegue la query usando $param come contenitore per il risultato
         return $stm->fetchAll(PDO::FETCH_ASSOC); //il risultato viene trasformato in array associativo
+    }
+
+    public function getOne($id) {
+        $dql = "SELECT insertions.*, books.title, books.authors, books.publisher, books.isbn, books.cover_price, users.name, users.surname, subjects.name as subject_name
+            FROM insertions 
+            JOIN books USING(book_id) 
+            JOIN users ON insertions.selling_user = users.user_id
+            JOIN subjects USING(subject_id)
+            WHERE insertions.insertion_id = ?
+            LIMIT 1";
+        $param=[$id];
+        $stm = $this->pdo->prepare($dql);
+        $stm->execute($param);
+        
+        return $stm->fetch(PDO::FETCH_ASSOC);
     }
 }

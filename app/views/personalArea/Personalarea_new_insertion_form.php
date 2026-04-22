@@ -2,7 +2,7 @@
 if(!defined('APP')) die('Accesso negato'); 
 
 // Recuperiamo i dati dalla sessione (se esistono)
-$dati = $_SESSION['libro_precaricato'] ?? null;
+$dati = $_SESSION['new_libro_precaricato'] ?? null;
 $errore = $_SESSION['msg_errore'] ?? null;
 $errore_inserzione = $_SESSION['msg_errore_inserzione'] ?? null;
 
@@ -14,7 +14,7 @@ $errore_inserzione = $_SESSION['msg_errore_inserzione'] ?? null;
   <fieldset style="margin-bottom: 20px; padding: 15px;">
     <legend>Cerca nel database tramite ISBN</legend>
     <form method="post" action="index.php?page=personalArea&action=search_isbn">
-        <input type="text" name="isbn" placeholder="Inserisci ISBN..." required>
+        <input type="text" name="isbn" placeholder="Inserisci ISBN..." value="<?php echo $dati['isbn'] ?? ''; ?>" required>
         <button type="submit">Cerca</button>
     </form>
     <?php if($errore) echo "<p style='color:red'>$errore</p>"; ?>
