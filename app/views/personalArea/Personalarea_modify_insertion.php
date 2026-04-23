@@ -3,12 +3,11 @@ if(!defined('APP')) die('Accesso negato');
 
 // Recuperiamo i dati: la priorità va al libro appena cercato via ISBN, 
 // altrimenti usiamo i dati originali dell'inserzione caricati dal controller.
-$dati = $_SESSION['libro_precaricato'] ?? $thisInsertion;
+$datiIsbn= $_SESSION['libro_precaricato'] ?? null;
 $errore = $_SESSION['msg_errore'] ?? null;
-$errore_inserzione = $_SESSION['msg_errore_inserzione'] ?? null;
 
 // Pulizia messaggi flash dopo la visualizzazione
-unset($_SESSION['msg_errore'], $_SESSION['msg_errore_inserzione']);
+unset($_SESSION['msg_errore']);
 ?>
 
 <div>
@@ -17,7 +16,7 @@ unset($_SESSION['msg_errore'], $_SESSION['msg_errore_inserzione']);
     <fieldset style="margin-bottom: 20px; padding: 15px;">
         <legend>Cerca nel database tramite ISBN</legend>
         <form method="post" action="index.php?page=personalArea&action=search_isbn_for_modify&id=<?= $thisInsertion['insertion_id'] ?? '' ?>">
-            <input type="text" name="isbn" placeholder="Inserisci ISBN..." value="<?= $dati['isbn'] ?? '' ?>" required>
+            <input type="text" name="isbn" placeholder="Inserisci ISBN..." value="<?= $datiIsbn['isbn'] ?? ($thisInsertion['isbn'] ?? '') ?>" required>
             <button type="submit">Cerca</button>
         </form>
         <?php if($errore) echo "<p style='color:red'>$errore</p>"; ?>
@@ -26,31 +25,34 @@ unset($_SESSION['msg_errore'], $_SESSION['msg_errore_inserzione']);
     <hr>
 
     <form method="post" action="index.php?page=personalArea&action=change_insertion&insertion_id=<?= $thisInsertion['insertion_id'] ?? '' ?>">
-        <input type="hidden" name="insertion_id" value="<?= $thisInsertion['insertion_id'] ?? ''; ?>">
+
+        <input type="hidden" name="insertion_id" value="<?= $thisInsertion['insertion_id'] ?>">
+
+        <input type="hidden" name="book_id" value="<?= $datiIsbn['book_id'] ?? ($thisInsertion['book_id'] ?? ''); ?>">
         
         <div>
             <label>Titolo Libro</label>
-            <input type="text" name="title" value="<?= $dati['title'] ?? ''; ?>" required>
+            <input type="text" name="title" value="<?= $datiIsbn['title'] ?? ($thisInsertion['title'] ?? ''); ?>" required>
         </div>
 
         <div>
             <label>Autore/i</label>
-            <input type="text" name="authors" value="<?= $dati['authors'] ?? ''; ?>" required>
+            <input type="text" name="authors" value="<?= $datiIsbn['authors'] ?? ($thisInsertion['authors'] ?? ''); ?>" required>
         </div>
 
         <div>
             <label>Editore</label>
-            <input type="text" name="publisher" value="<?= $dati['publisher'] ?? ''; ?>">
+            <input type="text" name="publisher" value="<?= $datiIsbn['publisher'] ?? ($thisInsertion['publisher'] ?? ''); ?>">
         </div>
 
         <div>
             <label>Materia</label>
-            <input type="text" name="subject" value="<?= $dati['subject_name'] ?? ($dati['name'] ?? ''); ?>">
+            <input type="text" name="subject" value="<?= $datiIsbn['subject_name'] ?? ($thisInsertion['subject_name'] ?? ''); ?>">
         </div>
 
         <div>
             <label>Prezzo Consigliato (€)</label>
-            <input type="text" name="original_price" value="<?= $dati['cover_price'] ?? ''; ?>" readonly>
+            <input type="text" name="original_price" value="<?= $datiIsbn['cover_price'] ?? ($thisInsertion['cover_price'] ?? ''); ?>" readonly>
             <small>(Dato originale non modificabile)</small>
         </div>
 
@@ -59,14 +61,14 @@ unset($_SESSION['msg_errore'], $_SESSION['msg_errore_inserzione']);
         
         <div>
             <label>Il tuo prezzo di vendita (€)</label>
-            <input type="number" step="0.01" name="my_price" value="<?= $dati['price'] ?? ''; ?>" required>
+            <input type="number" step="0.01" name="my_price" value="<?= $thisInsertion['price'] ?? ''; ?>" required>
         </div>
 
         <div style="margin-top: 15px;">
             <label style="font-weight: bold; display: block; margin-bottom: 10px;">Condizioni del libro:</label>
             
             <?php 
-            $current_cond = $dati['book_condition'] ?? ''; 
+            $current_cond = $thisInsertion['book_condition'] ?? ''; 
             ?>
 
             <div style="margin-bottom: 10px;">
@@ -110,14 +112,21 @@ unset($_SESSION['msg_errore'], $_SESSION['msg_errore_inserzione']);
             <select name="course_id">
                 <?php foreach($courses as $course): ?>
                     <option value="<?= $course['course_id']; ?>" 
-                        <?= (isset($dati['course_id']) && $course['course_id'] == $dati['course_id']) ? 'selected' : ''; ?>>
+                        <?= (isset($thisInsertion['course_id']) && $course['course_id'] == $thisInsertion['course_id']) ? 'selected' : ''; ?>>
                         <?= $course['name']; ?> 
                     </option>
                 <?php endforeach ?>
             </select>
         </div>
 
-        <?php if($errore_inserzione) echo "<p style='color:red'>$errore_inserzione</p>"; ?>
+        <?php if (isset($_SESSION['msg_errore_inserzione'])): ?>
+            <p style="color: green; font-weight: bold;">
+                <?php 
+                    echo $_SESSION['msg_errore_inserzione']; 
+                    unset($_SESSION['msg_errore_inserzione']); // Lo cancelliamo QUI
+                ?>
+            </p>
+        <?php endif; ?>
 
         <div style="margin-top: 20px;">
             <button type="submit">SALVA MODIFICHE</button>

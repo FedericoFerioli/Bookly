@@ -6,6 +6,8 @@ $dati = $_SESSION['new_libro_precaricato'] ?? null;
 $errore = $_SESSION['msg_errore'] ?? null;
 $errore_inserzione = $_SESSION['msg_errore_inserzione'] ?? null;
 
+
+unset($_SESSION['new_libro_precaricato'], $_SESSION['msg_errore']);
 ?>
 
 <div>
@@ -21,8 +23,10 @@ $errore_inserzione = $_SESSION['msg_errore_inserzione'] ?? null;
   </fieldset>
 
   <hr>
-
   <form method="post" action="index.php?page=personalArea&action=save_insertion">
+
+    <input type="hidden" name="book_id" value="<?= $dati['book_id'] ?? '' ?>">
+  
     <div>
       <label>Titolo Libro</label>
       <input type="text" name="title" value="<?php echo $dati['title'] ?? ''; ?>" required>
@@ -105,7 +109,14 @@ $errore_inserzione = $_SESSION['msg_errore_inserzione'] ?? null;
         </select>
     </div>
 
-    <?php if($errore_inserzione) echo "<p style='color:red'>$errore_inserzione</p>"; ?>
+    <?php if (isset($_SESSION['msg_errore_inserzione'])): ?>
+    <p style="color: green; font-weight: bold;">
+        <?php 
+            echo $_SESSION['msg_errore_inserzione']; 
+            unset($_SESSION['msg_errore_inserzione']); // Lo cancelliamo QUI
+        ?>
+    </p>
+<?php endif; ?>
 
     <div style="margin-top: 20px;">
       <button type="submit">PUBBLICA ANNUNCIO</button>

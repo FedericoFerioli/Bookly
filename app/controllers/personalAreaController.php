@@ -52,13 +52,14 @@ class PersonalAreaController{
     public function modify_insertion(){
         $this->isLogged();
         $id = $_GET['id'] ?? 0;
+
         $thisInsertion = $this->model->getOne($id);
-        $_SESSION['libro_precaricato'] = $thisInsertion;
         $courses = $this->model->selectCourses();
+
         $view = 'views/Personalarea/Personalarea_modify_insertion.php';
         include 'views/Personalarea/personalArea_template.php';
-
     }
+
     public function delete_insertion(){
         $this->isLogged();
         $id = $_GET['id'] ?? 0;
@@ -77,7 +78,9 @@ class PersonalAreaController{
 
     public function save_insertion(){
 
-        $book_id = $_SESSION['new_libro_precaricato']['book_id'] ?? null;
+        $book_id = $_POST['book_id'] ?? null;
+
+        echo $book_id;
 
         if (!$book_id) {
             die("Errore: Sessione scaduta o libro non trovato. Riprova la ricerca ISBN.");
@@ -102,6 +105,7 @@ class PersonalAreaController{
         }else{
             $_SESSION['msg_errore_inserzione'] = "Non siamo riusciti a craere l'inserzione";        
             header('Location: index.php?page=personalArea&action=new_insertion');
+            exit;
         }
 
     }
@@ -123,6 +127,7 @@ class PersonalAreaController{
         }
 
     header('Location: index.php?page=personalArea&action=new_insertion');
+    exit;
     }
 
     public function search_isbn_for_modify(){
@@ -143,16 +148,16 @@ class PersonalAreaController{
         }
 
     header('Location: index.php?page=personalArea&action=modify_insertion&id='.$id_inserzione);
+    exit;
     }
 
     public function change_insertion(){
 
-        $book_id = $_SESSION['libro_precaricato']['book_id'] ?? null;
+        $book_id = $_POST['book_id'] ?? null;
 
         if (!$book_id) {
             die("Errore: Sessione scaduta o libro non trovato. Riprova la ricerca ISBN.");
         }
-
 
         $title = trim($_POST['title'] ?? '');
         $authors = trim($_POST['authors'] ?? '');
@@ -162,7 +167,7 @@ class PersonalAreaController{
         $description = trim($_POST['description'] ?? '');
         $condition = trim($_POST['condition'] ?? '');
         $course = trim($_POST['course_id'] ?? '');
-        $insertion = trim($_POST['insertion_id'] ?? '');
+        $insertion = trim($_GET['insertion_id'] ?? $_POST['insertion_id']);
 
         //$param = [$book_id, $my_price, $condition, $description, $course, $insertion]
         $param = [
@@ -178,12 +183,13 @@ class PersonalAreaController{
 
         if($insertion){
             unset($_SESSION['libro_precaricato']);            
-            $_SESSION['msg_errore_inserzione'] = "Modifica comletata con successo";        
+            $_SESSION['msg_errore_inserzione'] = "Modifica completata con successo";        
             header('Location: index.php?page=personalArea&action=dashboard');
             exit;
         }else{
             $_SESSION['msg_errore_inserzione'] = "Non siamo riusciti a modificare l'inserzione";        
             header('Location: index.php?page=personalArea&action=dashboard');
+            exit;
         }
 
     }
