@@ -18,6 +18,7 @@ class listingsController{
         $insertions = $this->model->SelectAll();
         $courses = $this->model->selectCourses();
         $publishers = $this->model->getPublishers();
+        $subjects = $this->model->getSubjects();
         $maxPrice = $this->model->getMaxPrice();
         $minPrice = $this->model->getMinPrice();
 
@@ -42,18 +43,20 @@ class listingsController{
 
     public function filter_insertion(){
 
-        $class = trim($_POST['classes'] ?? '');
-        $course = trim($_POST['courses'] ?? '');
-        $minPricePost = trim($_POST['price_min'] ?? '');
-        $maxPricePost = trim($_POST['price_max'] ?? '');
-        $condition = trim($_POST['condition'] ?? []);
-        $publisher = trim($_POST['publisher'] ?? '');
+        $class = $_POST['classes'] ?? [];
+        $course_id = $_POST['courses'] ?? null;
+        $minPricePost = trim($_POST['price_min'] ?? ($this->model->getMinPrice() ?? 0));
+        $maxPricePost = trim($_POST['price_max'] ?? ($this->model->getMaxPrice() ?? 100));
+        $subject_id = $_POST['subject_id'] ?? null;
+        $condition = $_POST['condition'] ?? [];
+        $publisher = $_POST['publisher'] ?? null;
 
         $param=[
             $class,
-            $course,
+            $course_id,
             $minPricePost,
             $maxPricePost,
+            $subject_id,
             $condition,
             $publisher
         ];
@@ -61,12 +64,14 @@ class listingsController{
         $insertions = $this->model->filterAll($param);
 
         if($insertions){
-            header('Location : ');
+            header('Location : http://lab.isit100.fe.it:8092/ferioli/app/index.php?page=listings&action=filter_insertion');
+            exit;
         }
+        else{
+            header('Location : http://lab.isit100.fe.it:8092/ferioli/app/index.php?page=listings&action=filter_insertion');
+            exit;
 
-
-
-        //da fare finisci quesrta funzione nel model e prezzo min e prezzo max
+        }
     }
 }
 ?>

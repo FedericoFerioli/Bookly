@@ -1,15 +1,29 @@
 <form method="post"  action="index.php?page=listings&action=filter_insertion">
 <!-- selezione anno: prima seconda ecc -->
-<div>
-    <label for="classes">Classe:</label>
-    <select name="classes" id="classes">
-        <option value="">Tutte gli anni</option>
-        <option value="PRIMA">Prima</option>
-        <option value="SECONDA">Seconda</option>
-        <option value="TERZA">Terza</option>
-        <option value="QUARTA">Quarta</option>
-        <option value="QUINTA">Quinta</option>
-    </select>
+<div style="margin-top: 15px;">
+    <label style="font-weight: bold; display: block; margin-bottom: 10px;">Anni scolastici:</label>
+    
+    <div style="display: flex; flex-direction: column; gap: 5px;">
+        <label>
+            <input type="checkbox" name="classes[]" value="PRIMA"> Prima
+        </label>
+        
+        <label>
+            <input type="checkbox" name="classes[]" value="SECONDA"> Seconda
+        </label>
+        
+        <label>
+            <input type="checkbox" name="classes[]" value="TERZA"> Terza
+        </label>
+        
+        <label>
+            <input type="checkbox" name="classes[]" value="QUARTA"> Quarta
+        </label>
+        
+        <label>
+            <input type="checkbox" name="classes[]" value="QUINTA"> Quinta
+        </label>
+    </div>
 </div>
 <!-- selezione indirizzo, prendiamo $courses da il controller che esegue la query quando entriamo nella pagina -->
     <div>      
@@ -18,6 +32,17 @@
             <option value="every">Tutti gli indirizzi </option>
             <?php foreach($courses as $course): ?>
                 <option value="<?= $course['course_id']; ?>"><?= $course['name']; ?> </option>
+            <?php endforeach?>
+        </select>
+    </div>
+
+<!-- materia -->
+     <div>      
+        <label>Materia</label>
+        <select name="subject_id">
+            <option value="every">Tutte le materie </option>
+            <?php foreach($subjects as $subject): ?>
+                <option value="<?= $subject['subject_id']; ?>"><?= $subject['name']; ?> </option>
             <?php endforeach?>
         </select>
     </div>
@@ -128,7 +153,12 @@
             <?= htmlspecialchars($p['publisher']) ?>
         </option>
     <?php endforeach; ?>
+
 </select>
+    <button type="submit">
+        Filtra
+    </button>
+
 </form>
 <!-- fine form -->
 
