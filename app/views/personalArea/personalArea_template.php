@@ -1,4 +1,5 @@
-<?php
+<?php 
+if(!defined('APP')) die('Accesso negato'); 
 ?>
 
 <!DOCTYPE html>

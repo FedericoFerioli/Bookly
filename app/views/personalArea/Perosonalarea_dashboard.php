@@ -1,3 +1,6 @@
+<?php 
+if(!defined('APP')) die('Accesso negato'); 
+?>
 <pre><?php print_r($userData); ?></pre>
 
 <div>

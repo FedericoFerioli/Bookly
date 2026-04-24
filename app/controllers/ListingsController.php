@@ -13,9 +13,19 @@ class listingsController{
 
     }
 
-    //funzione pulsanti pagina
+        
+    /**
+     * all
+     * Funzione che ci permette di visualizzare le inserzioni
+     * Include il template e la view
+     * @return void
+     */
     public function all(){
-        $insertions = $this->model->SelectAll();
+        /**
+         * $insertion prende le inserzioni dalla sessione, se sono stati applicati dei filtri attraverso il form
+         * oppure dal model con la funzione select all che prende tutti le inserzioni
+         */
+        $insertions = $_SESSION['filtered_insertions'] ?? $this->model->SelectAll();
         $courses = $this->model->selectCourses();
         $publishers = $this->model->getPublishers();
         $subjects = $this->model->getSubjects();
@@ -25,53 +35,33 @@ class listingsController{
         $view = 'views/listings/listings_all.php';
         include 'views/listings/listings_template.php';
     }
-
-
-    public function index(){
-        include 'views/main/main_template.php';
-    }
-
-    public function login(){
-        $view = 'views/login/login_form.php';
-        include 'views/login/login_template.php';
-    }
-
-    public function registration(){
-        $view = 'views/login/login_registration_form.php';
-        include 'views/login/login_template.php';
-    }
-
+        
+    /**
+     * filter_insertion
+     * Questa funzione permette di filtrare gli annunci a seguito delle informazioni inserite nel form
+     * le inserzioni vengono salvate in una sessione, e il redirect avviene alla stessa pagina
+     * 
+     * @return void
+     */
     public function filter_insertion(){
-
-        $class = $_POST['classes'] ?? [];
-        $course_id = $_POST['courses'] ?? null;
-        $minPricePost = trim($_POST['price_min'] ?? ($this->model->getMinPrice() ?? 0));
-        $maxPricePost = trim($_POST['price_max'] ?? ($this->model->getMaxPrice() ?? 100));
-        $subject_id = $_POST['subject_id'] ?? null;
-        $condition = $_POST['condition'] ?? [];
-        $publisher = $_POST['publisher'] ?? null;
-
-        $param=[
-            $class,
-            $course_id,
-            $minPricePost,
-            $maxPricePost,
-            $subject_id,
-            $condition,
-            $publisher
+        /**
+         * Utilizziamo un array associativo così da poter accedere ai valori attraverso le chiavi e non la posizione dell'array
+         */
+        $filters = [
+            'classes'      => $_POST['classes'] ?? [], 
+            'course_id'    => $_POST['courses'] ?? null,
+            'price_min'    => trim($_POST['price_min'] ?? ($this->model->getMinPrice() ?? 0)),
+            'price_max'    => trim($_POST['price_max'] ?? ($this->model->getMaxPrice() ?? 100)),
+            'subject_id'   => $_POST['subject_id'] ?? null,
+            'conditions'   => $_POST['condition'] ?? [],
+            'publisher_' => $_POST['publisher'] ?? null,
         ];
 
-        $insertions = $this->model->filterAll($param);
+        $_SESSION['filtered_insertions'] = $this->model->filterAll($filters);
 
-        if($insertions){
-            header('Location : http://lab.isit100.fe.it:8092/ferioli/app/index.php?page=listings&action=filter_insertion');
-            exit;
-        }
-        else{
-            header('Location : http://lab.isit100.fe.it:8092/ferioli/app/index.php?page=listings&action=filter_insertion');
-            exit;
-
-        }
+        header('Location: http://lab.isit100.fe.it:8092/ferioli/app/index.php?page=listings&action=all');
+        exit;
     }
+    
 }
-?>
+

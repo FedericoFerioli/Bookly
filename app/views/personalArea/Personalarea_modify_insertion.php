@@ -1,5 +1,8 @@
 <?php 
 if(!defined('APP')) die('Accesso negato'); 
+?>
+<?php 
+if(!defined('APP')) die('Accesso negato'); 
 
 // Recuperiamo i dati: la priorità va al libro appena cercato via ISBN, 
 // altrimenti usiamo i dati originali dell'inserzione caricati dal controller.

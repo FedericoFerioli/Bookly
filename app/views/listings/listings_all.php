@@ -1,3 +1,6 @@
+<?php 
+if(!defined('APP')) die('Accesso negato'); 
+?>
 <form method="post"  action="index.php?page=listings&action=filter_insertion">
 <!-- selezione anno: prima seconda ecc -->
 <div style="margin-top: 15px;">
@@ -40,7 +43,7 @@
      <div>      
         <label>Materia</label>
         <select name="subject_id">
-            <option value="every">Tutte le materie </option>
+            <option value="">Tutte le materie </option>
             <?php foreach($subjects as $subject): ?>
                 <option value="<?= $subject['subject_id']; ?>"><?= $subject['name']; ?> </option>
             <?php endforeach?>
