@@ -44,9 +44,7 @@ define('APP',true);
 
     echo $filename;
 
-    echo "<pre>Contenuto Sessione: ";
-    print_r($_SESSION);
-    echo "</pre>";
+
 
     require_once "controllers/{$filename}.php";
     $controller = new $filename();
@@ -58,4 +56,9 @@ define('APP',true);
     }
 
     $controller->$action();
+
+    echo "<pre>Contenuto Sessione: ";
+    print_r($_SESSION);
+    echo "</pre>";
+
 //}

@@ -24,5 +24,26 @@ class ViewlistingModel{
     
     return $stm->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getPlaces(){
+        $dql = "SELECT * FROM places";
+
+        $stm = $this->pdo->prepare($dql);
+        $stm->execute();
+
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function insertionsByUser(array $param){
+        $dql="SELECT insertions.*, books.title, books.authors, books.publisher, users.name AS `name`, users.surname AS `surname`, subjects.name AS subject_name
+            FROM insertions 
+            LEFT JOIN books USING(book_id) 
+            LEFT JOIN users ON insertions.selling_user = users.user_id
+            LEFT JOIN subjects USING(subject_id)
+            WHERE selling_user= ?";
+        $stm=$this->pdo->prepare($dql);
+        $stm->execute($param);
+        return $stm->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
