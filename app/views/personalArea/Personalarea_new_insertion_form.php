@@ -100,20 +100,12 @@ unset($_SESSION['new_libro_precaricato'], $_SESSION['msg_errore']);
       <input type="text"  name="description" required>
     </div>
 
-    <div>      
-        <label>Indirizzo</label>
-        <select name="course_id">
-            <?php foreach($courses as $course): ?>
-                <option value="<?= $course['course_id']; ?>"><?= $course['name']; ?> </option>
-            <?php endforeach?>
-        </select>
-    </div>
 
     <?php if (isset($_SESSION['msg_errore_inserzione'])): ?>
     <p style="color: green; font-weight: bold;">
         <?php 
             echo $_SESSION['msg_errore_inserzione']; 
-            unset($_SESSION['msg_errore_inserzione']); // Lo cancelliamo QUI
+            unset($_SESSION['msg_errore_inserzione']);
         ?>
     </p>
 <?php endif; ?>

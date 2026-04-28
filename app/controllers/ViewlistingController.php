@@ -21,18 +21,12 @@ class ViewlistingController{
         include 'views/viewlisting/Viewlisting_template.php';
     }
 
-    public function index(){
-        include 'views/main/main_template.php';
+    public function buy(){
+        $_id = $_GET['id'] ?? 0;
+        $insertion = $this->model->getOne($id);
+        $view = 'views/viewlisting/Viewlisting_buy.php';
+        include 'views/viewlisting/Viewlisting_template.php';
+
     }
 
-    public function login(){
-        $view = 'views/login/login_form.php';
-        include 'views/login/login_template.php';
-    }
-
-    public function registration(){
-        $view = 'views/login/login_registration_form.php';
-        include 'views/login/login_template.php';
-    }
 }
-?>

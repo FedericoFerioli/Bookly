@@ -80,8 +80,6 @@ class PersonalAreaController{
 
         $book_id = $_POST['book_id'] ?? null;
 
-        echo $book_id;
-
         if (!$book_id) {
             die("Errore: Sessione scaduta o libro non trovato. Riprova la ricerca ISBN.");
         }
@@ -90,11 +88,9 @@ class PersonalAreaController{
         $book_condition = trim($_POST['condition'] ?? '');
         $insertion_state = "selling";
         $description = trim($_POST['description'] ?? '');
-        $insertion_state = "selling";
         $selling_user = trim($_SESSION['user_id'] ?? '');
-        $course = trim($_POST['course_id'] ?? '');
 
-        $param = [$price, $book_condition, $description, $insertion_state, $selling_user, $book_id, $course];
+        $param = [$price, $book_condition, $description, $insertion_state, $selling_user, $book_id];
         $insertion = $this->model->newInsertion($param);
 
         if($insertion){

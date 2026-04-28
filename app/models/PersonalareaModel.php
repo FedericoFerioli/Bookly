@@ -28,9 +28,8 @@ class PersonalareaModel{
                         insertion_state, 
                         post_date, 
                         selling_user, 
-                        book_id, 
-                        course_id
-                    ) VALUES (?, ?, ?, ?, NOW(), ?, ?, ?)";
+                        book_id
+                    ) VALUES (?, ?, ?, ?, NOW(), ?, ?)";
 
             $stm = $this->pdo->prepare($dql);
             return $stm->execute($param);
@@ -100,7 +99,6 @@ class PersonalareaModel{
     public function SelectInsertionOfUser(array $param=[]): array{
         $dql ="SELECT * FROM insertions
         join books USING(book_id)
-        join courses USING(course_id)
         WHERE insertions.selling_user = ?"; //riporta il contenuto della tabella insertions
         $stm=$this->pdo->prepare($dql); //prepara la query ricevuta da $dql
         $stm->execute($param); //esegue la query usando $param come contenitore per il risultato
