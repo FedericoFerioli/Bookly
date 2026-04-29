@@ -1,7 +1,14 @@
 <!-- Titoli delle inserzioni nel carrello -->
 <p>Stai acquistando:
-    <?php foreach ($insertions as $ins): ?>
-        <strong><?= htmlspecialchars($ins['title']) ?></strong><?= !($ins === end($insertions)) ? ', ' : '' ?>
+    <?php foreach ($insertions as $i => $ins): ?>
+        <strong><?= htmlspecialchars($ins['title']) ?></strong><?= $i < count($insertions) - 1 ? ', ' : '' ?>
+        <?php if ($i > 0): ?>
+            <a href="index.php?page=Viewlisting&action=remove_from_cart&id_to_remove=<?= $ins['insertion_id'] ?>" 
+               style="color: red; text-decoration: none; font-weight: bold; margin-left: 10px;"
+               onclick="return confirm('Vuoi davvero rimuovere questo articolo?')">
+               🗑️
+            </a>
+        <?php endif; ?>
     <?php endforeach; ?>
 </p>
 
@@ -84,7 +91,7 @@
                         <?php if (in_array($ins['insertion_id'], $_SESSION['cart'])): ?>
                             <button class="btn btn-success w-100" disabled>✓ Nel carrello</button>
                         <?php else: ?>
-                            <a href="index.php?page=Viewlisting&action=buy&id=<?= $ins['insertion_id'] ?>"
+                            <a href="index.php?page=Viewlisting&action=add_to_cart&id=<?= $ins['insertion_id'] ?>"
                                class="btn btn-outline-primary w-100">
                                Aggiungi annuncio al carrello
                             </a>

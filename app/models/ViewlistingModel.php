@@ -40,10 +40,19 @@ class ViewlistingModel{
             LEFT JOIN books USING(book_id) 
             LEFT JOIN users ON insertions.selling_user = users.user_id
             LEFT JOIN subjects USING(subject_id)
-            WHERE selling_user= ?";
+            WHERE selling_user= ? and insertions.insertion_state = 'selling'";
         $stm=$this->pdo->prepare($dql);
         $stm->execute($param);
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function setExchange(array $param): bool{ //$param = [$exchange_day, $buyingUser, $place_id, $id]; 
+        $sql = "UPDATE insertions SET exchange_day = ?, buying_user = ?, place_id = ?, insertion_state = 'reserved
+            WHERE insertion_id = ?";
+        $stm=$this->pdo->prepare($sql);
+        $stm->execute($param);
+        return $stm->rowCount() !== 0;
+    } 
+
 }
 

@@ -16,7 +16,9 @@ class listingsModel{
         FROM insertions
         JOIN books USING(book_id)
         JOIN subjects USING(subject_id)
-        GROUP BY insertions.insertion_id"; //riporta il contenuto della tabella insertions
+        WHERE insertion_state = 'selling'
+        GROUP BY insertions.insertion_id
+        ORDER BY post_date DESC"; //riporta il contenuto della tabella insertions
         $stm=$this->pdo->prepare($dql); //prepara la query ricevuta da $dql
         $stm->execute($param); //esegue la query usando $param come contenitore per il risultato
         return $stm->fetchAll(PDO::FETCH_ASSOC); //il risultato viene trasformato in array associativo
@@ -27,7 +29,7 @@ class listingsModel{
             FROM insertions
             JOIN books USING(book_id)
             JOIN subjects USING(subject_id)
-            WHERE 1=1";
+            WHERE insertion_state = 'selling'";
 
         $params = [];
 
@@ -68,7 +70,7 @@ class listingsModel{
 
         if (!empty($filters['conditions'])) {
             $placeholders = implode(',', array_fill(0, count($filters['conditions']), '?'));
-            $sql .= " AND insertions.condition IN ($placeholders)";
+            $sql .= " AND insertions.book_condition IN ($placeholders)";
             foreach ($filters['conditions'] as $cond) {
                 $params[] = $cond;
             }

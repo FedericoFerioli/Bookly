@@ -20,7 +20,7 @@ class PersonalareaModel{
         return $stm->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function newInsertion(array $param){
+    public function newInsertion(array $param){ 
         $dql = "INSERT INTO insertions (
                         price, 
                         book_condition,
@@ -57,7 +57,7 @@ class PersonalareaModel{
     }
 
     //funzione per modificare un'inserzione
-    public function modifyInsertion(array $param){ //$param = [$book_id, $my_price, $condition, $description, $course, $insertion]
+    public function modifyInsertion(array $param){ //$param = [$book_id, $my_price, $condition, $description, $insertion]
         $dql="UPDATE insertions
                 SET 
                     book_id=?,
@@ -70,8 +70,7 @@ class PersonalareaModel{
                     post_date=post_date,
                     selling_user=selling_user,
                     buying_user=buying_user,
-                    place_id=place_id,
-                    course_id=?
+                    place_id=place_id
                 WHERE insertion_id=?"; //Query che modifica i valori tenendo i valori settati dove non si può modificare
         $stm=$this->pdo->prepare($dql);
         return $stm->execute($param); //esecuzione della Query

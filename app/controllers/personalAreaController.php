@@ -162,7 +162,6 @@ class PersonalAreaController{
         $my_price = trim($_POST['my_price'] ?? '');
         $description = trim($_POST['description'] ?? '');
         $condition = trim($_POST['condition'] ?? '');
-        $course = trim($_POST['course_id'] ?? '');
         $insertion = trim($_GET['insertion_id'] ?? $_POST['insertion_id']);
 
         //$param = [$book_id, $my_price, $condition, $description, $course, $insertion]
@@ -171,7 +170,6 @@ class PersonalAreaController{
         $my_price,
         $condition,
         $description,
-        $course,
         $insertion
         ];
             

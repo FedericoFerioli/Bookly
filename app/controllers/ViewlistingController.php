@@ -13,47 +13,60 @@ class ViewlistingController{
 
     }
 
-
     public function details(){
+        if(isset($_SESSION['cart'])){
+            unset($_SESSION['cart']);
+        }
         $id = $_GET['id'] ?? 0;
         $insertion = $this->model->getOne($id);
         $view = 'views/viewlisting/Viewlisting_details.php';
         include 'views/viewlisting/Viewlisting_template.php';
     }
 
+
+    //quando si clicca contatta il venditore
     public function buy(){
-        $id                 = (int)($_GET['id'] ?? 0);
+        if(isset($_GET['id'])){
+            $id = (int)($_GET['id'] ?? 0);
+        }
 
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = [];
+            $_SESSION['cart'][] = $id;
         }
-        $_SESSION['cart'][] = $id;
         $insertions = [];
 
+        //per ogni insertion_id nella sessione 'cart' prendiamo le informazioni delle inserzioni
         foreach ($_SESSION['cart'] as $cart_id) {
             $insertions[] = $this->model->getOne($cart_id);
         }
 
+        //luoghi per il select
         $places             = $this->model->getPlaces();
-        $other_insertions   = $this->model->insertionsByUser([$insertions[0]['selling_user']]); //avnno passati anche gli id del carrello così che non siano visualizzati
+
+        //prende le altre iserzioni dell'utente utilizzando il campo 'selling_user' dell'inserzione
+        $other_insertions   = $this->model->insertionsByUser([$insertions[0]['selling_user']]);
 
         $view = 'views/viewlisting/Viewlisting_buy.php';
         include 'views/viewlisting/Viewlisting_template.php';
 
     }
 
+    //quando si clicca aggiungi al carrello
     public function add_to_cart(){
         $_SESSION['cart'][] = (int)($_GET['id'] ?? 0);
 
-        $view = 'views/viewlisting/Viewlisting_buy.php';
-        include 'views/viewlisting/Viewlisting_template.php';
+        header("Location: index.php?page=Viewlisting&action=buy");
+        exit;
     }
 
-        public function sold_insertion(){
+    //quando si clicca ordina
+    public function sold_insertion(){
             $ids          = $_SESSION['cart'];
             $place_id     = (int)($_POST['place_id'] ?? 0);
             $sell_time    = $_POST['sell_time'] ?? null;
             $exchange_day = $_POST['date'] ?? null;
+            $buyingUser   = $_SESSION['user_id'] ?? 0;
 
             $_SESSION['errori'] = [];
 
@@ -100,7 +113,7 @@ class ViewlistingController{
                         "$anno-05-01", "$anno-06-02", "$anno-08-15",
                         "$anno-11-01", "$anno-12-08", "$anno-12-25", "$anno-12-26",
                     ];
-                    if (in_array($data->format('Y-m-d'), $festivi)) { // ← graffa mancante
+                    if (in_array($data->format('Y-m-d'), $festivi)) {
                         $_SESSION['errori'][] = 'La data selezionata è un giorno festivo.';
                     }
 
@@ -115,12 +128,46 @@ class ViewlistingController{
 
             // Se ci sono errori torna indietro
             if (!empty($_SESSION['errori'])) {
-                $id = $ids[0]; // ← prendi il primo elemento per il redirect
+                $id = $ids[0];
                 header("Location: index.php?page=Viewlisting&action=buy&id=$id");
                 exit;
             }
+        
+            foreach($ids as $id){
+                $exchange_day = $exchange_day . ' ' . $sell_time . ':00';
+
+                $param = [$exchange_day, $buyingUser, $place_id, $id]; 
+                
+                $this->model->setExchange($param);
+            }
+
         }
 
+    public function remove_from_cart() {
+        //Recupera l'ID dell'inserzione da rimuovere (es: index.php?action=remove_from_cart&id=12)
+        $id_to_remove = $_GET['id_to_remove'] ?? null;
 
+        if ($id_to_remove !== null && isset($_SESSION['cart'])) {
+            //Trova la posizione dell'ID nell'array
+            $key = array_search($id_to_remove, $_SESSION['cart']);
 
+            //Se esiste, rimuovilo
+            if ($key !== false) {
+                unset($_SESSION['cart'][$key]);
+
+                //pzionale: Re-indicizza l'array per evitare buchi negli indici (0, 1, 3...)
+                $_SESSION['cart'] = array_values($_SESSION['cart']);
+            }
+        }
+
+        // 5. Ritorna alla pagina del carrello
+        header("Location: index.php?page=Viewlisting&action=buy");
+        exit;
     }
+
+
+}
+
+
+
+    

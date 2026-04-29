@@ -1,6 +1,12 @@
 <?php 
 if(!defined('APP')) die('Accesso negato'); 
 ?>
+
+
+<a href="index.php?page=listings&action=reset_filters">Rimuovi filtri</a>
+
+
+
 <form method="post"  action="index.php?page=listings&action=filter_insertion">
 <!-- selezione anno: prima seconda ecc -->
 <div style="margin-top: 15px;">
@@ -32,7 +38,7 @@ if(!defined('APP')) die('Accesso negato');
     <div>      
         <label>Indirizzo</label>
         <select name="course_id">
-            <option value="every">Tutti gli indirizzi </option>
+            <option value="">Tutti gli indirizzi </option>
             <?php foreach($courses as $course): ?>
                 <option value="<?= $course['course_id']; ?>"><?= $course['name']; ?> </option>
             <?php endforeach?>

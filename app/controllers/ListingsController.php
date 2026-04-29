@@ -49,12 +49,12 @@ class listingsController{
          */
         $filters = [
             'classes'      => $_POST['classes'] ?? [], 
-            'course_id'    => $_POST['courses'] ?? null,
+            'course_id'    => $_POST['course_id'] ?? null,
             'price_min'    => trim($_POST['price_min'] ?? ($this->model->getMinPrice() ?? 0)),
             'price_max'    => trim($_POST['price_max'] ?? ($this->model->getMaxPrice() ?? 100)),
             'subject_id'   => $_POST['subject_id'] ?? null,
             'conditions'   => $_POST['condition'] ?? [],
-            'publisher_' => $_POST['publisher'] ?? null,
+            'publisher' => $_POST['publisher'] ?? null,
         ];
 
         $_SESSION['filtered_insertions'] = $this->model->filterAll($filters);
@@ -62,6 +62,14 @@ class listingsController{
         header('Location: http://lab.isit100.fe.it:8092/ferioli/app/index.php?page=listings&action=all');
         exit;
     }
+
+
+    //funzione per rimuovere i filtri
+    public function reset_filters(){
+        unset($_SESSION['filtered_insertions']);
+        header('Location: http://lab.isit100.fe.it:8092/ferioli/app/index.php?page=listings&action=all');
+    exit;
+}
     
 }
 
