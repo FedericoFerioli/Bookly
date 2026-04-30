@@ -83,32 +83,32 @@ class loginController{
         exit;
     }
 
-public function check(){
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $password = hash("sha256", $password);
+    public function check(){
+        $email = $_POST['email'];
+        $password = $_POST['password'];
+        $password = hash("sha256", $password);
 
-    $param = [$email, $password];
-    $user = $this->model->find($param);
-    
-    if($user){
-        session_regenerate_id(true);
-        $_SESSION['logged'] = true;
-        $_SESSION['user_id'] = $user['user_id'];            
-        header('location:index.php?page=main&action=index');
-        exit;
-    } else {
-        header('location:index.php?page=login&action=login&msg=error');
+        $param = [$email, $password];
+        $user = $this->model->find($param);
+        
+        if($user){
+            session_regenerate_id(true);
+            $_SESSION['logged'] = true;
+            $_SESSION['user_id'] = $user['user_id'];            
+            header('location:index.php?page=main&action=index');
+            exit;
+        } else {
+            header('location:index.php?page=login&action=login&msg=error');
+            exit;
+        }
+    }
+
+    public function logout(){
+        $_SESSION = []; 
+        session_destroy();
+        header('location: index.php');
         exit;
     }
-}
-
-public function logout(){
-    $_SESSION = []; 
-    session_destroy();
-    header('location: index.php');
-    exit;
-}
 
 }
 ?>

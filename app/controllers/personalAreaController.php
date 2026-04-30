@@ -19,15 +19,44 @@ class PersonalAreaController{
         }
     }
 
-    public function index(){
-        include 'views/main/main_template.php';
+    //Metodo per quando il compratore conferma che lo scambio è andato bene
+    public function confirm_insertion(){
+        $id = (int)($_GET['id'] ?? 0);
+        //questo metodo del model modifica la colonna confirmation a 1
+        $result = $this->model->set_confirmation($id);
+
+        if($result){
+            $_SESSION['success'] = 'Hai confermato lo scambio!';
+        } else {
+            $_SESSION['err'] = 'Errore nella conferma dello scambio.';
+        }
+
+        header('Location: index.php?page=personalArea&action=my_orders');
+        exit;
     }
 
-    public function listings(){
-        $views = 'views/listings/listings_all.php';
-        include 'views/listings/listings_template.php';
+    //Metodo per quando il venditore conferma che lo scambio è andato bene
+    public function modify_insertion_state(){
+        $id = (int)($_GET['id'] ?? 0);
+
+        //questo metodo modifica insertion_state a 'sold' ma solo se confirmation è settato a 1
+        $result = $this->model->set_insertionState($id);
+
+        $_SESSION['err'] = '';
+        
+        if(!$result){
+            $_SESSION['err'] = "l'acquirente non ha ancora confermato l'acquisto, aspetta che lo completi prima di confermare l'acquisto";
+        }else{
+            $_SESSION['success'] = 'Compravendita avvenuta con successo!';
+
+        }
+
+        header('Location: index.php?page=personalArea&action=my_orders');
+        exit;
     }
 
+
+    //metodo per visualizzare la dashboard
     public function dashboard(){
         $this->isLogged();
         
@@ -41,6 +70,19 @@ class PersonalAreaController{
         include 'views/Personalarea/personalArea_template.php';
     }
 
+    //metodo per vederi i propri ordini: sia che si stanno vendendo, sia che si stanno comprando
+    public function my_orders(){
+
+        $user_id= $_SESSION['user_id'];
+
+        $to_sell = $this->model->getInsertionToSell($user_id);
+        $to_buy = $this->model->getInsertionToBuy($user_id);
+
+        $view = 'views/Personalarea/Personalarea_myorders.php';
+        include 'views/Personalarea/personalArea_template.php';
+    }
+
+    //visualizza il form per creare un nuovo annuncio 
     public function new_insertion(){   
         $this->isLogged();
         $courses = $this->model->selectCourses();
@@ -48,7 +90,7 @@ class PersonalAreaController{
         include 'views/Personalarea/personalArea_template.php';
 
     }
-
+    
     public function modify_insertion(){
         $this->isLogged();
         $id = $_GET['id'] ?? 0;
@@ -66,23 +108,24 @@ class PersonalAreaController{
         $param = [$id];
         $deletionInsertion = $this->model->deleteInsertion($param);
 
-        if($deletionInsertion){
-            header('Location: index.php?page=personalArea&action=dashboard');
-            exit;
-        }else{
-            header('Location: index.php?page=personalArea&action=dashboard');
-            exit;
+        if(!$deletionInsertion){
+            $_SESSION['err'] = 'Errore durante la cancellazione.';
         }
-
+        header('Location: index.php?page=personalArea&action=dashboard');
+        exit;
     }
 
+    
+
     public function save_insertion(){
+
 
         $book_id = $_POST['book_id'] ?? null;
 
         if (!$book_id) {
             die("Errore: Sessione scaduta o libro non trovato. Riprova la ricerca ISBN.");
         }
+
 
         $price = trim($_POST['my_price'] ?? '');
         $book_condition = trim($_POST['condition'] ?? '');
@@ -92,6 +135,37 @@ class PersonalAreaController{
 
         $param = [$price, $book_condition, $description, $insertion_state, $selling_user, $book_id];
         $insertion = $this->model->newInsertion($param);
+
+        
+        $insertion_id = $this->model->getLastInsertionId($selling_user);
+
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+        $uploadDir = '/var/www/html/ferioli/public/images/insertions/';        
+        $files        = $_FILES['images'] ?? null;
+        $maxImages    = 3;
+        
+        if ($files) {
+            $count = min(count($files['name']), $maxImages);
+
+            for ($i = 0; $i < $count; $i++) {
+                if ($files['error'][$i] !== 0) continue;
+
+                $finfo    = finfo_open(FILEINFO_MIME_TYPE);
+                $mimeType = finfo_file($finfo, $files['tmp_name'][$i]);
+                finfo_close($finfo);
+
+                if (!in_array($mimeType, $allowedTypes)) continue;
+
+                $ext         = pathinfo($files['name'][$i], PATHINFO_EXTENSION);
+                $newName     = uniqid('book_', true) . '.' . $ext;
+                $destination = $uploadDir . $newName;
+
+                $moved = move_uploaded_file($files['tmp_name'][$i], $destination);
+                if ($moved) {
+                    $this->model->saveInsertionImage($destination, $insertion_id);         
+                }
+            }
+        }
 
         if($insertion){
             unset($_SESSION['new_libro_precaricato']);            
@@ -188,13 +262,5 @@ class PersonalAreaController{
 
     }
     }
-
-
-    //view con annunci propri e info personali
-
-    //view per accedere alla pagina per la modifica delle info personali
-
-    //funzione per accedere all view della modifica annuncio
-
 
 ?>

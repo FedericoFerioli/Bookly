@@ -13,6 +13,8 @@ unset($_SESSION['new_libro_precaricato'], $_SESSION['msg_errore']);
 <div>
   <h3>Nuova Inserzione</h3>
 
+
+
   <fieldset style="margin-bottom: 20px; padding: 15px;">
     <legend>Cerca nel database tramite ISBN</legend>
     <form method="post" action="index.php?page=personalArea&action=search_isbn">
@@ -22,11 +24,14 @@ unset($_SESSION['new_libro_precaricato'], $_SESSION['msg_errore']);
     <?php if($errore) echo "<p style='color:red'>$errore</p>"; ?>
   </fieldset>
 
+    
   <hr>
-  <form method="post" action="index.php?page=personalArea&action=save_insertion">
+  <form method="post" action="index.php?page=personalArea&action=save_insertion" enctype="multipart/form-data">
+
+
 
     <input type="hidden" name="book_id" value="<?= $dati['book_id'] ?? '' ?>">
-  
+
     <div>
       <label>Titolo Libro</label>
       <input type="text" name="title" value="<?php echo $dati['title'] ?? ''; ?>" required>
@@ -98,6 +103,23 @@ unset($_SESSION['new_libro_precaricato'], $_SESSION['msg_errore']);
     <div>
       <label>Description</label>
       <input type="text"  name="description" required>
+    </div>
+
+    <div style="margin-top: 20px;">
+        <label style="font-weight: bold; display: block; margin-bottom: 10px;">Foto del libro (max 3):</label>
+        
+        <div style="margin-bottom: 8px;">
+            <label>Foto 1:</label>
+            <input type="file" name="images[]" accept="image/*">
+        </div>
+        <div style="margin-bottom: 8px;">
+            <label>Foto 2:</label>
+            <input type="file" name="images[]" accept="image/*">
+        </div>
+        <div style="margin-bottom: 8px;">
+            <label>Foto 3:</label>
+            <input type="file" name="images[]" accept="image/*">
+        </div>
     </div>
 
 

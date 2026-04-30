@@ -45,7 +45,6 @@ define('APP',true);
     echo $filename;
 
 
-
     require_once "controllers/{$filename}.php";
     $controller = new $filename();
     /**

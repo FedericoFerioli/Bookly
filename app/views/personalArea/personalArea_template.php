@@ -3,50 +3,87 @@ if(!defined('APP')) die('Accesso negato');
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bookly</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
     <style>
-        .titles{
+        .logo {
+            height: 50px;
+        }
+
+        body {
             display: flex;
-
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        .titles div{
-            margin: 10px;
-            padding: 20px;
+        main {
+            flex: 1;
         }
 
+        .nav-link {
+            transition: 0.2s;
+        }
+
+        .nav-link:hover {
+            opacity: 0.7;
+        }
     </style>
 </head>
-<body>
-    <header>
-            <section class="nonloso">
-                <div class="logo-container">
-                    <a>
-                        <img src="/public/images/concept_logo_Bookly_1.png" alt="Logo di Bookly" class="logo">
-                    </a>
-                </div>
-                <div class="titles">
-                    <div><h1>Bookly</h1></div>
-                    <div><a href="index.php?page=main&action=index">HOME</a></div>
-                    <div><a href="index.php?page=listings&action=all">BACHECA</a></div>
-                    <div><a href="index.php?page=Personalarea&action=new_insertion">PUBBLICA</a></div>
-                </div>
-            </section>
-    </header>
-    <main>
-        <div>
-            <h1>Area personale</h1>
-            <?php include $view; ?>
+
+<body class="bg-light">
+
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #2e7d32;">
+        <div class="container">
+
+            <a class="navbar-brand d-flex align-items-center" href="index.php?page=main&action=index">
+                <img src="/public/images/concept_logo_Bookly_1.png" class="logo me-2" alt="Bookly">
+                <strong>Bookly</strong>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=main&action=index">Home</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=listings&action=all">Bacheca</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php?page=personalArea&action=new_insertion">
+                            Pubblica
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+
         </div>
+    </nav>
+    
+    <main class="container py-4">
+        <?php include $view; ?>
     </main>
-    <footer>
-        <div>
-            <p>Copyright© 2026 The Bookly Project</p>
-        </div>
+
+    <footer class="bg-dark text-white text-center py-3 mt-auto">
+        <small>© 2026 Bookly Project</small>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
 </body>
 </html>

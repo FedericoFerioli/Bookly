@@ -50,7 +50,7 @@ class PersonalareaModel{
             LEFT JOIN books USING(book_id) 
             LEFT JOIN users ON insertions.selling_user = users.user_id
             LEFT JOIN subjects USING(subject_id)
-            WHERE selling_user= ?";
+            WHERE selling_user= ? AND insertions.insertion_state = 'selling'";
         $stm=$this->pdo->prepare($dql);
         $stm->execute($param);
         return $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -117,5 +117,60 @@ class PersonalareaModel{
         $stm->execute($param);
         
         return $stm->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function getInsertionToSell($user_id){
+        $dql="SELECT insertions.*, books.title, books.authors, books.publisher, users.name AS `name`, users.surname AS `surname`, subjects.name AS subject_name, users.email as `email`, places.name as `place`
+            FROM insertions 
+            LEFT JOIN books USING(book_id) 
+            LEFT JOIN users ON insertions.buying_user = users.user_id
+            LEFT JOIN subjects USING(subject_id)
+            LEFT JOIN places USING(place_id)
+            WHERE selling_user = ? AND insertions.insertion_state = 'reserved'";
+        $stm=$this->pdo->prepare($dql);
+        $stm->execute([$user_id]);
+        return $stm->fetchAll(PDO::FETCH_ASSOC);        
+    }
+
+    public function getInsertionToBuy($user_id){
+        $dql="SELECT insertions.*, books.title, books.authors, books.publisher, users.name AS `name`, users.surname AS `surname`, subjects.name AS subject_name, users.email as `email`, places.name as `place`
+            FROM insertions 
+            LEFT JOIN books USING(book_id) 
+            LEFT JOIN users ON insertions.selling_user = users.user_id
+            LEFT JOIN subjects USING(subject_id)
+            LEFT JOIN places USING(place_id)
+            WHERE buying_user= ? AND insertions.insertion_state = 'reserved'";
+        $stm=$this->pdo->prepare($dql);
+        $stm->execute([$user_id]);
+        return $stm->fetchAll(PDO::FETCH_ASSOC);        
+    }
+
+    public function set_insertionState($insertion_id){
+        $sql = "UPDATE insertions SET insertion_state = 'sold'
+            WHERE insertion_id = ? and confirmation = 1";
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute([$insertion_id]);
+
+        return $stm->rowCount() !== 0;
+    }
+
+    public function set_confirmation($insertion_id){
+        $sql = "UPDATE insertions SET confirmation = 1
+            WHERE insertion_id = ?";
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute([$insertion_id]);
+
+        return $stm->rowCount() !== 0;
+    }
+
+
+    public function getLastInsertionId($user_id){
+        return (int)$this->pdo->lastInsertId(); // restituisce l'id dell'insert appena fatto (funzione pdo built-in)
+    }
+
+    public function saveInsertionImage(string $path, int $insertion_id): bool {
+        $dql = "INSERT INTO insertion_images(image_path, insertion_id) VALUES (?, ?)";
+        $stm = $this->pdo->prepare($dql);
+        return $stm->execute([$path, $insertion_id]);
     }
 }

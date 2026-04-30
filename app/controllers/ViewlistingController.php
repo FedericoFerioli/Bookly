@@ -13,12 +13,25 @@ class ViewlistingController{
 
     }
 
+    public function isLogged(){
+        if($_SESSION['logged'] != true){
+            header('location:index.php?page=login&action=login');
+            exit;
+        }
+    }
+
     public function details(){
         if(isset($_SESSION['cart'])){
             unset($_SESSION['cart']);
         }
+
+        $this->isLogged();
+
         $id = $_GET['id'] ?? 0;
         $insertion = $this->model->getOne($id);
+        $insertion['images'] = $this->model->getImagesById($insertion['insertion_id']);
+        
+
         $view = 'views/viewlisting/Viewlisting_details.php';
         include 'views/viewlisting/Viewlisting_template.php';
     }
@@ -132,16 +145,19 @@ class ViewlistingController{
                 header("Location: index.php?page=Viewlisting&action=buy&id=$id");
                 exit;
             }
-        
-            foreach($ids as $id){
-                $exchange_day = $exchange_day . ' ' . $sell_time . ':00';
+            
+            $exchange_day = $exchange_day . ' ' . $sell_time . ':00';
 
-                $param = [$exchange_day, $buyingUser, $place_id, $id]; 
+            foreach($ids as $id){
                 
+                $param = [$exchange_day, $buyingUser, $place_id, $id]; 
                 $this->model->setExchange($param);
             }
 
-        }
+            header('Location: index.php?page=personalArea&action=my_orders');
+            exit;
+    }
+
 
     public function remove_from_cart() {
         //Recupera l'ID dell'inserzione da rimuovere (es: index.php?action=remove_from_cart&id=12)

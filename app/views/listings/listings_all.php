@@ -177,6 +177,7 @@ if(!defined('APP')) die('Accesso negato');
         <span class="badge bg-secondary"><?= count($insertions) ?> libri disponibili</span>
     </div>
 
+
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         <?php foreach($insertions as $insertion): ?>
             <div class="col">
