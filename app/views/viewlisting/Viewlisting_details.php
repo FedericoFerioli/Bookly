@@ -37,10 +37,18 @@ if(!defined('APP')) die('Accesso negato');
                 <div class="card-body text-center">
                     <h3 class="text-success fw-bold"><?= number_format($insertion['price'], 2, ',', '.') ?> €</h3>
                     <p class="small text-muted">Venduto da: <strong><?= htmlspecialchars($insertion['name']) ?> <?= htmlspecialchars($insertion['surname']) ?></strong></p>
-                    <a href="index.php?page=Viewlisting&action=buy&id=<?= $insertion['insertion_id'] ?>"
-                       class="btn btn-outline-primary w-100">
-                        Contatta il venditore
-                    </a>
+
+                        <?php if(in_array((int)$insertion['insertion_id'], $myInsertions)): ?>
+                            <a href="index.php?page=personalArea&action=modify_insertion&id=<?= $insertion['insertion_id'] ?>" 
+                               class="btn btn-outline-warning btn-sm w-50">
+                                Modifica la tua inserzione
+                            </a>
+                        <?php else: ?>
+                        <a href="index.php?page=Viewlisting&action=buy&id=<?= $insertion['insertion_id'] ?>"
+                            class="btn btn-outline-primary w-100">
+                            Contatta il venditore
+                        </a>                   
+                        <?php endif; ?>
                 </div>
             </div>
         </div>

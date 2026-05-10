@@ -39,12 +39,11 @@ if(!defined('APP')) die('Accesso negato');
 
 <body class="bg-light">
 
-    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: #2e7d32;">
         <div class="container">
 
             <a class="navbar-brand d-flex align-items-center" href="index.php?page=main&action=index">
-                <img src="/public/images/concept_logo_Bookly_1.png" class="logo me-2" alt="Bookly">
+                <img src="../public/images/concept_logo_Bookly_only_logo.png" class="logo me-2" alt="Bookly">
                 <strong>Bookly</strong>
             </a>
 

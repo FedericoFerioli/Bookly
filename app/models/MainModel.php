@@ -24,4 +24,12 @@ class mainModel{
         return $stm->fetchAll(PDO::FETCH_ASSOC); //il risultato viene trasformato in array associativo
     }
 
+    public function getImagesById($id): array{
+        $sql = "SELECT image_path FROM insertion_images
+            WHERE insertion_id = ?";
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute([$id]);
+        return $stm->fetchAll(PDO::FETCH_COLUMN);
+    }
+
 }

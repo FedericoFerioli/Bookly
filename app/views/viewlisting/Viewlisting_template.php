@@ -19,7 +19,7 @@
     <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.php">
-                <img src="/public/images/concept_logo_Bookly_1.png" alt="Logo" class="me-2">
+                <img src="../public/images/concept_logo_Bookly_only_logo.png" alt="Logo" class="me-2">
                 <span class="fw-bold fs-3 text-primary">Bookly</span>
             </a>
             

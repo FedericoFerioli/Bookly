@@ -207,10 +207,10 @@ if(!defined('APP')) die('Accesso negato');
                     </div>
 
                     <div class="card-footer bg-transparent border-top-0 pb-3">
-                        <a href="index.php?page=Viewlisting&action=details&id=<?= $insertion['insertion_id'] ?>"
-                           class="btn btn-outline-primary w-100">
-                           Vedi Dettagli
-                        </a>
+                            <a href="index.php?page=Viewlisting&action=details&id=<?= $insertion['insertion_id'] ?>"
+                                class="btn btn-outline-primary w-100">
+                                Vedi Dettagli
+                            </a>                        
                     </div>
                 </div>
             </div>

@@ -5,16 +5,36 @@ if(!defined('APP')) die('Accesso negato');
 <div class="container py-4">
 
     <!-- AREA UTENTE -->
+
+    <?php if (isset($_SESSION['msg_modifica_unsuccess'])): ?>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <?= $_SESSION['msg_modifica_unsuccess'] ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <?php unset($_SESSION['msg_modifica_unsuccess']); ?>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['msg_modifica_success'])): ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <?= $_SESSION['msg_modifica_success'] ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        <?php unset($_SESSION['msg_modifica_success']); ?>
+    <?php endif; ?>
+
+
     <div class="card shadow-sm mb-4">
         <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
             <h5 class="mb-0">Area Personale</h5>
-
             <div>
                 <a href="index.php?page=personalArea&action=my_orders" class="btn btn-light btn-sm me-2">
                     I miei ordini
                 </a>
                 <a href="index.php?page=Login&action=logout" class="btn btn-outline-light btn-sm">
                     Logout
+                </a>
+                <a href="index.php?page=personalArea&action=modify_user_info" class="btn btn-outline-light btn-sm">
+                    Modifica i miei dati
                 </a>
             </div>
         </div>
@@ -50,7 +70,7 @@ if(!defined('APP')) die('Accesso negato');
 
                     <div class="card-header bg-light border-0">
                         <span class="badge bg-info text-dark">
-                            <?= htmlspecialchars($insertion['name'] ?? 'Materia N.D.') ?>
+                            <?= htmlspecialchars($insertion['subject_name'] ?? 'Materia N.D.') ?>
                         </span>
                     </div>
 
@@ -76,10 +96,9 @@ if(!defined('APP')) die('Accesso negato');
 
                     <div class="card-footer bg-white border-0">
                         <div class="d-flex gap-2">
-
-                            <a href="index.php?page=personalArea&action=modify_insertion&id=<?= $insertion['insertion_id'] ?>" 
+                            <a href="index.php?page=Viewlisting&action=details&id=<?= $insertion['insertion_id'] ?>" 
                                class="btn btn-outline-warning btn-sm w-50">
-                               ✏️ Modifica
+                               ✏️ Visualizza e modifica
                             </a>
 
                             <a href="index.php?page=personalArea&action=delete_insertion&id=<?= $insertion['insertion_id'] ?>" 

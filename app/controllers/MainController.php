@@ -12,30 +12,14 @@ class MainController{
         $this->page = 'main';
     }
 
-    //funzione pulsanti pagina
     public function index(){
         $threeListings = $this->model->select3last();
+        for($i = 0; $i < 3; $i++){
+            $threeListings[$i]['images'] = $this->model->getImagesById($threeListings[$i]['insertion_id']);
+        }
+
         include 'views/main/main_template.php';
-    }
-    public function dashboard(){
-        $view = 'views/Personalarea/personalArea_dashboard.php';
-        include 'views/Personalarea/personalArea_template.php';
-    }
-
-    public function listings(){
-        include 'views/listings/listings_template.php';
-    }
-
-    public function login(){
-        $view = 'views/login/login_form.php';
-        include 'views/login/login_template.php';
-    }
-
-    public function registration(){
-        $view = 'views/login/login_registration_form.php';
-        include 'views/login/login_template.php';
     }
 
 }
 
-?>

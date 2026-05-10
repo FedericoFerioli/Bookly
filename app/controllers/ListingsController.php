@@ -25,12 +25,15 @@ class listingsController{
          * $insertion prende le inserzioni dalla sessione, se sono stati applicati dei filtri attraverso il form
          * oppure dal model con la funzione select all che prende tutti le inserzioni
          */
+
+
         $insertions = $_SESSION['filtered_insertions'] ?? $this->model->SelectAll();
         $courses = $this->model->selectCourses();
         $publishers = $this->model->getPublishers();
         $subjects = $this->model->getSubjects();
         $maxPrice = $this->model->getMaxPrice();
         $minPrice = $this->model->getMinPrice();
+
 
         $view = 'views/listings/listings_all.php';
         include 'views/listings/listings_template.php';

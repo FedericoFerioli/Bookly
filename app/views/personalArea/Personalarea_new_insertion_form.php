@@ -4,7 +4,7 @@ if(!defined('APP')) die('Accesso negato');
 // Recuperiamo i dati dalla sessione (se esistono)
 $dati = $_SESSION['new_libro_precaricato'] ?? null;
 $errore = $_SESSION['msg_errore'] ?? null;
-$errore_inserzione = $_SESSION['msg_errore_inserzione'] ?? null;
+$errore_inserzione = $_SESSION['msg_modifica'] ?? null;
 
 
 unset($_SESSION['new_libro_precaricato'], $_SESSION['msg_errore']);
@@ -123,11 +123,11 @@ unset($_SESSION['new_libro_precaricato'], $_SESSION['msg_errore']);
     </div>
 
 
-    <?php if (isset($_SESSION['msg_errore_inserzione'])): ?>
+    <?php if (isset($_SESSION['msg_modifica'])): ?>
     <p style="color: green; font-weight: bold;">
         <?php 
-            echo $_SESSION['msg_errore_inserzione']; 
-            unset($_SESSION['msg_errore_inserzione']);
+            echo $_SESSION['msg_modifica']; 
+            unset($_SESSION['msg_modifica']);
         ?>
     </p>
 <?php endif; ?>

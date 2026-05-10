@@ -3,91 +3,116 @@ if(!defined('APP')) die('Accesso negato');
 ?>
 
 <style>
-    :root {
-        --dark-bg: #0b0b0b;
-        --card-bg: #161616;
-        --accent-red: #d90429;
-        --hover-red: #ef233c;
-        --text-bright: #ffffff;
-        --text-soft: #adb5bd;
-    }
-
+    /* Sfondo e font coerenti con la Home e i Dettagli */
     body {
-        background-color: var(--dark-bg);
-        color: var(--text-bright);
-        font-family: 'Inter', sans-serif;
+        background-color: #f8f9fa;
+        color: #333;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
+    .registration-wrapper {
+        max-width: 1200px;
+        margin: 3rem auto;
+        padding: 0 1rem;
+    }
+
+    /* Card Bianca coordinata */
     .custom-card {
-        background-color: var(--card-bg);
-        border: 1px solid #2d2d2d;
-        border-radius: 1rem;
+        background: white;
+        border-radius: 15px;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        border: none;
     }
 
-    /* Sovrascriviamo Bootstrap per il tema Dark */
+    /* Titolo in Blu Bookly */
+    .form-heading {
+        color: #007bff;
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
+
+    /* Stile Input chiari */
     .form-label {
-        color: var(--text-soft);
-        font-weight: 500;
+        color: #555;
+        font-weight: 600;
+        font-size: 0.9rem;
+        margin-bottom: 0.4rem;
     }
 
-    .form-control {
-        background-color: #222 !important;
-        border: 1px solid #333 !important;
-        color: white !important;
+    .form-control, .form-select {
+        background-color: #fff !important;
+        border: 1px solid #d1d8e0 !important;
+        color: #333 !important;
+        padding: 0.7rem;
+        border-radius: 8px;
     }
 
     .form-control:focus {
-        border-color: var(--accent-red) !important;
-        box-shadow: 0 0 0 0.25 remote rgba(217, 4, 41, 0.25) !important;
+        border-color: #007bff !important;
+        box-shadow: 0 0 0 0.25rem rgba(0, 123, 255, 0.1) !important;
     }
 
-    /* Stile per l'input group (il tasto password) */
+    /* Input group per la password */
     .input-group-text {
-        background-color: #333 !important;
-        border: 1px solid #333 !important;
-        color: var(--text-soft) !important;
+        background-color: #f8f9fa !important;
+        border: 1px solid #d1d8e0 !important;
+        color: #007bff !important;
         cursor: pointer;
+        border-radius: 0 8px 8px 0 !important;
     }
 
-    .input-group-text:hover {
-        color: var(--accent-red) !important;
-    }
-
-    .btn-red {
-        background-color: var(--accent-red);
+    /* Bottone Blu coordinato con Home e Dettagli */
+    .btn-bookly {
+        background-color: #007bff;
         border: none;
         color: white;
         padding: 0.8rem;
-        font-weight: 600;
-        letter-spacing: 1px;
+        font-weight: 700;
+        border-radius: 8px;
+        transition: all 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
-    .btn-red:hover {
-        background-color: var(--hover-red);
+    .btn-bookly:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
         color: white;
-        transform: translateY(-1px);
+    }
+
+    /* Link e Checkbox */
+    .text-accent {
+        color: #007bff !important;
+    }
+
+    .form-check-input:checked {
+        background-color: #007bff;
+        border-color: #007bff;
     }
 </style>
 
-<div class="container py-5">
+<div class="registration-wrapper">
     <div class="row justify-content-center">
-        <div class="col-12 col-md-8 col-lg-5">
+        <div class="col-12 col-md-8 col-lg-6">
             
-            <div class="card custom-card shadow-lg">
+            <div class="card custom-card">
                 <div class="card-body p-4 p-md-5">
                     
-                    <h2 class="text-center mb-4" style="color: var(--accent-red); font-weight: 800;">JOIN US</h2>
+                    <h2 class="text-center mb-4 form-heading">UNISCITI A BOOKLY</h2>
+                    <p class="text-center text-muted mb-4 small">Crea il tuo account istituzionale per iniziare a scambiare libri.</p>
                     
                     <form method="post" action="index.php?page=login&action=store">
                         
                         <div class="row g-3 mb-3">
-                            <div class="col">
+                            <div class="col-md-6">
                                 <label class="form-label">Nome</label>
-                                <input type="text" class="form-control" name="name" required>
+                                <input type="text" class="form-control" name="name" placeholder="Inserisci nome" required>
                             </div>
-                            <div class="col">
+                            <div class="col-md-6">
                                 <label class="form-label">Cognome</label>
-                                <input type="text" class="form-control" name="surname" required>
+                                <input type="text" class="form-control" name="surname" placeholder="Inserisci cognome" required>
                             </div>
                         </div>
 
@@ -98,23 +123,20 @@ if(!defined('APP')) die('Accesso negato');
                                    placeholder="nome.cognome@isit100.fe.it" required>
                         </div>
 
-                        <div class="mb-3">
-                            <label class="form-label">Password</label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" name="password" id="passInput" required>
-                                <span class="input-group-text" onclick="togglePass('passInput', this)">
-                                    <i class="bi bi-eye"></i> 👀
-                                </span>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" name="password" id="passInput" required>
+                                    <span class="input-group-text" onclick="togglePass('passInput', this)">👀</span>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Conferma Password</label>
-                            <div class="input-group">
-                                <input type="password" class="form-control" name="confirm_password" id="confirmInput" required>
-                                <span class="input-group-text" onclick="togglePass('confirmInput', this)">
-                                    <i class="bi bi-eye"></i> 👀
-                                </span>
+                            <div class="col-md-6">
+                                <label class="form-label">Conferma Password</label>
+                                <div class="input-group">
+                                    <input type="password" class="form-control" name="confirm_password" id="confirmInput" required>
+                                    <span class="input-group-text" onclick="togglePass('confirmInput', this)">👀</span>
+                                </div>
                             </div>
                         </div>
 
@@ -125,9 +147,9 @@ if(!defined('APP')) die('Accesso negato');
                             </div>
                             <div class="col-6">
                                 <label class="form-label">Genere</label>
-                                <select class="form-select form-control" name="gender">
-                                    <option value="M">M</option>
-                                    <option value="F">F</option>
+                                <select class="form-select" name="gender">
+                                    <option value="M">Maschio</option>
+                                    <option value="F">Femmina</option>
                                     <option value="O">Altro</option>
                                 </select>
                             </div>
@@ -135,20 +157,20 @@ if(!defined('APP')) die('Accesso negato');
 
                         <div class="form-check mb-4">
                             <input class="form-check-input" type="checkbox" id="terms" required>
-                            <label class="form-check-label small" for="terms">
-                                Accetto i <a href="#" class="text-decoration-none" style="color: var(--accent-red);">Termini e Condizioni</a>
+                            <label class="form-check-label small text-muted" for="terms">
+                                Accetto i <a href="#" class="text-decoration-none text-accent fw-bold">Termini e Condizioni</a> del servizio.
                             </label>
                         </div>
 
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-red">REGISTRATI</button>
+                            <button type="submit" class="btn btn-bookly">CREA ACCOUNT</button>
                         </div>
 
                     </form>
 
                     <div class="text-center mt-4">
                         <span class="small text-muted">Hai già un account? </span>
-                        <a href="index.php?page=login" class="small fw-bold text-decoration-none" style="color: var(--accent-red);">Accedi</a>
+                        <a href="index.php?page=login" class="small fw-bold text-decoration-none text-accent">Accedi ora</a>
                     </div>
 
                 </div>

@@ -63,12 +63,20 @@ class PersonalAreaController{
         $param = [$_SESSION['user_id']];
 
         $insertions = $this->model->SelectInsertionOfUser($param);
+
+        foreach ($insertions as &$insertion) {
+            $insertion['images'] = $this->model->getImagesById($insertion['insertion_id']);
+        }   
+
+        unset($insertion);
+
+
         $userData = $this->model->getUserInfo($param);
 
-        $userData = $userData[0];
         $view = 'views/Personalarea/Perosonalarea_dashboard.php';
         include 'views/Personalarea/personalArea_template.php';
     }
+
 
     //metodo per vederi i propri ordini: sia che si stanno vendendo, sia che si stanno comprando
     public function my_orders(){
@@ -86,6 +94,7 @@ class PersonalAreaController{
     public function new_insertion(){   
         $this->isLogged();
         $courses = $this->model->selectCourses();
+
         $view = 'views/Personalarea/Personalarea_new_insertion_form.php';
         include 'views/Personalarea/personalArea_template.php';
 
@@ -94,6 +103,8 @@ class PersonalAreaController{
     public function modify_insertion(){
         $this->isLogged();
         $id = $_GET['id'] ?? 0;
+
+        unset($_SESSION['msg_modifica']);
 
         $thisInsertion = $this->model->getOne($id);
         $courses = $this->model->selectCourses();
@@ -114,8 +125,6 @@ class PersonalAreaController{
         header('Location: index.php?page=personalArea&action=dashboard');
         exit;
     }
-
-    
 
     public function save_insertion(){
 
@@ -169,11 +178,11 @@ class PersonalAreaController{
 
         if($insertion){
             unset($_SESSION['new_libro_precaricato']);            
-            $_SESSION['msg_errore_inserzione'] = "Inserimento completato";        
+            $_SESSION['msg_modifica'] = "Inserimento completato";        
             header('Location: index.php?page=personalArea&action=new_insertion');
             exit;
         }else{
-            $_SESSION['msg_errore_inserzione'] = "Non siamo riusciti a craere l'inserzione";        
+            $_SESSION['msg_modifica'] = "Non siamo riusciti a craere l'inserzione";        
             header('Location: index.php?page=personalArea&action=new_insertion');
             exit;
         }
@@ -238,7 +247,7 @@ class PersonalAreaController{
         $condition = trim($_POST['condition'] ?? '');
         $insertion = trim($_GET['insertion_id'] ?? $_POST['insertion_id']);
 
-        //$param = [$book_id, $my_price, $condition, $description, $course, $insertion]
+        //$param = [$book_id, $my_price, $condition, $description, $insertion]
         $param = [
         $book_id,
         $my_price,
@@ -251,16 +260,71 @@ class PersonalAreaController{
 
         if($insertion){
             unset($_SESSION['libro_precaricato']);            
-            $_SESSION['msg_errore_inserzione'] = "Modifica completata con successo";        
+            $_SESSION['msg_modifica_success'] = "Modifica completata con successo";        
             header('Location: index.php?page=personalArea&action=dashboard');
             exit;
         }else{
-            $_SESSION['msg_errore_inserzione'] = "Non siamo riusciti a modificare l'inserzione";        
+            $_SESSION['msg_modifica_unsuccess'] = "Non siamo riusciti a modificare l'inserzione";        
             header('Location: index.php?page=personalArea&action=dashboard');
             exit;
         }
 
     }
+
+    public function modify_user_info(){
+        $id     = (int)($_SESSION['user_id'] ?? 0);
+
+        $param  = [$id];
+        $user   = $this->model->getUserInfo($param);
+
+        $view = 'views/Personalarea/Personalarea_modify_user.php';
+        include 'views/Personalarea/personalArea_template.php';
     }
 
-?>
+
+public function change_user_info() {
+    $id      = (int)($_SESSION['user_id'] ?? 0);
+    $name    = trim($_POST['name']    ?? '');
+    $surname = trim($_POST['surname'] ?? '');
+    $email   = trim($_POST['email']   ?? '');
+    $dob     = $_POST['dob']          ?? '';
+    $gender  = $_POST['gender']       ?? 'O';
+    $password = $_POST['password']    ?? '';
+
+    // Validazione base
+    if (!$name || !$surname || !$email || !$dob) {
+        $_SESSION['error'] = 'Compila tutti i campi obbligatori.';
+        header('Location: index.php?page=personalArea&action=modify_user_info');
+        exit;
+    }
+
+    if (!preg_match('/.+@isit100\.fe\.it$/i', $email)) {
+        $_SESSION['error'] = 'Email non valida.';
+        header('Location: index.php?page=personalArea&action=modify_user_info');
+        exit;
+    }
+
+    // Password: aggiorna solo se l'utente ha scritto qualcosa
+    $hashedPassword = null;
+    if ($password !== '') {
+        if (strlen($password) < 8) {
+            $_SESSION['error'] = 'La password deve essere di almeno 8 caratteri.';
+            header('Location: index.php?page=personalArea&action=modify_user_info');
+            exit;
+        }
+        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    }
+
+    $result = $this->model->updateUserInfo($id, $name, $surname, $email, $dob, $gender, $hashedPassword);
+
+    if ($result) {
+        $_SESSION['success'] = 'Informazioni aggiornate con successo.';
+    } else {
+        $_SESSION['error'] = 'Errore durante l\'aggiornamento.';
+    }
+
+    header('Location: index.php?page=personalArea&action=modify_user_info');
+    exit;
+    }
+
+}

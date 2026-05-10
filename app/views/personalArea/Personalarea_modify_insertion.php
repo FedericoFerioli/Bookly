@@ -105,31 +105,14 @@ unset($_SESSION['msg_errore']);
             </div>
         </div>
 
+
+        
+
         <div>
             <label>Descrizione</label>
             <input type="text" name="description" value="<?= $thisInsertion['description'] ?? ''; ?>" required>
         </div>
 
-        <div>      
-            <label>Indirizzo (Corso)</label>
-            <select name="course_id">
-                <?php foreach($courses as $course): ?>
-                    <option value="<?= $course['course_id']; ?>" 
-                        <?= (isset($thisInsertion['course_id']) && $course['course_id'] == $thisInsertion['course_id']) ? 'selected' : ''; ?>>
-                        <?= $course['name']; ?> 
-                    </option>
-                <?php endforeach ?>
-            </select>
-        </div>
-
-        <?php if (isset($_SESSION['msg_errore_inserzione'])): ?>
-            <p style="color: green; font-weight: bold;">
-                <?php 
-                    echo $_SESSION['msg_errore_inserzione']; 
-                    unset($_SESSION['msg_errore_inserzione']); // Lo cancelliamo QUI
-                ?>
-            </p>
-        <?php endif; ?>
 
         <div style="margin-top: 20px;">
             <button type="submit">SALVA MODIFICHE</button>

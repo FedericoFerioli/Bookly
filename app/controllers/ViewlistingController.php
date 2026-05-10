@@ -20,12 +20,18 @@ class ViewlistingController{
         }
     }
 
+    //funzione per visualizzare i dettagli di un'inserione
     public function details(){
+        //Unsettiamo il carrello precedente
         if(isset($_SESSION['cart'])){
             unset($_SESSION['cart']);
         }
-
+        //controlliamo se l'utente è loggato
         $this->isLogged();
+
+        $id = (int)($_SESSION['user_id'] ?? 0);
+        $myInsertions = $this->model->SelectInsertionOfUser($id);
+
 
         $id = $_GET['id'] ?? 0;
         $insertion = $this->model->getOne($id);
@@ -37,12 +43,18 @@ class ViewlistingController{
     }
 
 
-    //quando si clicca contatta il venditore
+    /**
+     * Metodo che si esegue una volta che l'utente clicca il pulsante 'Contatta il venditore'
+     * @return void
+     */
     public function buy(){
+        //prendiamo l'id dell'inserzione
         if(isset($_GET['id'])){
             $id = (int)($_GET['id'] ?? 0);
         }
 
+
+        //se non è già settato, inizializzaimo il cart
         if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = [];
             $_SESSION['cart'][] = $id;
@@ -55,17 +67,20 @@ class ViewlistingController{
         }
 
         //luoghi per il select
-        $places             = $this->model->getPlaces();
+        $places = $this->model->getPlaces();
 
         //prende le altre iserzioni dell'utente utilizzando il campo 'selling_user' dell'inserzione
-        $other_insertions   = $this->model->insertionsByUser([$insertions[0]['selling_user']]);
+        $other_insertions = $this->model->insertionsByUser([$insertions[0]['selling_user']]);
 
         $view = 'views/viewlisting/Viewlisting_buy.php';
         include 'views/viewlisting/Viewlisting_template.php';
 
     }
 
-    //quando si clicca aggiungi al carrello
+    /**
+     * Metodo per il pulsante 'aggiungi al carello'
+     * @return never
+     */
     public function add_to_cart(){
         $_SESSION['cart'][] = (int)($_GET['id'] ?? 0);
 
@@ -73,33 +88,37 @@ class ViewlistingController{
         exit;
     }
 
-    //quando si clicca ordina
+    /**
+     * Metodo per il pulsante, 'imposta l'appuntamneto'
+     * @return never
+     */
     public function sold_insertion(){
             $ids          = $_SESSION['cart'];
             $place_id     = (int)($_POST['place_id'] ?? 0);
-            $sell_time    = $_POST['sell_time'] ?? null;
-            $exchange_day = $_POST['date'] ?? null;
+            $sell_time    = $_POST['sell_time'] ?? null; //orario alla quale lo scambi avviene
+            $exchange_day = $_POST['date'] ?? null; //giorno dello scambio
             $buyingUser   = $_SESSION['user_id'] ?? 0;
 
             $_SESSION['errori'] = [];
 
-            // Controllo ids
-            if (empty($ids) || !is_array($ids)) {
+            //Controllo ids
+            if (empty($ids)) {
                 $_SESSION['errori'][] = 'Nessun inserzione selezionata.';
             }
 
-            // Validazione place_id
+            //Validazione place_id
             if (empty($place_id)) {
                 $_SESSION['errori'][] = 'Seleziona un luogo valido';
             }
 
-            // Validazione sell_time
+            //Validazione sell_time
             $orari_validi = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00'];
-            if (empty($sell_time) || !in_array($sell_time, $orari_validi)) {
+
+            if (empty($sell_time) || !in_array($sell_time, $orari_validi, true)) {
                 $_SESSION['errori'][] = 'Seleziona un orario valido';
             }
 
-            // Validazione exchange_day
+            //Validazione exchange_day
             if (empty($exchange_day)) {
                 $_SESSION['errori'][] = 'Seleziona una data.';
             } else {
@@ -149,7 +168,6 @@ class ViewlistingController{
             $exchange_day = $exchange_day . ' ' . $sell_time . ':00';
 
             foreach($ids as $id){
-                
                 $param = [$exchange_day, $buyingUser, $place_id, $id]; 
                 $this->model->setExchange($param);
             }
@@ -158,7 +176,10 @@ class ViewlistingController{
             exit;
     }
 
-
+    /**
+     * Metodo per quando si vuole rimuovere qualcosa dal carello
+     * @return never
+     */
     public function remove_from_cart() {
         //Recupera l'ID dell'inserzione da rimuovere (es: index.php?action=remove_from_cart&id=12)
         $id_to_remove = $_GET['id_to_remove'] ?? null;
@@ -176,7 +197,7 @@ class ViewlistingController{
             }
         }
 
-        // 5. Ritorna alla pagina del carrello
+        //Visualizza di nuovo il carello
         header("Location: index.php?page=Viewlisting&action=buy");
         exit;
     }

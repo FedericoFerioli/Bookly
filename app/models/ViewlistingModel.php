@@ -9,6 +9,14 @@ class ViewlistingModel{
         $this->pdo = DB::connect();
     }
 
+    public function SelectInsertionOfUser($id): array{
+        $dql ="SELECT insertion_id FROM insertions
+        WHERE insertions.selling_user = ?"; 
+        $stm=$this->pdo->prepare($dql); 
+        $stm->execute([$id]);
+        return $stm->fetchAll(PDO::FETCH_COLUMN);
+    }
+
     
     public function getOne($id) {
         $dql = "SELECT insertions.*, books.title, books.authors, books.publisher, users.name AS `name`, users.surname AS `surname`, subjects.name AS subject_name
@@ -25,7 +33,6 @@ class ViewlistingModel{
     
         return $stm->fetch(PDO::FETCH_ASSOC);
     }
-
 
     public function getImagesById($id): array{
         $sql = "SELECT image_path FROM insertion_images

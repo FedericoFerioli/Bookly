@@ -50,28 +50,37 @@ class PersonalareaModel{
             LEFT JOIN books USING(book_id) 
             LEFT JOIN users ON insertions.selling_user = users.user_id
             LEFT JOIN subjects USING(subject_id)
-            WHERE selling_user= ? AND insertions.insertion_state = 'selling'";
+            WHERE selling_user= ? AND insertions.insertion_state = 'selling'
+            ORDER BY post_date ASC";
         $stm=$this->pdo->prepare($dql);
         $stm->execute($param);
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getImagesById($id): array{
+        $sql = "SELECT image_path FROM insertion_images
+            WHERE insertion_id = ?";
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute([$id]);
+        return $stm->fetchAll(PDO::FETCH_COLUMN);
+    }
+
     //funzione per modificare un'inserzione
     public function modifyInsertion(array $param){ //$param = [$book_id, $my_price, $condition, $description, $insertion]
         $dql="UPDATE insertions
-                SET 
-                    book_id=?,
-                    price=?,
-                    exchange_day=exchange_day,
-                    book_condition=?,
-                    `description`=?,
-                    sell_time=sell_time,
-                    insertion_state=insertion_state,
-                    post_date=post_date,
-                    selling_user=selling_user,
-                    buying_user=buying_user,
-                    place_id=place_id
-                WHERE insertion_id=?"; //Query che modifica i valori tenendo i valori settati dove non si può modificare
+            SET 
+            book_id=?,
+            price=?,
+            exchange_day=exchange_day,
+            book_condition=?,
+            `description`=?,
+            sell_time=sell_time,
+            insertion_state=insertion_state,
+            post_date=post_date,
+            selling_user=selling_user,
+            buying_user=buying_user,
+            place_id=place_id
+            WHERE insertion_id=?"; //Query che modifica i valori tenendo i valori settati dove non si può modificare
         $stm=$this->pdo->prepare($dql);
         return $stm->execute($param); //esecuzione della Query
 
@@ -92,12 +101,13 @@ class PersonalareaModel{
         WHERE user_id = ?";
         $stm=$this->pdo->prepare($dql);
         $stm->execute($param);
-        return $stm->fetchAll(PDO::FETCH_ASSOC);
+        return $stm->fetch(PDO::FETCH_ASSOC);
     }
 
     public function SelectInsertionOfUser(array $param=[]): array{
-        $dql ="SELECT * FROM insertions
+        $dql ="SELECT *, subjects.name as `subjetc` FROM insertions
         join books USING(book_id)
+        join subjects USING(subject_id)
         WHERE insertions.selling_user = ?"; //riporta il contenuto della tabella insertions
         $stm=$this->pdo->prepare($dql); //prepara la query ricevuta da $dql
         $stm->execute($param); //esegue la query usando $param come contenitore per il risultato
@@ -172,5 +182,24 @@ class PersonalareaModel{
         $dql = "INSERT INTO insertion_images(image_path, insertion_id) VALUES (?, ?)";
         $stm = $this->pdo->prepare($dql);
         return $stm->execute([$path, $insertion_id]);
+    }
+
+    public function updateUserInfo(int $id, string $name, string $surname, string $email, string $dob, string $gender, string $hashedPassword = '') {
+        if ($hashedPassword != '') {
+            $sql = "UPDATE users
+                SET name = ?, surname = ?, email = ?, dob = ?, gender = ?, password = ?
+                WHERE user_id = ?";
+            $params = [$name, $surname, $email, $dob, $gender, $hashedPassword, $id];
+        }else
+        {
+            $sql = "UPDATE users
+                SET name = ?, surname = ?, email = ?, dob = ?, gender = ?
+                WHERE user_id = ?";
+            $params = [$name, $surname, $email, $dob, $gender, $id];
+        }
+
+        $stm = $this->pdo->prepare($sql);
+        $stm->execute($params);
+        return $stm->rowCount() !== 0;
     }
 }

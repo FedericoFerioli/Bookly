@@ -21,7 +21,7 @@
 
 
     <!-- libri che si stanno vendendo -->
-    <h4 class="fw-bold mb-3">Libri che sto vendendo</h4>
+    <h4 class="fw-bold mb-3">Libri che devo vendere</h4>
 
     <?php if(empty($to_sell)): ?>
         <p class="text-muted">Nessuna vendita in corso.</p>
@@ -38,8 +38,11 @@
                             <p class="fw-bold text-success mt-2"><?= number_format($ins['price'], 2, ',', '.') ?> €</p>
                             <p class="text-muted small mb-1">
                                 Stai vendendo a : <?= htmlspecialchars($ins['name'] . ' ' . $ins['surname']) ?>
-                                Email: <?= htmlspecialchars($ins['email']) ?>
                             </p>
+                            <p class="text-muted small mb-1">
+                            Email: <?= htmlspecialchars($ins['email']) ?>
+                            </p>
+
                             <p class="text-muted small mb-1">
                                 Luogo: <?= htmlspecialchars($ins['place']) ?><br>
                                 Giorno: <?= (new DateTime($ins['exchange_day']))->format('d/m/Y') ?><br>
@@ -78,7 +81,9 @@
                             <p class="text-muted small mb-1">di <?= htmlspecialchars($ins['publisher'] ?? 'N.D.') ?></p>
                             <p class="text-muted small mb-1">Materia: <?= htmlspecialchars($ins['subject_name'] ?? 'N.D.') ?></p>
                             <p class="text-muted small mb-1">
-                                Venditore: <?= htmlspecialchars($ins['name'] . ' ' . $ins['surname']) ?>
+                                Stai acquistando da a : <?= htmlspecialchars($ins['name'] . ' ' . $ins['surname']) ?>
+                            </p>
+                            <p class="text-muted small mb-1">
                                 Email: <?= htmlspecialchars($ins['email']) ?>
                             </p>
                             <p class="text-muted small mb-1">

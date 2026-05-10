@@ -19,7 +19,7 @@
     <nav class="navbar navbar-expand-lg navbar-white bg-white shadow-sm sticky-top">
         <div class="container">
             <a class="navbar-brand d-flex align-items-center" href="index.php">
-                <img src="/public/images/concept_logo_Bookly_1.png" alt="Logo" class="me-2">
+                <img src="../public/images/concept_logo_Bookly_only_logo.png" alt="Logo" class="me-2">
                 <span class="fw-bold fs-3 text-primary">Bookly</span>
             </a>
             
@@ -32,7 +32,7 @@
                     <li class="nav-item"><a class="nav-link" href="index.php?page=main">HOME</a></li>
                     <li class="nav-item"><a class="nav-link text-primary" href="index.php?page=listings&action=all">BACHECA</a></li>
                     <li class="nav-item ms-lg-3">
-                        <a class="btn btn-primary rounded-pill px-4" href="index.php?page=Personalarea&action=new_insertion">
+                        <a class="btn btn-primary rounded-pill px-4" href="index.php?page=personalArea&action=new_insertion">
                             + PUBBLICA
                         </a>
                     </li>

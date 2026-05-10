@@ -65,7 +65,7 @@
                 <div class="card h-100 shadow-sm border-0">
                     <div class="card-header bg-light border-0 pt-3">
                         <span class="badge rounded-pill bg-info text-dark">
-                            <?= htmlspecialchars($ins['name'] ?? 'Materia N.D.') ?>
+                            <?= htmlspecialchars($ins['subject_name'] ?? 'Materia N.D.') ?>
                         </span>
                     </div>
 
