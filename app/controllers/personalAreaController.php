@@ -55,7 +55,6 @@ class PersonalAreaController{
         exit;
     }
 
-
     //metodo per visualizzare la dashboard
     public function dashboard(){
         $this->isLogged();
@@ -76,7 +75,6 @@ class PersonalAreaController{
         $view = 'views/Personalarea/Perosonalarea_dashboard.php';
         include 'views/Personalarea/personalArea_template.php';
     }
-
 
     //metodo per vederi i propri ordini: sia che si stanno vendendo, sia che si stanno comprando
     public function my_orders(){
@@ -282,49 +280,50 @@ class PersonalAreaController{
     }
 
 
-public function change_user_info() {
-    $id      = (int)($_SESSION['user_id'] ?? 0);
-    $name    = trim($_POST['name']    ?? '');
-    $surname = trim($_POST['surname'] ?? '');
-    $email   = trim($_POST['email']   ?? '');
-    $dob     = $_POST['dob']          ?? '';
-    $gender  = $_POST['gender']       ?? 'O';
-    $password = $_POST['password']    ?? '';
+    public function change_user_info() {
+        $id      = (int)($_SESSION['user_id'] ?? 0);
+        $name    = trim($_POST['name']    ?? '');
+        $surname = trim($_POST['surname'] ?? '');
+        $email   = trim($_POST['email']   ?? '');
+        $dob     = $_POST['dob']          ?? '';
+        $gender  = $_POST['gender']       ?? 'O';
+        $password = $_POST['password']    ?? '';
 
-    // Validazione base
-    if (!$name || !$surname || !$email || !$dob) {
-        $_SESSION['error'] = 'Compila tutti i campi obbligatori.';
-        header('Location: index.php?page=personalArea&action=modify_user_info');
-        exit;
-    }
-
-    if (!preg_match('/.+@isit100\.fe\.it$/i', $email)) {
-        $_SESSION['error'] = 'Email non valida.';
-        header('Location: index.php?page=personalArea&action=modify_user_info');
-        exit;
-    }
-
-    // Password: aggiorna solo se l'utente ha scritto qualcosa
-    $hashedPassword = null;
-    if ($password !== '') {
-        if (strlen($password) < 8) {
-            $_SESSION['error'] = 'La password deve essere di almeno 8 caratteri.';
+        // Validazione base
+        if (!$name || !$surname || !$email || !$dob) {
+            $_SESSION['error'] = 'Compila tutti i campi obbligatori.';
             header('Location: index.php?page=personalArea&action=modify_user_info');
             exit;
         }
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-    }
 
-    $result = $this->model->updateUserInfo($id, $name, $surname, $email, $dob, $gender, $hashedPassword);
+        if (!preg_match('/.+@isit100\.fe\.it$/i', $email)) {
+            $_SESSION['error'] = 'Email non valida.';
+            header('Location: index.php?page=personalArea&action=modify_user_info');
+            exit;
+        }
 
-    if ($result) {
-        $_SESSION['success'] = 'Informazioni aggiornate con successo.';
-    } else {
-        $_SESSION['error'] = 'Errore durante l\'aggiornamento.';
-    }
+        if ($password !== '') {
+            if (strlen($password) < 8) {
+                $_SESSION['error'] = 'La password deve essere di almeno 8 caratteri.';
+                header('Location: index.php?page=personalArea&action=modify_user_info');
+                exit;
+            }
 
-    header('Location: index.php?page=personalArea&action=modify_user_info');
-    exit;
+            $hashedPassword = hash("sha256", $password);
+
+            $result = $this->model->updateUserInfo($id, $name, $surname, $email, $dob, $gender, $hashedPassword);
+        }else{
+            $result = $this->model->updateUserInfo($id, $name, $surname, $email, $dob, $gender);
+        }
+
+        if ($result) {
+            $_SESSION['msg_user_success'] = 'Le tue informazioni sono state modificate con successo.';
+        } else {
+            $_SESSION['msg_user_error'] = 'Errore durante l\'aggiornamento.';
+        }
+
+        header('Location: index.php?page=personalArea&action=dashboard');
+        exit;
     }
 
 }

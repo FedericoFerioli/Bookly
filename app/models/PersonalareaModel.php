@@ -173,7 +173,6 @@ class PersonalareaModel{
         return $stm->rowCount() !== 0;
     }
 
-
     public function getLastInsertionId($user_id){
         return (int)$this->pdo->lastInsertId(); // restituisce l'id dell'insert appena fatto (funzione pdo built-in)
     }

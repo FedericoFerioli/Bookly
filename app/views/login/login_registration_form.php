@@ -170,7 +170,7 @@ if(!defined('APP')) die('Accesso negato');
 
                     <div class="text-center mt-4">
                         <span class="small text-muted">Hai già un account? </span>
-                        <a href="index.php?page=login" class="small fw-bold text-decoration-none text-accent">Accedi ora</a>
+                        <a href="index.php?page=Login&action=login" class="small fw-bold text-decoration-none text-accent">Accedi ora</a>
                     </div>
 
                 </div>

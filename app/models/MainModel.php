@@ -16,6 +16,7 @@ class mainModel{
             JOIN books USING(book_id) 
             JOIN users ON insertions.selling_user = users.user_id
             JOIN subjects USING(subject_id)
+            WHERE insertion_state = 'selling'
             ORDER BY insertion_id DESC LIMIT 3"; //query che prende le ultime 3 inserzioni aggiunte
 
         $stm=$this->pdo->prepare($dql); //prepara la query ricevuta da $dql

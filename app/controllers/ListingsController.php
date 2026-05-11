@@ -25,9 +25,15 @@ class listingsController{
          * $insertion prende le inserzioni dalla sessione, se sono stati applicati dei filtri attraverso il form
          * oppure dal model con la funzione select all che prende tutti le inserzioni
          */
-
-
         $insertions = $_SESSION['filtered_insertions'] ?? $this->model->SelectAll();
+
+        foreach ($insertions as &$insertion) {
+            $insertion['images'] = $this->model->getImagesById($insertion['insertion_id']);
+        }   
+
+        unset($insertion);
+
+
         $courses = $this->model->selectCourses();
         $publishers = $this->model->getPublishers();
         $subjects = $this->model->getSubjects();

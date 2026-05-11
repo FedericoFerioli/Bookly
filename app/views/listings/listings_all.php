@@ -5,8 +5,6 @@ if(!defined('APP')) die('Accesso negato');
 
 <a href="index.php?page=listings&action=reset_filters">Rimuovi filtri</a>
 
-
-
 <form method="post"  action="index.php?page=listings&action=filter_insertion">
 <!-- selezione anno: prima seconda ecc -->
 <div style="margin-top: 15px;">
@@ -181,7 +179,22 @@ if(!defined('APP')) die('Accesso negato');
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         <?php foreach($insertions as $insertion): ?>
             <div class="col">
-                <div class="card h-100 shadow-sm border-0">
+            <div class="card-img-wrapper">
+                <span class="subject-tag"><?= htmlspecialchars($insertion['subject'] ?? 'Materia') ?></span>
+
+                <?php if (!empty($insertion['images']) && isset($insertion['images'][0])): ?>
+                    <img src="/ferioli/public/images/insertions/<?= htmlspecialchars(basename($insertion['images'][0])) ?>" alt="Copertina">
+                    <?php if (count($insertion['images']) > 1): ?>
+                        <span class="photo-counter"><?= count($insertion['images']) ?> foto</span>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <div class="no-image-placeholder">
+                        <span>📚</span>
+                        <p>Senza immagine</p>
+                    </div>
+                <?php endif; ?>
+            </div>                
+            <div class="card h-100 shadow-sm border-0">
                     <div class="card-header bg-light border-0 pt-3">
                         <span class="badge rounded-pill bg-info text-dark">
                             <?= htmlspecialchars($insertion['name'] ?? 'Materia N.D.') ?>

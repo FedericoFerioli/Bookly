@@ -44,25 +44,19 @@ class loginController{
 
 
 
-        //controllo dei dati inseriti nel form
-        //email fornita dall'utnete
-        //Controllo formato email generico di php
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors[] = "Formato email non valido";
         }
 
-        //Controllo dominio specifico @isit100.fe.it
         $requiredDomain = "@isit100.fe.it";
         if (!str_ends_with($email, $requiredDomain)) {
             $errors[] = "Devi utilizzare l'email istituzionale della scuola (@isit100.fe.it)";
         }
 
-        // 3. Controllo corrispondenza password
         if ($confirm_password !== $password) {
             $errors[] = "Le password non corrispondono";
         }
 
-        // 4. (Opzionale ma consigliato) Controllo lunghezza minima password
         if (strlen($password) < 8) {
             $errors[] = "La password deve contenere almeno 8 caratteri";
         }
@@ -70,9 +64,9 @@ class loginController{
         $password = hash("sha256", $password);
  
         if(empty($errors)){
-        //richiesta al model 
-        $param = [$name, $surname, $gender, $email, $dob ,$password];
-        $this->model->insertRecord($param);
+
+            $param = [$name, $surname, $gender, $email, $dob ,$password];
+            $this->model->insertRecord($param);
         }else{
             header('location:index.php?page=login&action=login&msg=error');
             exit;
