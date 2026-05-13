@@ -35,6 +35,7 @@ class PersonalareaModel{
             return $stm->execute($param);
     }
 
+    /*
     public function selectCourses(array $param = []){
         $dql = "SELECT course_id, name FROM courses";
 
@@ -42,8 +43,9 @@ class PersonalareaModel{
         $stm->execute($param);
         return $stm->fetchAll(PDO::FETCH_ASSOC);
     }
+    */
     
-    //qua serve una funzione che estragga tutte le inserzioni di un utente
+    /*
     public function insertionsByUser(array $param){
         $dql="SELECT insertions.*, books.title, books.authors, books.publisher, users.name AS `name`, users.surname AS `surname`, subjects.name AS subject_name
             FROM insertions 
@@ -55,7 +57,17 @@ class PersonalareaModel{
         $stm=$this->pdo->prepare($dql);
         $stm->execute($param);
         return $stm->fetchAll(PDO::FETCH_ASSOC);
-    }
+    }*/
+
+    public function SelectInsertionOfUser(array $param=[]): array{
+        $dql ="SELECT *, subjects.name as `subjetc` FROM insertions
+        join books USING(book_id)
+        join subjects USING(subject_id)
+        WHERE insertions.selling_user = ? AND insertions.insertion_state= 'selling'"; //riporta il contenuto della tabella insertions
+        $stm=$this->pdo->prepare($dql); //prepara la query ricevuta da $dql
+        $stm->execute($param); //esegue la query usando $param come contenitore per il risultato
+        return $stm->fetchAll(PDO::FETCH_ASSOC); //il risultato viene trasformato in array associativo
+    }    
 
     public function getImagesById($id): array{
         $sql = "SELECT image_path FROM insertion_images
@@ -95,6 +107,7 @@ class PersonalareaModel{
         return $stm->rowCount()!==0;
     }
 
+    //info dell'utente
     public function getUserInfo(array $param){ //$param=[user_id]
         $dql="SELECT * FROM users
         WHERE user_id = ?";
@@ -103,16 +116,8 @@ class PersonalareaModel{
         return $stm->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function SelectInsertionOfUser(array $param=[]): array{
-        $dql ="SELECT *, subjects.name as `subjetc` FROM insertions
-        join books USING(book_id)
-        join subjects USING(subject_id)
-        WHERE insertions.selling_user = ? AND insertions.insertion_state= 'selling'"; //riporta il contenuto della tabella insertions
-        $stm=$this->pdo->prepare($dql); //prepara la query ricevuta da $dql
-        $stm->execute($param); //esegue la query usando $param come contenitore per il risultato
-        return $stm->fetchAll(PDO::FETCH_ASSOC); //il risultato viene trasformato in array associativo
-    }
 
+    //GetOne prende i dati di una inserzione, serve per la modifca
     public function getOne($id) {
         $dql = "SELECT insertions.*, books.title, books.authors, books.publisher, books.isbn, books.cover_price, users.name, users.surname, subjects.name as subject_name
             FROM insertions 
@@ -128,7 +133,10 @@ class PersonalareaModel{
         return $stm->fetch(PDO::FETCH_ASSOC);
     }
 
-    public function getInsertionToSell($user_id){
+    /**
+     * Inserzioni che l'utente sta comprando
+     */
+    public function getInsertionToBuy($user_id){
         $dql="SELECT insertions.*, books.title, books.authors, books.publisher, users.name AS `name`, users.surname AS `surname`, subjects.name AS subject_name, users.email as `email`, places.name as `place`
             FROM insertions 
             LEFT JOIN books USING(book_id) 
@@ -141,7 +149,11 @@ class PersonalareaModel{
         return $stm->fetchAll(PDO::FETCH_ASSOC);        
     }
 
-    public function getInsertionToBuy($user_id){
+
+    /**
+     * Inserzioni che l'utente sta vendendo 
+     */
+    public function getInsertionToSell($user_id){
         $dql="SELECT insertions.*, books.title, books.authors, books.publisher, users.name AS `name`, users.surname AS `surname`, subjects.name AS subject_name, users.email as `email`, places.name as `place`
             FROM insertions 
             LEFT JOIN books USING(book_id) 

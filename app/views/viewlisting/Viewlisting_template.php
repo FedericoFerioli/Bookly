@@ -124,7 +124,7 @@ if(!defined('APP')) die('Accesso negato');
             padding: 0 1.5rem;
         }
 
-/* FOOTER */
+
         .main-footer {
             background-color: #ffffff;
             border-top: 1px solid #e0e0e0;

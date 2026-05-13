@@ -236,13 +236,13 @@
 
             <h4 class="fw-bold">Libri che devo vendere</h4>
 
-            <?php if(empty($to_sell)): ?>
+            <?php if(empty($to_buy)): ?>
 
                 <p class="empty-text">Nessuna vendita in corso.</p>
 
             <?php else: ?>
 
-                <?php foreach($to_sell as $ins): ?>
+                <?php foreach($to_buy as $ins): ?>
 
                     <div class="custom-card">
 
@@ -330,13 +330,13 @@
 
             <h4 class="fw-bold">Libri che sto comprando</h4>
 
-            <?php if(empty($to_buy)): ?>
+            <?php if(empty($to_sell)): ?>
 
                 <p class="empty-text">Nessun acquisto in corso.</p>
 
             <?php else: ?>
 
-                <?php foreach($to_buy as $ins): ?>
+                <?php foreach($to_sell as $ins): ?>
 
                     <div class="custom-card">
 

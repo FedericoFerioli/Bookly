@@ -127,12 +127,22 @@ class ViewlistingController{
                 if (!$data) {
                     $_SESSION['errori'][] = 'Formato data non valido.';
                 } else {
+                    //controllo sulle date passate
+                    $oggi = new DateTime();
+                    $oggi->setTime(0, 0);
+
+                    if ($data <= $oggi) {
+                        $_SESSION['errori'][] = 'Non puoi selezionare una data passata.';
+                    }
+
                     $giorno = (int)$data->format('N');
 
+                    //controllo sulla domenica
                     if ($giorno == 7) {
                         $_SESSION['errori'][] = 'La domenica non è disponibile.';
                     }
 
+                    //controllo date estive
                     $anno          = (int)$data->format('Y');
                     $inizio_estate = new DateTime("$anno-06-06");
                     $fine_estate   = new DateTime("$anno-09-15");
@@ -140,6 +150,7 @@ class ViewlistingController{
                         $_SESSION['errori'][] = 'Le date delle vacanze estive non sono disponibili.';
                     }
 
+                    //feste varie
                     $festivi = [
                         "$anno-01-01", "$anno-01-06", "$anno-04-25",
                         "$anno-05-01", "$anno-06-02", "$anno-08-15",
@@ -149,6 +160,7 @@ class ViewlistingController{
                         $_SESSION['errori'][] = 'La data selezionata è un giorno festivo.';
                     }
 
+                    //vacanze di natale
                     $inizio_natale = new DateTime("$anno-12-21");
                     $anno += 1;
                     $fine_natale   = new DateTime("$anno-01-06");

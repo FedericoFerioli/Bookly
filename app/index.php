@@ -21,8 +21,6 @@ if ($page === 'personalArea' || $page === 'personalarea') {
     $filename = ucfirst($page) . 'Controller';
 }
 
-echo $filename;
-
 /** */
 if (!file_exists("controllers/{$filename}.php")) {
     require_once "controllers/ErrorController.php";
@@ -48,9 +46,7 @@ if (!method_exists($controller, $action)) {
  * Esegue il metodo dell'action nel controller istanziato
  */
 $controller->$action();
-/*
+
 echo "<pre>Contenuto Sessione: ";
 print_r($_SESSION);
 echo "</pre>";
-
-*/

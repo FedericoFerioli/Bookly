@@ -1,6 +1,6 @@
 # Bookly
 
-Bookly è un'applicazione web per l'acquisto di libri online, sviluppata come progetto scolastico. Permette agli utenti di sfogliare il catalogo, cercare libri e completare acquisti in modo semplice e intuitivo.
+Bookly è un'applicazione web per l'acquisto di libri online, sviluppata come progetto scolastico. Permette agli utenti di sfogliare il catalogo, cercare libri e completare acquisti in modo semplice.
 
 ---
 
@@ -9,7 +9,7 @@ Bookly è un'applicazione web per l'acquisto di libri online, sviluppata come pr
 - **PHP** 
 - **MariaDB** — database relazionale
 - **HTML / CSS / JavaScript** — frontend
-- **Apache / Nginx** — server web
+- **Apache** — web server
 
 ---
 
@@ -25,7 +25,7 @@ Bookly è un'applicazione web per l'acquisto di libri online, sviluppata come pr
 
 1. **Clona il repository**
    ```bash
-   git clone https://github.com/tuousername/bookly.git
+   git clone https://github.com/FedericoFerioli/bookly.git
    cd bookly
    ```
 
@@ -76,12 +76,12 @@ bookly/
 
 ## Funzionalità
 
-- Visualizzazione catalogo libri
-- Ricerca per titolo, autore o categoria
+- Visualizzazione inserzione degli utenti
+- Filtraggio per diversi campi
 - Scheda dettaglio libro
-- Carrello e acquisto
+- Carrello e appuntamento
 - Registrazione e login utenti
-- Pannello di amministrazione
+- Area personale
 
 ---
 
