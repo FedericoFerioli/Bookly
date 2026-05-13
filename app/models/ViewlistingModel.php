@@ -4,11 +4,14 @@ defined('APP') or die('Acceso negato');
 <?php 
 require_once __DIR__ . '/../../config/dbconnect.php';
 class ViewlistingModel{
+
     private $pdo;
+
     public function __construct(){
         $this->pdo = DB::connect();
     }
 
+    
     public function SelectInsertionOfUser($id): array{
         $dql ="SELECT insertion_id FROM insertions
         WHERE insertions.selling_user = ?"; 

@@ -12,52 +12,45 @@ session_start();
  */
 define('APP',true);
 
+$page = $_GET['page'] ?? 'main';
+$action = $_GET['action'] ?? 'index';
+
+if ($page === 'personalArea' || $page === 'personalarea') {
+    $filename = 'PersonalAreaController';
+} else {
+    $filename = ucfirst($page) . 'Controller';
+}
+
+echo $filename;
+
+/** */
+if (!file_exists("controllers/{$filename}.php")) {
+    require_once "controllers/ErrorController.php";
+    $controller = new ErrorController();
+    $controller->notFound();
+    exit;
+}
+
+
+require_once "controllers/{$filename}.php";
+$controller = new $filename();
 /**
- * Controlliamo il login, se è stato eseguito o meno
+ * Se l'azione non esiste mandiamo l'utente alla pagina 404
  */
-// if(isset($_SESSION['user_id']) == false){
-//     /**
-//      * @var string pagine di cui utilizzare controller e model, se non c'è ne nessuna indicata si utilizza login
-//      */
-//     $page =  $_GET['page'] ?? 'login';
-//     /**
-//      * @var string se l'azione non è specificata si utilizza action
-//      */
-//     $action = $_GET['action'] ?? 'login';
-//     /**
-//      * utilizzaimo il controller, e chiamiamo l'azione
-//      */
-//     $filename = ucfirst($page).'Controller';
-//     require_once "controllers/{$filename}.php";
-//     $controller = new $filename();
-//     $controller->$action();
+if (!method_exists($controller, $action)) {
+    require_once "controllers/ErrorController.php";
+    $error = new ErrorController();
+    $error->notFound();
+    exit;
+}
 
-// }else{
-    $page = $_GET['page'] ?? 'main';
-    $action = $_GET['action'] ?? 'index';
+/**
+ * Esegue il metodo dell'action nel controller istanziato
+ */
+$controller->$action();
+/*
+echo "<pre>Contenuto Sessione: ";
+print_r($_SESSION);
+echo "</pre>";
 
-    if ($page === 'personalArea' || $page === 'personalarea') {
-        $filename = 'PersonalAreaController';
-    } else {
-        $filename = ucfirst($page) . 'Controller';
-    }
-
-    echo $filename;
-
-
-    require_once "controllers/{$filename}.php";
-    $controller = new $filename();
-    /**
-     * Se l'azione non esiste mandiamo l'utente alla pagine princiapale
-     */
-    if (!method_exists($controller, $action)) {
-        $action = 'index';
-    }
-
-    $controller->$action();
-
-    echo "<pre>Contenuto Sessione: ";
-    print_r($_SESSION);
-    echo "</pre>";
-
-//}
+*/

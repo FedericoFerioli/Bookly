@@ -13,10 +13,9 @@ class listingsController{
 
     }
 
-        
     /**
      * all
-     * Funzione che ci permette di visualizzare le inserzioni
+     * Funzione che ci permette di visualizzare le inserzioni, solo quelle selling
      * Include il template e la view
      * @return void
      */
@@ -26,17 +25,20 @@ class listingsController{
          * oppure dal model con la funzione select all che prende tutti le inserzioni
          */
         $insertions = $_SESSION['filtered_insertions'] ?? $this->model->SelectAll();
-
+        
         foreach ($insertions as &$insertion) {
             $insertion['images'] = $this->model->getImagesById($insertion['insertion_id']);
         }   
 
         unset($insertion);
 
-
         $courses = $this->model->selectCourses();
         $publishers = $this->model->getPublishers();
         $subjects = $this->model->getSubjects();
+        /**
+         * @var maxPrice Prezzo massimo tra le inserzioni 
+         * @var minPrice Prezzo minimo tra le inserzioni
+         */
         $maxPrice = $this->model->getMaxPrice();
         $minPrice = $this->model->getMinPrice();
 
@@ -65,7 +67,7 @@ class listingsController{
             'conditions'   => $_POST['condition'] ?? [],
             'publisher' => $_POST['publisher'] ?? null,
         ];
-
+        
         $_SESSION['filtered_insertions'] = $this->model->filterAll($filters);
 
         header('Location: http://lab.isit100.fe.it:8092/ferioli/app/index.php?page=listings&action=all');

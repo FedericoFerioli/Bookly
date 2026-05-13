@@ -3,6 +3,50 @@ if(!defined('APP')) die('Accesso negato');
 ?>
 
 <style>
+    .alert {
+        padding: 1rem 1.25rem;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .alert-icon {
+        font-size: 1.1rem;
+    }
+
+    .alert-close {
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: inherit;
+        opacity: 0.6;
+        line-height: 1;
+        padding: 0;
+        flex-shrink: 0;
+    }
+
+    .alert-close:hover {
+        opacity: 1;
+    }
+
     /* Sfondo e font coerenti con la Home e i Dettagli */
     body {
         background-color: #f8f9fa;
@@ -100,8 +144,18 @@ if(!defined('APP')) die('Accesso negato');
             <div class="card custom-card">
                 <div class="card-body p-4 p-md-5">
                     
-                    <h2 class="text-center mb-4 form-heading">UNISCITI A BOOKLY</h2>
-                    <p class="text-center text-muted mb-4 small">Crea il tuo account istituzionale per iniziare a scambiare libri.</p>
+                    <h2 class="text-center mb-4 form-heading">Unisciti a Bookly</h2>
+
+                    <p class="text-center text-muted mb-4 small">Crea il tuo account per iniziare a scambiare libri.</p>
+                        <?php if(isset($_SESSION['errors'])): ?>
+                            <?php foreach($_SESSION['errors'] as $error): ?>
+                                <div class="alert alert-danger">
+                                    ⚠ <?= htmlspecialchars($error) ?>
+                                    <button onclick="this.parentElement.remove()">X</button>
+                                </div>
+                            <?php endforeach; ?>
+                            <?php unset($_SESSION['errors']); ?>
+                        <?php endif; ?>
                     
                     <form method="post" action="index.php?page=login&action=store">
                         
@@ -117,10 +171,9 @@ if(!defined('APP')) die('Accesso negato');
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label">Email Istituzionale</label>
+                            <label class="form-label">Email </label>
                             <input type="email" class="form-control" name="email" 
-                                   pattern=".+@isit100\.fe\.it$" 
-                                   placeholder="nome.cognome@isit100.fe.it" required>
+                                   placeholder="nome.cognome@dominio.com" required>
                         </div>
 
                         <div class="row g-3 mb-3">
@@ -128,14 +181,14 @@ if(!defined('APP')) die('Accesso negato');
                                 <label class="form-label">Password</label>
                                 <div class="input-group">
                                     <input type="password" class="form-control" name="password" id="passInput" required>
-                                    <span class="input-group-text" onclick="togglePass('passInput', this)">👀</span>
+                                    <span class="input-group-text" onclick="togglePass('passInput', this)">Mostra</span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Conferma Password</label>
                                 <div class="input-group">
                                     <input type="password" class="form-control" name="confirm_password" id="confirmInput" required>
-                                    <span class="input-group-text" onclick="togglePass('confirmInput', this)">👀</span>
+                                    <span class="input-group-text" onclick="togglePass('confirmInput', this)">Mostra</span>
                                 </div>
                             </div>
                         </div>
@@ -185,10 +238,10 @@ function togglePass(id, btn) {
     const input = document.getElementById(id);
     if (input.type === "password") {
         input.type = "text";
-        btn.innerHTML = "🙈";
+        btn.innerHTML = "Nascondi";
     } else {
         input.type = "password";
-        btn.innerHTML = "👀";
+        btn.innerHTML = "Mostra";
     }
 }
 </script>

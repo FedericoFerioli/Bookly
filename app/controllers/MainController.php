@@ -12,8 +12,11 @@ class MainController{
         $this->page = 'main';
     }
 
+    /**
+     * Metodo index per la pagina principale
+     */
     public function index(){
-        $threeListings = $this->model->select3last();
+        $threeListings = $this->model->select3last(); // Vengono selezionate le ultime 3 inserzioni caricate
         for($i = 0; $i < 3; $i++){
             $threeListings[$i]['images'] = $this->model->getImagesById($threeListings[$i]['insertion_id']);
         }

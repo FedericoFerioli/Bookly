@@ -9,7 +9,9 @@ class mainModel{
         $this->pdo = DB::connect();
     }
 
-    //Funzione che estragga le ultime 3 inserzioni inserite dagli utenti
+    /**
+     * Funzione che estrae le ultime 3 inserzioni inserite dagli utenti
+     */
     public function select3Last(array $param=[]) : array{
                 $dql = "SELECT insertions.*, books.title, books.authors, books.publisher, users.name, users.surname, subjects.name as subject_name
             FROM insertions 
@@ -19,8 +21,8 @@ class mainModel{
             WHERE insertion_state = 'selling'
             ORDER BY insertion_id DESC LIMIT 3"; //query che prende le ultime 3 inserzioni aggiunte
 
-        $stm=$this->pdo->prepare($dql); //prepara la query ricevuta da $dql
-        $stm->execute($param); //esegue la query e usa $param come contenitore per il risultato
+        $stm=$this->pdo->prepare($dql);
+        $stm->execute($param);
 
         return $stm->fetchAll(PDO::FETCH_ASSOC); //il risultato viene trasformato in array associativo
     }

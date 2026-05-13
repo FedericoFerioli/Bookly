@@ -321,11 +321,11 @@ if(!defined('APP')) die('Accesso negato');
                 <ul class="nav-list">
                     <li><a href="index.php?page=main&action=index">HOME</a></li>
                     <li><a href="index.php?page=listings&action=all">BACHECA</a></li>
-                    <li><a href="index.php?page=personalArea&action=new_insertion">PUBBLICA</a></li>
+                    <li><a href="index.php?page=PersonalArea&action=new_insertion">PUBBLICA</a></li>
                 </ul>
                 <ul class="nav-list">
                     <?php if (isset($_SESSION['logged']) && $_SESSION['logged'] == true): ?>
-                        <li><a href="index.php?page=personalArea&action=dashboard">AREA PERSONALE</a></li>
+                        <li><a href="index.php?page=PersonalArea&action=dashboard">AREA PERSONALE</a></li>
                     <?php else: ?>
                         <li><a href="index.php?page=Login&action=login">LOGIN</a></li>
                         <li><a href="index.php?page=Login&action=registration">REGISTRATI</a></li>

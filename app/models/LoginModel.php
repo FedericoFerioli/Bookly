@@ -6,13 +6,16 @@ class loginModel
 {
   private $pdo;
 
-  // Metodo costruttore
   public function __construct()
   {
     $this->pdo = DB::connect();
   }
 
-    public function find(array $param){
+  /**
+   * find
+   * Metodo per il form del login
+   */
+  public function find(array $param){ //$param = [$email, $password];
     $dql = "SELECT user_id
             FROM users
             WHERE email = ? and password = ?
@@ -23,8 +26,11 @@ class loginModel
     return $stm->fetch(PDO::FETCH_ASSOC);
   }
 
-  // Metodo DML per inserire un record
-  public function insertRecord(array $param): bool {
+  /**
+   * insertRecord
+   * Per registrazione
+   */
+  public function insertRecord(array $param): bool { //$param = [$name, $surname, $gender, $email, $dob ,$password];
     $dml = "INSERT INTO users (`name`, `surname` ,`gender`, `email`, `dob`, `password`) VALUES (?, ?, ?, ?, ?, ?)";
     
     $stm = $this->pdo->prepare($dml);

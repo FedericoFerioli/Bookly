@@ -74,7 +74,6 @@ class PersonalareaModel{
             exchange_day=exchange_day,
             book_condition=?,
             `description`=?,
-            sell_time=sell_time,
             insertion_state=insertion_state,
             post_date=post_date,
             selling_user=selling_user,
@@ -108,7 +107,7 @@ class PersonalareaModel{
         $dql ="SELECT *, subjects.name as `subjetc` FROM insertions
         join books USING(book_id)
         join subjects USING(subject_id)
-        WHERE insertions.selling_user = ?"; //riporta il contenuto della tabella insertions
+        WHERE insertions.selling_user = ? AND insertions.insertion_state= 'selling'"; //riporta il contenuto della tabella insertions
         $stm=$this->pdo->prepare($dql); //prepara la query ricevuta da $dql
         $stm->execute($param); //esegue la query usando $param come contenitore per il risultato
         return $stm->fetchAll(PDO::FETCH_ASSOC); //il risultato viene trasformato in array associativo
@@ -136,7 +135,7 @@ class PersonalareaModel{
             LEFT JOIN users ON insertions.buying_user = users.user_id
             LEFT JOIN subjects USING(subject_id)
             LEFT JOIN places USING(place_id)
-            WHERE selling_user = ? AND insertions.insertion_state = 'reserved'";
+            WHERE selling_user = ? AND insertions.insertion_state LIKE 'reserved'";
         $stm=$this->pdo->prepare($dql);
         $stm->execute([$user_id]);
         return $stm->fetchAll(PDO::FETCH_ASSOC);        
@@ -149,7 +148,7 @@ class PersonalareaModel{
             LEFT JOIN users ON insertions.selling_user = users.user_id
             LEFT JOIN subjects USING(subject_id)
             LEFT JOIN places USING(place_id)
-            WHERE buying_user= ? AND insertions.insertion_state = 'reserved'";
+            WHERE buying_user= ? AND insertions.insertion_state LIKE 'reserved'";
         $stm=$this->pdo->prepare($dql);
         $stm->execute([$user_id]);
         return $stm->fetchAll(PDO::FETCH_ASSOC);        

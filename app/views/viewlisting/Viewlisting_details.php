@@ -219,7 +219,6 @@ if(!defined('APP')) die('Accesso negato');
                     <li><strong>Editore:</strong> <?= htmlspecialchars($insertion['publisher'] ?? 'N.D.') ?></li>
                     <li><strong>Materia:</strong> <?= htmlspecialchars($insertion['subject_name'] ?? 'Generale') ?></li>
                     <li><strong>Condizioni:</strong> <?= htmlspecialchars($insertion['book_condition']) ?></li>
-                    <li><strong>Codice:</strong> #<?= $insertion['insertion_id'] ?></li>
                 </ul>
             </div>
         </div>
@@ -238,19 +237,21 @@ if(!defined('APP')) die('Accesso negato');
                 </p>
             </div>
 
-            <?php if(in_array((int)$insertion['insertion_id'], $myInsertions)): ?>
+            <?php if($insertion['insertion_state'] == 'reserved'): ?>
+                <a >
+                    Questo libro sta venendo venduto
+                </a>
+            <?php elseif(in_array((int)$insertion['insertion_id'], $myInsertions)): ?>
                 <a href="index.php?page=personalArea&action=modify_insertion&id=<?= $insertion['insertion_id'] ?>" 
                    class="btn-edit">
                     Modifica Inserzione
                 </a>
-            <?php else: ?>
+            <?php elseif($insertion['insertion_state'] == 'selling'): ?>
                 <a href="index.php?page=Viewlisting&action=buy&id=<?= $insertion['insertion_id'] ?>"
                    class="btn-contact">
                     Contatta il venditore
                 </a>
-                <p class="small text-muted" style="margin-top: 15px;">
-                    <i class="bi bi-shield-check"></i> Acquisto sicuro tra studenti
-                </p>
+
             <?php endif; ?>
         </div>
     </aside>

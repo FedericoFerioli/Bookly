@@ -448,6 +448,20 @@ if(!defined('APP')) die('Accesso negato');
 
     <?php endif; ?>
 
+    <?php if(isset($_SESSION['success'])): ?>
+
+        <div class="alert alert-success">
+            ✓ <?= htmlspecialchars($_SESSION['success']) ?>
+
+            <button onclick="this.parentElement.remove()">X</button>
+        </div>
+
+        <?php unset($_SESSION['success']); ?>
+
+    <?php endif; ?>
+    
+    
+
 
     <?php if(isset($_SESSION['msg_modifica_unsuccess'])): ?>
         <div class="alert alert-danger">
@@ -459,6 +473,18 @@ if(!defined('APP')) die('Accesso negato');
 
     <?php endif; ?>
 
+    <?php if(isset($_SESSION['msg_user_success'])): ?>
+
+        <div class="alert alert-success">
+            ✓ <?= htmlspecialchars($_SESSION['msg_user_success']) ?>
+
+            <button onclick="this.parentElement.remove()">X</button>
+        </div>
+
+        <?php unset($_SESSION['msg_user_success']); ?>
+
+    <?php endif; ?>
+    
     <?php if(isset($_SESSION['msg_user_success'])): ?>
 
         <div class="alert alert-success">
@@ -482,6 +508,15 @@ if(!defined('APP')) die('Accesso negato');
 
     <?php endif; ?>
 
+    <?php if(isset($_SESSION['err'])): ?>
+        <div class="alert alert-danger">
+            ⚠ <?= htmlspecialchars($_SESSION['err']) ?>
+            <button onclick="this.parentElement.remove()">X</button>
+        </div>
+
+        <?php unset($_SESSION['err']); ?>
+    <?php endif; ?>
+
 <div class="user-info-card">
     <div class="user-info-card-header">
         <h4>Area Personale</h4>
@@ -495,7 +530,7 @@ if(!defined('APP')) die('Accesso negato');
     <div class="user-info-card-body">
         <div class="user-stats-grid">
             <div class="stat-box">
-                <label>Nome Utente</label>
+                <label>Nome e cognome</label>
                 <p class="stat-value"><?= htmlspecialchars(($userData['name'] ?? '') . ' ' . ($userData['surname'] ?? '')) ?></p>
             </div>
             <div class="stat-box">

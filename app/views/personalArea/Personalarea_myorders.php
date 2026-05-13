@@ -1,6 +1,50 @@
 <?php if(!defined('APP')) die('Accesso negato'); ?>
 
 <style>
+    .alert {
+        padding: 1rem 1.25rem;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .alert-icon {
+        font-size: 1.1rem;
+    }
+
+    .alert-close {
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: inherit;
+        opacity: 0.6;
+        line-height: 1;
+        padding: 0;
+        flex-shrink: 0;
+    }
+
+    .alert-close:hover {
+        opacity: 1;
+    }
+
     .orders-wrapper {
         display: grid;
         grid-template-columns: 1fr 1fr;

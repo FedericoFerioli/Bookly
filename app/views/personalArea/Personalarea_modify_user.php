@@ -3,6 +3,50 @@ if(!defined('APP')) die('Accesso negato');
 ?>
 
 <style>
+
+        .alert {
+        padding: 1rem 1.25rem;
+        border-radius: 10px;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .alert-success {
+        background-color: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+    }
+
+    .alert-danger {
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+    }
+
+    .alert-icon {
+        font-size: 1.1rem;
+    }
+
+    .alert-close {
+        background: none;
+        border: none;
+        font-size: 1.2rem;
+        cursor: pointer;
+        color: inherit;
+        opacity: 0.6;
+        line-height: 1;
+        padding: 0;
+        flex-shrink: 0;
+    }
+
+    .alert-close:hover {
+        opacity: 1;
+    }
     .profile-container {
         max-width: 700px;
         margin: 40px auto;
@@ -117,6 +161,18 @@ if(!defined('APP')) die('Accesso negato');
             Modifica Profilo
         </h2>
 
+        <?php if(isset($_SESSION['error'])): ?>
+            <div class="alert alert-danger">
+                ⚠ <?= htmlspecialchars($_SESSION['error']) ?>
+                <button onclick="this.parentElement.remove()">X</button>
+            </div>
+
+        <?php unset($_SESSION['error']); ?>
+
+        <?php endif; ?>
+    
+
+
         <form method="post" 
               action="index.php?page=personalArea&action=change_user_info"
               class="profile-form">
@@ -142,18 +198,13 @@ if(!defined('APP')) die('Accesso negato');
             </div>
 
             <div class="form-group">
-                <label class="form-label">E-mail universitaria</label>
+                <label class="form-label">E-mail</label>
 
                 <input type="email" 
                        class="form-control" 
                        name="email"
                        value="<?= htmlspecialchars($user['email'] ?? '') ?>"
-                       pattern=".+@isit100\.fe\.it$"
                        required>
-
-                <span class="input-hint">
-                    È consentita solo una mail istituzionale @isit100.fe.it
-                </span>
             </div>
 
             <div class="form-group">

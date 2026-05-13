@@ -7,9 +7,9 @@ if(!defined('APP')) die('Accesso negato');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookly - Area Personale</title>
+    <title>Bookly - Compravendita Libri</title>
     <style>
-        /* RESET E BASE — identico a main_template */
+        /* RESET E BASE */
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
@@ -17,9 +17,6 @@ if(!defined('APP')) die('Accesso negato');
             line-height: 1.6;
             background-color: #f0f2f5;
             color: #1c1e21;
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
         }
 
         /* HEADER */
@@ -62,7 +59,6 @@ if(!defined('APP')) die('Accesso negato');
             margin: 0;
             padding: 0;
             gap: 15px;
-            align-items: center;
         }
 
         .nav-list a {
@@ -70,25 +66,137 @@ if(!defined('APP')) die('Accesso negato');
             color: #4b4f56;
             font-weight: 600;
             font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-
-        .nav-list a:hover {
-            color: #007bff;
-        }
-
-        .nav-list a.active {
-            color: #007bff;
         }
 
         /* MAIN CONTENT */
         main {
-            flex: 1;
             max-width: 1200px;
-            width: 100%;
             margin: 2rem auto;
             padding: 0 1rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2.5rem;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* GRIGLIA ANNUNCI */
+        .row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr; 
+            gap: 30px;
+            padding: 20px 0;
+            width: 100%;
+        }
+
+        /* STILE CARD */
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+        }
+
+        .card-header {
+            padding: 12px 15px;
+            background: #fff;
+        }
+
+        /* IMMAGINE COPERTINA */
+        .card-img-top, .bg-light.d-flex {
+            height: 350px;
+            width: 100%;
+            object-fit: contain;
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+
+        /* CONTENUTI CARD */
+        .card-body {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin: 0 0 5px 0;
+            color: #050505;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: #65676b;
+            margin-bottom: 15px;
+        }
+
+        /* PREZZO E BADGE */
+        .mt-3.d-flex {
+            margin-top: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .text-success {
+            color: #28a745 !important;
+            font-weight: 800;
+            font-size: 1.3rem;
+        }
+
+        .badge {
+            font-size: 0.75rem;
+            padding: 5px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .bg-info { background-color: #e7f3ff; color: #1877f2; }
+        .bg-light { background-color: #f2f3f5; color: #4b4f56; border: none; }
+
+        /* BOTTONE DETTAGLI */
+        .card-footer {
+            padding: 15px;
+            background: #fff;
+        }
+
+        .btn-outline-primary {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            color: #007bff;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            font-weight: 700;
+            transition: all 0.2s;
             box-sizing: border-box;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: #fff;
         }
 
         /* FOOTER */
@@ -142,13 +250,12 @@ if(!defined('APP')) die('Accesso negato');
             color: #007bff;
         }
 
-        /* Stile speciale per la lista email */
         .team-list li {
             display: flex;
             align-items: center;
             gap: 8px;
             color: #65676b;
-            font-family: 'Courier New', Courier, monospace; /* Tocco tech per programmatori */
+            font-family: 'Courier New', Courier, monospace;
             font-size: 0.85rem !important;
         }
 
@@ -185,27 +292,91 @@ if(!defined('APP')) die('Accesso negato');
             .footer-logo, .team-list li { justify-content: center; }
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 768px) {
-            .header-container {
-                flex-direction: column;
-                gap: 1rem;
-            }
+        @media (max-width: 992px) {
+            .row { grid-template-columns: 1fr 1fr; }
+        }
 
-            nav {
-                flex-direction: column;
-                gap: 8px;
-                align-items: center;
-            }
+        @media (max-width: 600px) {
+            .row { grid-template-columns: 1fr; }
+            .card-img-top, .bg-light.d-flex { height: 250px; }
+        }
 
-            .nav-list {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
+        /* ========================
+           404 PAGE
+        ======================== */
+        .error-404 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 5rem 1rem;
+            min-height: 40vh;
+        }
+
+        .error-404 .error-code {
+            font-size: 8rem;
+            font-weight: 900;
+            color: #007bff;
+            line-height: 1;
+            margin: 0;
+            letter-spacing: -4px;
+        }
+
+        .error-404 .error-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1c1e21;
+            margin: 1rem 0 0.5rem 0;
+        }
+
+        .error-404 .error-subtitle {
+            font-size: 1rem;
+            color: #65676b;
+            max-width: 420px;
+            margin-bottom: 2.5rem;
+        }
+
+        .error-404 .error-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary-solid {
+            padding: 12px 28px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary-solid:hover {
+            background-color: #0063cc;
+        }
+
+        .btn-ghost {
+            padding: 12px 28px;
+            background-color: transparent;
+            color: #007bff;
+            border: 2px solid #007bff;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .btn-ghost:hover {
+            background-color: #007bff;
+            color: #fff;
         }
     </style>
 </head>
-
 <body>
 
     <header>
@@ -225,18 +396,26 @@ if(!defined('APP')) die('Accesso negato');
                 </ul>
                 <ul class="nav-list">
                     <?php if (isset($_SESSION['logged']) && $_SESSION['logged'] == true): ?>
-                        <li><a href="index.php?page=personalArea&action=dashboard" class="active">AREA PERSONALE</a></li>
+                        <li><a href="index.php?page=personalArea&action=dashboard">AREA PERSONALE</a></li>
                     <?php else: ?>
                         <li><a href="index.php?page=Login&action=login">LOGIN</a></li>
                         <li><a href="index.php?page=Login&action=registration">REGISTRATI</a></li>
                     <?php endif; ?>
-                </ul>
+                </ul> 
             </nav>
         </div>
     </header>
 
     <main>
-        <?php include $view; ?>
+        <div class="error-404">
+            <p class="error-code">404</p>
+            <h2 class="error-title">Pagina non trovata</h2>
+            <p class="error-subtitle">La pagina che cerchi non esiste o è stata spostata. Controlla l'URL oppure torna alla home.</p>
+            <div class="error-actions">
+                <a href="index.php?page=main&action=index" class="btn-primary-solid">Torna alla Home</a>
+                <a href="index.php?page=listings&action=all" class="btn-ghost">Vai alla Bacheca</a>
+            </div>
+        </div>
     </main>
 
 <footer class="main-footer">

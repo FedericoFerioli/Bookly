@@ -121,18 +121,98 @@
         }
 
         /* --- FOOTER --- */
-        footer {
-            background-color: var(--white);
-            border-top: 1px solid var(--border-color);
-            padding: 2.5rem 1rem;
-            text-align: center;
+/* FOOTER */
+        .main-footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e0e0e0;
+            padding: 3rem 0 1.5rem 0;
             margin-top: 4rem;
+            color: #4b4f56;
         }
 
-        footer p {
-            margin: 5px 0;
-            color: var(--text-muted);
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1.5fr 1fr;
+            gap: 40px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: #1c1e21;
             font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        .footer-column ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 0.6rem;
+            font-size: 0.9rem;
+        }
+
+        .footer-column a {
+            text-decoration: none;
+            color: #65676b;
+            transition: color 0.2s;
+        }
+
+        .footer-column a:hover {
+            color: #007bff;
+        }
+
+        /* Stile speciale per la lista email */
+        .team-list li {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #65676b;
+            font-family: 'Courier New', Courier, monospace; /* Tocco tech per programmatori */
+            font-size: 0.85rem !important;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .footer-logo img { height: 45px; }
+        .footer-logo span { font-size: 1.6rem; font-weight: 800; color: #007bff; }
+
+        .school-link a {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 5px 12px;
+            background: #f0f7ff;
+            color: #007bff;
+            border-radius: 5px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #eee;
+            padding-top: 1.5rem;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 30px; text-align: center; }
+            .footer-logo, .team-list li { justify-content: center; }
         }
 
         /* --- RESPONSIVE --- */
@@ -179,12 +259,50 @@
         <?php include $view; ?>
     </main>
 
-    <footer>
-        <div class="container">
-            <p>Copyright © 2026 <strong>The Bookly Project</strong></p>
-            <p style="font-size: 0.75rem; opacity: 0.7;">Sviluppato con &hearts; per facilitare lo studio tra studenti</p>
+<footer class="main-footer">
+    <div class="footer-container">
+        <div class="footer-grid">
+            
+            <div class="footer-column brand-col">
+                <div class="footer-logo">
+                    <img src="../public/images/concept_logo_Bookly_only_logo.png" alt="Logo Bookly">
+                    <span>Bookly</span>
+                </div>
+                <p>La piattaforma di compravendita libri creata dagli studenti per gli studenti dell'<strong>ISIT Bassi-Burgatti</strong>.</p>
+                <div class="school-link">
+                    <a href="https://www.isit100.fe.it/" target="_blank">
+                        <i class="bi bi-link-45deg"></i> Sito Istituzionale ISIT
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h3>Sviluppatori</h3>
+                <ul class="team-list">
+                    <li><i class="bi bi-envelope"></i> ferioli.7941@isit100.fe.it</li>
+                    <li><i class="bi bi-envelope"></i> facchini.7935@isit100.fe.it</li>
+                    <li><i class="bi bi-envelope"></i> frabetti.7949@isit100.fe.it</li>
+                    <li><i class="bi bi-envelope"></i> elkard.7926@isit100.fe.it</li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h3>Naviga</h3>
+                <ul>
+                    <li><a href="index.php?page=main&action=index">Home</a></li>
+                    <li><a href="index.php?page=listings&action=all">Bacheca</a></li>
+                    <li><a href="index.php?page=personalArea&action=new_insertion">Vendi Libro</a></li>
+                </ul>
+            </div>
+
         </div>
-    </footer>
+
+        <div class="footer-bottom">
+            <p>Copyright © 2026 <strong>The Bookly Project</strong> - ISIT Bassi-Burgatti (Cento)</p>
+            <small>Progetto informatica</small>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>

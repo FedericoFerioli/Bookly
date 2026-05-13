@@ -12,11 +12,10 @@ if(!defined('APP')) die('Accesso negato');
           <h3 class="text-center mb-4">Accesso</h3>
 
           <?php 
-          // Usiamo $_GET perché il controller reindirizza con ?msg=error nell'URL
           if(isset($_GET['msg'])){
             if($_GET['msg'] == 'error'){
               echo '<div class="alert alert-danger">
-                      Credenziali errate. Riprova.
+                      Credenziali errate riprova.
                     </div>';
             }
           }

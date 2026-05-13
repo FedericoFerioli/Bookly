@@ -13,44 +13,65 @@ class loginController{
 
     }
 
-    //funzione pulsanti pagina
-    public function index(){
-        include 'views/main/main_template.php';
-    }
-
+    /**
+     * Form per il login
+     */
     public function login(){
         $view = 'views/login/login_form.php';
         include 'views/login/login_template.php';
     }
 
+    /**
+     * Form per la registrazione
+     */
     public function registration(){
         $view = 'views/login/login_registration_form.php';
         include 'views/login/login_template.php';
     }
 
 
-    //funzioni sul database
+    /**
+     * Registrazione di un utente
+     */
     public function store(){
-        // dati dal form 
         $errors = [];
 
-        $name = trim($_POST['name']);
-        $surname = trim($_POST['surname']);
-        $gender = trim($_POST['gender']);
-        $email = strtolower(trim($_POST['email']));
-        $password = trim($_POST['password']);
-        $confirm_password = trim($_POST['confirm_password']);
-        $dob = $_POST['dob'];
+        $name = trim($_POST['name'] ?? '');
+        $surname = trim($_POST['surname'] ?? '');
+        $gender = trim($_POST['gender'] ?? '');
+        $email = strtolower(trim($_POST['email'] ?? '') );
+        $password = trim($_POST['password'] ?? '');
+        $confirm_password = trim($_POST['confirm_password'] ?? '');
+        $dob = trim($_POST['dob'] ?? '');
 
+        if(empty($name)){
+            $errors[] = "Inserisci un nome";
+        }
 
+        if(empty($surname)){
+            $errors[] = 'Inserisci un cognome';
+        }
+
+        if(empty($gender)){
+            $errors[] = 'Inserisci un genere';
+        }
+
+        if(empty($email)){
+            $errors[] = 'Inserisci un\'email';
+        }
+
+        if(empty($password)){
+            $errors[] = 'Inserisci una password';
+        }
+        if(empty($confirm_password)){
+            $errors[] = 'Inserisci una password';
+        }
+        if(empty($dob)){
+            $errors[] = 'Inserisci la data di nascita';
+        }
 
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors[] = "Formato email non valido";
-        }
-
-        $requiredDomain = "@isit100.fe.it";
-        if (!str_ends_with($email, $requiredDomain)) {
-            $errors[] = "Devi utilizzare l'email istituzionale della scuola (@isit100.fe.it)";
         }
 
         if ($confirm_password !== $password) {
@@ -67,8 +88,10 @@ class loginController{
 
             $param = [$name, $surname, $gender, $email, $dob ,$password];
             $this->model->insertRecord($param);
+
         }else{
-            header('location:index.php?page=login&action=login&msg=error');
+            $_SESSION['errors'] = $errors;
+            header('location:index.php?page=login&action=registration&msg=error');
             exit;
         }
 
@@ -80,15 +103,21 @@ class loginController{
     public function check(){
         $email = $_POST['email'];
         $password = $_POST['password'];
+
         $password = hash("sha256", $password);
 
         $param = [$email, $password];
         $user = $this->model->find($param);
         
         if($user){
+            //rigeneriamo l'id
             session_regenerate_id(true);
+
+            //necessario per ni controller per isLogged()
             $_SESSION['logged'] = true;
-            $_SESSION['user_id'] = $user['user_id'];            
+            //l'id dell'utente viene salvato in sessione
+            $_SESSION['user_id'] = $user['user_id'];           
+
             header('location:index.php?page=main&action=index');
             exit;
         } else {
@@ -97,6 +126,10 @@ class loginController{
         }
     }
 
+    /**
+     * Logout
+     * Metodo per quando si preme 'disconettiti'
+     */
     public function logout(){
         $_SESSION = []; 
         session_destroy();

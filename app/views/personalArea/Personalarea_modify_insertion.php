@@ -239,11 +239,11 @@ unset($_SESSION['msg_errore']);
 
             <input type="hidden" 
                    name="insertion_id" 
-                   value="<?= $thisInsertion['insertion_id'] ?>">
+                   value="<?= $thisInsertion['insertion_id'] ?>" >
 
             <input type="hidden" 
                    name="book_id" 
-                   value="<?= $datiIsbn['book_id'] ?? ($thisInsertion['book_id'] ?? ''); ?>">
+                   value="<?= $datiIsbn['book_id'] ?? ($thisInsertion['book_id'] ?? ''); ?>" >
 
             <div class="form-grid">
 
@@ -252,7 +252,7 @@ unset($_SESSION['msg_errore']);
                     <input type="text" 
                            name="title" 
                            value="<?= $datiIsbn['title'] ?? ($thisInsertion['title'] ?? ''); ?>" 
-                           required>
+                           required readonly>
                 </div>
 
                 <div class="form-group">
@@ -260,21 +260,21 @@ unset($_SESSION['msg_errore']);
                     <input type="text" 
                            name="authors" 
                            value="<?= $datiIsbn['authors'] ?? ($thisInsertion['authors'] ?? ''); ?>" 
-                           required>
+                           required readonly>
                 </div>
 
                 <div class="form-group">
                     <label>Editore</label>
                     <input type="text" 
                            name="publisher" 
-                           value="<?= $datiIsbn['publisher'] ?? ($thisInsertion['publisher'] ?? ''); ?>">
+                           value="<?= $datiIsbn['publisher'] ?? ($thisInsertion['publisher'] ?? ''); ?>" readonly>
                 </div>
 
                 <div class="form-group">
                     <label>Materia</label>
                     <input type="text" 
                            name="subject" 
-                           value="<?= $datiIsbn['subject_name'] ?? ($thisInsertion['subject_name'] ?? ''); ?>">
+                           value="<?= $datiIsbn['subject_name'] ?? ($thisInsertion['subject_name'] ?? ''); ?>" readonly>
                 </div>
 
                 <div class="form-group">

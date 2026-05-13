@@ -1,8 +1,8 @@
 <?php 
 if(!defined('APP')) die('Accesso negato'); 
 
-$dati = $_SESSION['new_libro_precaricato'] ?? null;
-$errore = $_SESSION['msg_errore'] ?? null;
+$dati = $_SESSION['new_libro_precaricato'] ?? null; //prendiamo il libro trovato l'isbn dalla sessione
+$errore = $_SESSION['msg_errore'] ?? null; 
 $errore_inserzione = $_SESSION['msg_modifica'] ?? null;
 
 unset($_SESSION['new_libro_precaricato'], $_SESSION['msg_errore']);
@@ -231,6 +231,24 @@ unset($_SESSION['new_libro_precaricato'], $_SESSION['msg_errore']);
 
         <h3 class="new-insertion-title">Nuova Inserzione</h3>
 
+            <?php if (isset($_SESSION['msg_modifica'])): ?>
+                <div class="success-message">
+                    <?php 
+                        echo $_SESSION['msg_modifica']; 
+                        unset($_SESSION['msg_modifica']);
+                    ?>
+                </div>
+            <?php endif; ?>
+
+            <?php if (isset($_SESSION['msg_modifica'])): ?>
+                <div class="success-message">
+                    <?php 
+                        echo $_SESSION['msg_modifica']; 
+                        unset($_SESSION['msg_modifica']);
+                    ?>
+                </div>
+            <?php endif; ?>
+
         <fieldset class="isbn-search-box">
             <legend>Cerca nel database tramite ISBN</legend>
 
@@ -266,7 +284,7 @@ unset($_SESSION['new_libro_precaricato'], $_SESSION['msg_errore']);
                     <input type="text" 
                            name="title" 
                            value="<?php echo $dati['title'] ?? ''; ?>" 
-                           required>
+                           required readonly>
                 </div>
 
                 <div class="form-group">
@@ -274,21 +292,21 @@ unset($_SESSION['new_libro_precaricato'], $_SESSION['msg_errore']);
                     <input type="text" 
                            name="authors" 
                            value="<?php echo $dati['authors'] ?? ''; ?>" 
-                           required>
+                           required readonly>
                 </div>
 
                 <div class="form-group">
                     <label>Editore</label>
                     <input type="text" 
                            name="publisher" 
-                           value="<?php echo $dati['publisher'] ?? ''; ?>">
+                           value="<?php echo $dati['publisher'] ?? ''; ?>" readonly>
                 </div>
 
                 <div class="form-group">
                     <label>Materia</label>
                     <input type="text" 
                            name="subject" 
-                           value="<?php echo $dati['name'] ?? ''; ?>">
+                           value="<?php echo $dati['name'] ?? ''; ?>" readonly>
                 </div>
 
                 <div class="form-group">
@@ -437,15 +455,6 @@ unset($_SESSION['new_libro_precaricato'], $_SESSION['msg_errore']);
                 </div>
 
             </div>
-
-            <?php if (isset($_SESSION['msg_modifica'])): ?>
-                <div class="success-message">
-                    <?php 
-                        echo $_SESSION['msg_modifica']; 
-                        unset($_SESSION['msg_modifica']);
-                    ?>
-                </div>
-            <?php endif; ?>
 
             <div class="submit-container">
                 <button type="submit" class="submit-btn">

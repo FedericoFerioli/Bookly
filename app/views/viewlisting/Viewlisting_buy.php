@@ -3,6 +3,7 @@ if(!defined('APP')) die('Accesso negato');
 ?>
 
 <style>
+    
     /* --- LAYOUT SPECIFICO CARRELLO --- */
     .checkout-wrapper {
         display: grid;
