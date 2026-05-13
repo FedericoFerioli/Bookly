@@ -3,14 +3,3 @@ config/dbconfig.php
 .vscode/launch.json
 .vscode/sftp.json
 .vscode/settings.json
-
-
-# Variabili d'ambiente
-.env
-
-# Dipendenze
-vendor/
-node_modules/
-
-# Cache e log
-*.log

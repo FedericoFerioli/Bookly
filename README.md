@@ -7,7 +7,7 @@ Bookly è un'applicazione web per l'acquisto di libri online, sviluppata come pr
 ## Tecnologie utilizzate
 
 - **PHP** 
-- **MariaDB** — database relazionale
+- **MariaDB** — database
 - **HTML / CSS / JavaScript** — frontend
 - **Apache** — web server
 
@@ -82,6 +82,13 @@ bookly/
 - Carrello e appuntamento
 - Registrazione e login utenti
 - Area personale
+
+---
+
+## Documentazione
+
+* 📖 [Documentazione Architettura (MVC)](docs/architecture.md)
+* 🗄️ [Documentazione Database (Schema ER/DDL)](docs/database_info.md)
 
 ---
 
