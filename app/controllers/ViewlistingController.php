@@ -12,21 +12,29 @@ class ViewlistingController{
         $this->page = 'Viewlisting';
 
     }
-
+    
+    /**
+     * isLogged
+     * Controlliamo se l'utente ha effettuato il login
+     * @return void
+     */
     public function isLogged(){
         if($_SESSION['logged'] != true){
             header('location:index.php?page=login&action=login');
             exit;
         }
     }
-
-    //funzione per visualizzare i dettagli di un'inserione
+    
+    /**
+     * details
+     * Ci permette di vedere i dettagli di una inserzione
+     * @return void
+     */
     public function details(){
         //Unsettiamo il carrello precedente
         if(isset($_SESSION['cart'])){
             unset($_SESSION['cart']);
         }
-        //controlliamo se l'utente è loggato
         $this->isLogged();
 
         $id = (int)($_SESSION['user_id'] ?? 0);
@@ -41,7 +49,6 @@ class ViewlistingController{
         $view = 'views/viewlisting/Viewlisting_details.php';
         include 'views/viewlisting/Viewlisting_template.php';
     }
-
 
     /**
      * Metodo che si esegue una volta che l'utente clicca il pulsante 'Contatta il venditore'
@@ -190,7 +197,7 @@ class ViewlistingController{
 
     /**
      * Metodo per quando si vuole rimuovere qualcosa dal carello
-     * @return never
+     * @return never 
      */
     public function remove_from_cart() {
         //Recupera l'ID dell'inserzione da rimuovere (es: index.php?action=remove_from_cart&id=12)

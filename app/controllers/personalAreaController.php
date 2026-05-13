@@ -230,7 +230,12 @@ class PersonalAreaController{
 
     }
 
-
+        
+    /**
+     * search_isbn
+     * 
+     * @return void
+     */
     public function search_isbn(){
         //dati form
         $isbn = trim($_POST['isbn'] ?? '');
@@ -248,6 +253,12 @@ class PersonalAreaController{
         exit;
     }
 
+    //    
+    /**
+     * search_isbn_for_modify
+     * Ricerca del libro per l'isbn per la modifica, l'header deve reindirizzare a una rotta diversa che include anche l'insertion id
+     * @return void
+     */
     public function search_isbn_for_modify(){
         // dati dal form 
         $id_inserzione= trim($_GET['id']);
@@ -263,14 +274,22 @@ class PersonalAreaController{
             $_SESSION['msg_errore'] = "Nessun libro trovato per questo ISBN.";        
         }
 
+        
         header('Location: index.php?page=personalArea&action=modify_insertion&id='.$id_inserzione);
+        //header('Location: index.php?page=personalArea&action=modify_insertion');
         exit;
     }
-
+    
+    /**
+     * change_insertion
+     * Funzione per modificare le info di una inserzione
+     * @return void
+     */
     public function change_insertion(){
 
         $book_id = $_POST['book_id'] ?? null;
 
+        //debug
         if (!$book_id) {
             die("Errore: Sessione scaduta o libro non trovato. Riprova la ricerca ISBN.");
         }
@@ -307,9 +326,14 @@ class PersonalAreaController{
         exit;
         
     }
-
+    
+    /**
+     * modify_user_info
+     * Funzione per visualizzare il form per la modifica delle info dell'utente
+     * @return void
+     */
     public function modify_user_info(){
-        $id     = (int)($_SESSION['user_id'] ?? 0);
+        $id     = (int)($_SESSION['user_id'] ?? 0); //prendiamo l'id dalla sessione
 
         $param  = [$id];
         $user   = $this->model->getUserInfo($param);
@@ -317,7 +341,12 @@ class PersonalAreaController{
         $view = 'views/Personalarea/Personalarea_modify_user.php';
         include 'views/Personalarea/personalArea_template.php';
     }
-
+    
+    /**
+     * change_user_info
+     * Funzione per modificare i dati di un utente sul db
+     * @return void
+     */
     public function change_user_info() {
         $id      = (int)($_SESSION['user_id'] ?? 0);
         $name    = trim($_POST['name']    ?? '');
@@ -327,7 +356,6 @@ class PersonalAreaController{
         $gender  = $_POST['gender']       ?? 'O';
         $password = $_POST['password']    ?? '';
 
-        // Validazione base
         if (!$name || !$surname || !$email || !$dob) {
             $_SESSION['error'] = 'Compila tutti i campi obbligatori.';
             header('Location: index.php?page=personalArea&action=modify_user_info');
@@ -337,8 +365,7 @@ class PersonalAreaController{
         if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
             $errors[] = "Formato email non valido";
         }
-
-
+        //se è stata inserita la password includiamola in $params se no no
         if ($password !== '') {
             if (strlen($password) < 8) {
                 $_SESSION['error'] = 'La password deve essere di almeno 8 caratteri.';
