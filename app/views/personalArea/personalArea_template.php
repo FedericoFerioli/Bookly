@@ -8,6 +8,8 @@ if(!defined('APP')) die('Accesso negato');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bookly - Area Personale</title>
+    <link rel="icon" type="image/png" href="../public/images/concept_logo_Bookly_only_logo.png">
+
     <style>
         /* RESET E BASE — identico a main_template */
         body {

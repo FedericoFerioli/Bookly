@@ -8,6 +8,7 @@ if(!defined('APP')) die('Accesso negato');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bookly - Compravendita Libri</title>
+    <link rel="icon" type="image/png" href="../public/images/concept_logo_Bookly_only_logo.png">
     <style>
         /* RESET E BASE */
         body {
@@ -75,13 +76,75 @@ if(!defined('APP')) die('Accesso negato');
             padding: 0 1rem;
         }
 
+        /* RE-STYLING HERO SECTION */
         .hero-section {
             text-align: center;
             margin-bottom: 3rem;
-            padding: 2.5rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            padding: 4rem 2rem;
+            /* Gradiente leggero che richiama il blu del tuo logo */
+            background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 100%);
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,123,255,0.08);
+            border: 1px solid #e7f3ff;
+        }
+
+        .hero-section h1 {
+            font-size: 2.5rem;
+            color: #1c1e21;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            letter-spacing: -0.5px;
+        }
+
+        .hero-section p {
+            font-size: 1.2rem;
+            color: #65676b;
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
+        }
+
+        /* BOTTONI HERO */
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn-hero-primary {
+            background-color: #007bff;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            transition: all 0.3s;
+        }
+
+        .btn-hero-secondary {
+            background-color: white;
+            color: #007bff;
+            padding: 12px 25px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 700;
+            border: 2px solid #007bff;
+            transition: all 0.3s;
+        }
+
+        .btn-hero-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .btn-hero-secondary:hover {
+            background-color: #f0f7ff;
+            transform: translateY(-2px);
+        }
+
+        /* Responsive per mobile */
+        @media (max-width: 600px) {
+            .hero-section h1 { font-size: 1.8rem; }
+            .hero-buttons { flex-direction: column; }
         }
 
         /* GRIGLIA ANNUNCI */
@@ -337,9 +400,15 @@ if(!defined('APP')) die('Accesso negato');
 
     <main>
         <article class="hero-section">
-            <h1>Cos'è Bookly?</h1>
-            <p>Bookly è una piattaforma per lo scambio e la compravendita di libri scolastici utilizzati!</p>
-                <strong>Vendi anche te i libri che non utilizzi</strong>
+            <div class="hero-content">
+                <h1>Dai una seconda vita ai tuoi libri</h1>
+                <p>La piattaforma smart dell'ISIT Bassi-Burgatti per scambiare e vendere i tuoi libri scolastici in pochi click.</p>
+                
+                <div class="hero-buttons">
+                    <a href="index.php?page=listings&action=all" class="btn-hero-primary">Sfoglia la bacheca</a>
+                    <a href="index.php?page=PersonalArea&action=new_insertion" class="btn-hero-secondary">Inizia a vendere</a>
+                </div>
+            </div>
         </article>
 
         <section class="latest-announces">

@@ -7,7 +7,9 @@ if(!defined('APP')) die('Accesso negato');
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookly - Compravendita Libri</title>
+    <title>Bookly - Error...</title>
+    <link rel="icon" type="image/png" href="../public/images/concept_logo_Bookly_only_logo.png">
+
     <style>
         /* RESET E BASE */
         body {

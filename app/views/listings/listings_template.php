@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bookly - Il tuo usato scolastico</title>
+    <title>Bookly - Bacheca</title>
+    <link rel="icon" type="image/png" href="../public/images/concept_logo_Bookly_only_logo.png">
+
     <style>
         /* --- RESET E VARIABILI --- */
         :root {
