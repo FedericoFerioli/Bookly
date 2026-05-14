@@ -1,13 +1,13 @@
 # Bookly
 
-Bookly è un'applicazione web per l'acquisto di libri online, sviluppata come progetto scolastico. Permette agli utenti di sfogliare il catalogo, cercare libri e completare acquisti in modo semplice.
+Bookly è un'applicazione web per l'acquisto di libri online, sviluppata come progetto scolastico. Permette agli utenti di prenotare degli appuntamenti tra di loro per vendere i propri libri inutlizzati in modo semplice e intuitivo.
 
 ---
 
 ## Tecnologie utilizzate
 
 - **PHP** 
-- **MariaDB** — database
+- **MariaDB** — DBMS
 - **HTML / CSS / JavaScript** — frontend
 - **Apache** — web server
 
@@ -33,14 +33,11 @@ Bookly è un'applicazione web per l'acquisto di libri online, sviluppata come pr
    - Crea un database MariaDB chiamato `bookly`
    - Importa lo schema:
      ```bash
-     mysql -u root -p bookly < docs/database.sql
+     mysql -u root -p bookly < docs/bookly_db.sql
      ```
 
 3. **Configura la connessione al database**
-   - Copia il file di configurazione di esempio:
-     ```bash
-     cp config/config.example.php config/config.php
-     ```
+   - Crea `config/config.php`
    - Apri `config/config.php` e inserisci le tue credenziali:
      ```php
      define('DB_HOST', 'localhost');
@@ -63,12 +60,13 @@ Bookly è un'applicazione web per l'acquisto di libri online, sviluppata come pr
 
 ```
 bookly/
-├── public/          ← File accessibili dal browser (index.php, CSS, JS)
-├── src/             ← Logica dell'applicazione (funzioni, classi PHP)
+├── public/          ← File accessibili dal browser (images)
+├── app/             ← Logica dell'applicazione (views, controllers, models)
 ├── config/          ← Configurazione database e costanti
 ├── docs/
-│   ├── api/         ← Documentazione generata da phpDocumentor
-│   └── database.sql ← Schema del database
+│   ├── architecture.md     ← Documentazione sull'architettura utilizzata
+│   ├── database.md         ← Documentazione sul database
+│   └── bookly_db.sql ← Schema del database
 └── README.md
 ```
 
