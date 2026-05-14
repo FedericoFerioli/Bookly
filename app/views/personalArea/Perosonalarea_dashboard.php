@@ -521,7 +521,8 @@ if(!defined('APP')) die('Accesso negato');
     <div class="user-info-card-header">
         <h4>Area Personale</h4>
         <div class="header-actions">
-            <a href="index.php?page=personalArea&action=my_orders" class="btn-header btn-header-light">I Miei Ordini</a>
+            <a href="index.php?page=personalArea&action=my_orders" class="btn-header btn-header-light">I Miei Ordini in corso</a>
+            <a href="index.php?page=personalArea&action=view_completed_orders" class="btn-header btn-header-light">I Miei Ordini completati</a>
             <a href="index.php?page=personalArea&action=modify_user_info" class="btn-header btn-header-outline">Modifica le mie informazioni</a>
             <a href="index.php?page=Login&action=logout" class="btn-header btn-header-danger">Disconettiti</a>
         </div>

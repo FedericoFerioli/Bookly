@@ -82,11 +82,11 @@ class loginController{
             $errors[] = "La password deve contenere almeno 8 caratteri";
         }
 
-        $password = hash("sha256", $password);
+        $password = password_hash($password, PASSWORD_DEFAULT);
  
         if(empty($errors)){
 
-            $param = [$name, $surname, $gender, $email, $dob ,$password];
+            $param = [$name, $surname, $gender, $email, $dob, $password];
             $this->model->insertRecord($param);
 
         }else{
@@ -100,28 +100,23 @@ class loginController{
         exit;
     }
 
-    public function check(){
-        $email = $_POST['email'];
+    public function check() {
+        $email    = $_POST['email'];
         $password = $_POST['password'];
 
-        $password = hash("sha256", $password);
+        $row = $this->model->getPassword($email);
 
-        $param = [$email, $password];
-        $user = $this->model->find($param);
-        
-        if($user){
-            //rigeneriamo l'id
+        if ($row && password_verify($password, $row['password'])) {
             session_regenerate_id(true);
 
-            //necessario per ni controller per isLogged()
-            $_SESSION['logged'] = true;
-            //l'id dell'utente viene salvato in sessione
-            $_SESSION['user_id'] = $user['user_id'];           
+            $_SESSION['logged']  = true;
+            $_SESSION['user_id'] = $row['user_id']; // ora $row contiene anche user_id
 
-            header('location:index.php?page=main&action=index');
+            header('location: index.php?page=main&action=index');
             exit;
         } else {
-            header('location:index.php?page=login&action=login&msg=error');
+            $_SESSION['err'] = "Credenziali non valide.";
+            header('location: index.php?page=login&action=login&msg=error');
             exit;
         }
     }

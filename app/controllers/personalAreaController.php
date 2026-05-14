@@ -233,7 +233,7 @@ class PersonalAreaController{
         
     /**
      * search_isbn
-     * 
+     * Ricerca nel database del libro attraverso l'isbn
      * @return void
      */
     public function search_isbn(){
@@ -373,9 +373,9 @@ class PersonalAreaController{
                 exit;
             }
 
-            $hashedPassword = hash("sha256", $password);
+            $password = password_hash($password, PASSWORD_DEFAULT);
 
-            $result = $this->model->updateUserInfo($id, $name, $surname, $email, $dob, $gender, $hashedPassword);
+            $result = $this->model->updateUserInfo($id, $name, $surname, $email, $dob, $gender, $password);
         }else{
             $result = $this->model->updateUserInfo($id, $name, $surname, $email, $dob, $gender);
         }
@@ -390,4 +390,34 @@ class PersonalAreaController{
         exit;
     }
 
+
+        
+    /**
+     * view_completed_orders
+     * funzione che estrae le inserzioni che sono state vendute dell'utente e fa visualizzare la view
+     * @return void
+     */
+    public function view_completed_orders(){
+        $this->isLogged();
+
+        $user_id = $_SESSION['user_id'];
+
+        $completedInsertions = $this->model->getCompletedOrders($user_id);
+
+
+        foreach ($completedInsertions as &$completedInsertion) {
+            $completedInsertion['images'] = $this->model->getImagesById($completedInsertion['insertion_id']);
+        }   
+
+        unset($completedInsertion);
+
+        if($completedInsertions === false){
+            $_SESSION['err'] = 'Non siamo riusciti a caricare i tuoi ordini.';
+            header('Location: index.php?page=personalArea&action=dashboard');
+            exit;
+        }
+
+        $view = 'views/Personalarea/Personalarea_completed_orders.php';
+        include 'views/Personalarea/personalArea_template.php';
+    }
 }

@@ -121,7 +121,7 @@
         }
 
         /* --- FOOTER --- */
-/* FOOTER */
+        /* FOOTER */
         .main-footer {
             background-color: #ffffff;
             border-top: 1px solid #e0e0e0;

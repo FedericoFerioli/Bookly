@@ -60,7 +60,7 @@ class PersonalareaModel{
     }*/
 
     public function SelectInsertionOfUser(array $param=[]): array{
-        $dql ="SELECT *, subjects.name as `subjetc` FROM insertions
+        $dql ="SELECT *, subjects.name as `subject` FROM insertions
         join books USING(book_id)
         join subjects USING(subject_id)
         WHERE insertions.selling_user = ? AND insertions.insertion_state= 'selling'"; //riporta il contenuto della tabella insertions
@@ -149,7 +149,6 @@ class PersonalareaModel{
         return $stm->fetchAll(PDO::FETCH_ASSOC);        
     }
 
-
     /**
      * Inserzioni che l'utente sta vendendo 
      */
@@ -212,4 +211,15 @@ class PersonalareaModel{
         $stm->execute($params);
         return $stm->rowCount() !== 0;
     }
+
+    public function getCompletedOrders($user_id): array{
+        $dql ="SELECT *, subjects.name as `subject` FROM insertions
+        join books USING(book_id)
+        join subjects USING(subject_id)
+        WHERE insertions.selling_user = ? AND insertions.insertion_state = 'sold' AND insertions.confirmation = 1"; //riporta il contenuto della tabella insertions
+        $stm=$this->pdo->prepare($dql); //prepara la query ricevuta da $dql
+        $stm->execute([$user_id]); //esegue la query usando $param come contenitore per il risultato
+        return $stm->fetchAll(PDO::FETCH_ASSOC); //il risultato viene trasformato in array associativo
+    }   
+
 }

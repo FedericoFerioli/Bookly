@@ -330,6 +330,7 @@ unset($_SESSION['new_libro_precaricato'], $_SESSION['msg_errore']);
                     <label>Il tuo prezzo di vendita (€)</label>
                     <input type="number" 
                            step="0.01" 
+                           min="0.01"
                            name="my_price" 
                            required>
                 </div>

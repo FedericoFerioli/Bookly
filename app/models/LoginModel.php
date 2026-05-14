@@ -38,4 +38,15 @@ class loginModel
 
     return $stm->rowCount() !== 0;
   }
+
+  public function getPassword(string $email){
+      $dql = "SELECT user_id, password
+              FROM users
+              WHERE email = ?
+              LIMIT 1";
+      $stm = $this->pdo->prepare($dql); 
+      $stm->execute([$email]);
+
+      return $stm->fetch(PDO::FETCH_ASSOC);
+  }
 }
