@@ -144,7 +144,6 @@ class listingsModel{
             WHERE insertions.insertion_state = 'selling'";
         $stm = $this->pdo->prepare($sql);
         $stm->execute();
-        $res = $stm->fetch(PDO::FETCH_ASSOC);
         return $stm->fetchColumn() ?? 0;
     }
 
