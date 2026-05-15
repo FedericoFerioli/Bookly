@@ -10,7 +10,6 @@ class ViewlistingController{
     public function __construct(){
         $this->model = new ViewlistingModel();
         $this->page = 'Viewlisting';
-
     }
     
     /**
@@ -35,6 +34,7 @@ class ViewlistingController{
         if(isset($_SESSION['cart'])){
             unset($_SESSION['cart']);
         }
+
         $this->isLogged();
 
         $id = (int)($_SESSION['user_id'] ?? 0);
@@ -42,6 +42,7 @@ class ViewlistingController{
 
 
         $id = $_GET['id'] ?? 0;
+        
         $insertion = $this->model->getOne($id);
         $insertion['images'] = $this->model->getImagesById($insertion['insertion_id']);
         
@@ -66,6 +67,7 @@ class ViewlistingController{
             $_SESSION['cart'] = [];
             $_SESSION['cart'][] = $id;
         }
+        
         $insertions = [];
 
         //per ogni insertion_id nella sessione 'cart' prendiamo le informazioni delle inserzioni
@@ -102,8 +104,8 @@ class ViewlistingController{
     public function sold_insertion(){
             $ids          = $_SESSION['cart'];
             $place_id     = (int)($_POST['place_id'] ?? 0);
-            $sell_time    = $_POST['sell_time'] ?? null; //orario alla quale lo scambi avviene
-            $exchange_day = $_POST['date'] ?? null; //giorno dello scambio
+            $sell_time    = $_POST['sell_time'] ?? null;
+            $exchange_day = $_POST['date'] ?? null; 
             $buyingUser   = $_SESSION['user_id'] ?? 0;
 
             $_SESSION['errori'] = [];
@@ -113,19 +115,16 @@ class ViewlistingController{
                 $_SESSION['errori'][] = 'Nessun inserzione selezionata.';
             }
 
-            //Validazione place_id
             if (empty($place_id)) {
                 $_SESSION['errori'][] = 'Seleziona un luogo valido';
             }
 
-            //Validazione sell_time
             $orari_validi = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00'];
 
             if (empty($sell_time) || !in_array($sell_time, $orari_validi, true)) {
                 $_SESSION['errori'][] = 'Seleziona un orario valido';
             }
 
-            //Validazione exchange_day
             if (empty($exchange_day)) {
                 $_SESSION['errori'][] = 'Seleziona una data.';
             } else {
@@ -200,23 +199,18 @@ class ViewlistingController{
      * @return never 
      */
     public function remove_from_cart() {
-        //Recupera l'ID dell'inserzione da rimuovere (es: index.php?action=remove_from_cart&id=12)
         $id_to_remove = $_GET['id_to_remove'] ?? null;
 
         if ($id_to_remove !== null && isset($_SESSION['cart'])) {
-            //Trova la posizione dell'ID nell'array
             $key = array_search($id_to_remove, $_SESSION['cart']);
 
-            //Se esiste, rimuovilo
             if ($key !== false) {
                 unset($_SESSION['cart'][$key]);
 
-                //pzionale: Re-indicizza l'array per evitare buchi negli indici (0, 1, 3...)
                 $_SESSION['cart'] = array_values($_SESSION['cart']);
             }
         }
 
-        //Visualizza di nuovo il carello
         header("Location: index.php?page=Viewlisting&action=buy");
         exit;
     }

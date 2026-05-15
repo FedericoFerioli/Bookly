@@ -15,14 +15,14 @@ class listingsController{
 
     /**
      * all
-     * Funzione che ci permette di visualizzare le inserzioni, solo quelle selling
+     * metodo che ci permette di visualizzare le inserzioni, solo quelle selling
      * Include il template e la view
      * @return void
      */
     public function all(){
         /**
          * $insertion prende le inserzioni dalla sessione, se sono stati applicati dei filtri attraverso il form
-         * oppure dal model con la funzione select all che prende tutti le inserzioni
+         * oppure dal model con la metodo select all che prende tutti le inserzioni
          */
         $insertions = $_SESSION['filtered_insertions'] ?? $this->model->SelectAll();
         
@@ -49,7 +49,7 @@ class listingsController{
         
     /**
      * filter_insertion
-     * Questa funzione permette di filtrare gli annunci a seguito delle informazioni inserite nel form
+     * Questo metodo permette di filtrare gli annunci a seguito delle informazioni inserite nel form
      * le inserzioni vengono salvate in una sessione, e il redirect avviene alla stessa pagina
      * 
      * @return void
@@ -65,20 +65,20 @@ class listingsController{
             'price_max'    => trim($_POST['price_max'] ?? ($this->model->getMaxPrice() ?? 100)),
             'subject_id'   => $_POST['subject_id'] ?? null,
             'conditions'   => $_POST['condition'] ?? [],
-            'publisher' => $_POST['publisher'] ?? null,
+            'publisher'    => $_POST['publisher'] ?? null,
         ];
         
         $_SESSION['filtered_insertions'] = $this->model->filterAll($filters);
 
-        header('Location: http://lab.isit100.fe.it:8092/ferioli/app/index.php?page=listings&action=all');
+        header('Location: index.php?page=listings&action=all');
         exit;
     }
 
 
-    //funzione per rimuovere i filtri
+    //metodo per rimuovere i filtri
     public function reset_filters(){
         unset($_SESSION['filtered_insertions']);
-        header('Location: http://lab.isit100.fe.it:8092/ferioli/app/index.php?page=listings&action=all');
+        header('Location: index.php?page=listings&action=all');
     exit;
 }
     

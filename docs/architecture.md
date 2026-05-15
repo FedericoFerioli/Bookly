@@ -4,7 +4,7 @@ Il progetto adotta il pattern architetturale **Model-View-Controller (MVC)** per
 
 ## 🔄 Flusso di una Richiesta
 
-1.  **Entry Point**: Ogni richiesta viene canalizzata verso `index.php` (Front Controller).
+1.  **Entry Point**: Ogni richiesta viene canalizzata verso `index.php`.
 2.  **Routing**: Il sistema analizza l'URL per identificare il **Controller** e l'**Azione** (metodo) da eseguire.
 3.  **Controller**: Riceve l'input, valida la richiesta e interagisce con il **Model** appropriato.
 4.  **Model**: Dialoga con il database, esegue la logica sui dati e restituisce i risultati al Controller.
@@ -44,4 +44,4 @@ Lo strato di presentazione è progettato per essere modulare.
 
 * **Autenticazione**: Lo stato dell'utente è persistito tramite l'array globale `$_SESSION`.
 * **Protezione delle Rotte**: L'accesso alle aree riservate è protetto tramite il metodo `isLogged()`, richiamato all'inizio delle azioni sensibili.
-* **Validazione Dati**: Tutti gli input provenienti dall'utente (POST/GET) sono sottoposti a processi di sanitizzazione e validazione prima di essere utilizzati nelle query SQL per prevenire attacchi di tipo SQL Injection e XSS.
+* **Validazione Dati**: Tutti gli input provenienti dall'utente (POST/GET) sono sottoposti a processi di sanitizzazione e validazione prima di essere utilizzati nelle query SQL per prevenire attacchi di tipo SQL Injection e XSS. I dati in output nelle view sono codificati con `htmlspecialchars()` per prevenire attacchi XSS.

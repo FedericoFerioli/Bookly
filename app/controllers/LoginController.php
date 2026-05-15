@@ -29,7 +29,6 @@ class loginController{
         include 'views/login/login_template.php';
     }
 
-
     /**
      * Registrazione di un utente
      */
@@ -104,18 +103,17 @@ class loginController{
         $email    = $_POST['email'];
         $password = $_POST['password'];
 
-        $row = $this->model->getPassword($email);
+        $rec = $this->model->getPassword($email);
 
-        if ($row && password_verify($password, $row['password'])) {
+        if ($rec && password_verify($password, $rec['password'])) {
             session_regenerate_id(true);
 
             $_SESSION['logged']  = true;
-            $_SESSION['user_id'] = $row['user_id']; // ora $row contiene anche user_id
+            $_SESSION['user_id'] = $rec['user_id'];
 
             header('location: index.php?page=main&action=index');
             exit;
         } else {
-            $_SESSION['err'] = "Credenziali non valide.";
             header('location: index.php?page=login&action=login&msg=error');
             exit;
         }

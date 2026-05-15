@@ -50,7 +50,6 @@ class PersonalAreaController{
         //questo metodo modifica insertion_state a 'sold' ma solo se confirmation è settato a 1
         $result = $this->model->set_insertionState($id);
 
-        $_SESSION['err'] = '';
         
         if(!$result){
             $_SESSION['err'] = "l'acquirente non ha ancora confermato l'acquisto, aspetta che lo completi prima di confermare l'acquisto";
@@ -166,7 +165,7 @@ class PersonalAreaController{
 
         /*
         if (!$book_id) {
-            die("Errore: Sessione scaduta o libro non trovato. Riprova la ricerca ISBN.");
+            die("Errore: errore");
         }*/
 
         //dati form
@@ -252,8 +251,7 @@ class PersonalAreaController{
         header('Location: index.php?page=personalArea&action=new_insertion');
         exit;
     }
-
-    //    
+ 
     /**
      * search_isbn_for_modify
      * Ricerca del libro per l'isbn per la modifica, l'header deve reindirizzare a una rotta diversa che include anche l'insertion id
@@ -282,7 +280,7 @@ class PersonalAreaController{
     
     /**
      * change_insertion
-     * Funzione per modificare le info di una inserzione
+     * metodo per modificare le info di una inserzione
      * @return void
      */
     public function change_insertion(){
@@ -329,7 +327,7 @@ class PersonalAreaController{
     
     /**
      * modify_user_info
-     * Funzione per visualizzare il form per la modifica delle info dell'utente
+     * metodo per visualizzare il form per la modifica delle info dell'utente
      * @return void
      */
     public function modify_user_info(){
@@ -344,7 +342,7 @@ class PersonalAreaController{
     
     /**
      * change_user_info
-     * Funzione per modificare i dati di un utente sul db
+     * metodo per modificare i dati di un utente sul db
      * @return void
      */
     public function change_user_info() {
@@ -390,11 +388,9 @@ class PersonalAreaController{
         exit;
     }
 
-
-        
     /**
      * view_completed_orders
-     * funzione che estrae le inserzioni che sono state vendute dell'utente e fa visualizzare la view
+     * metodo che estrae le inserzioni che sono state vendute dell'utente e fa visualizzare la view
      * @return void
      */
     public function view_completed_orders(){

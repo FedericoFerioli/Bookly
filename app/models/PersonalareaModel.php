@@ -49,9 +49,9 @@ class PersonalareaModel{
     public function insertionsByUser(array $param){
         $dql="SELECT insertions.*, books.title, books.authors, books.publisher, users.name AS `name`, users.surname AS `surname`, subjects.name AS subject_name
             FROM insertions 
-            LEFT JOIN books USING(book_id) 
-            LEFT JOIN users ON insertions.selling_user = users.user_id
-            LEFT JOIN subjects USING(subject_id)
+            JOIN books USING(book_id) 
+            JOIN users ON insertions.selling_user = users.user_id
+            JOIN subjects USING(subject_id)
             WHERE selling_user= ? AND insertions.insertion_state = 'selling'
             ORDER BY post_date ASC";
         $stm=$this->pdo->prepare($dql);
@@ -77,7 +77,7 @@ class PersonalareaModel{
         return $stm->fetchAll(PDO::FETCH_COLUMN);
     }
 
-    //funzione per modificare un'inserzione
+    //metodo per modificare un'inserzione
     public function modifyInsertion(array $param){ //$param = [$book_id, $my_price, $condition, $description, $insertion]
         $dql="UPDATE insertions
             SET 
@@ -98,7 +98,7 @@ class PersonalareaModel{
         
     }
 
-    //funzione per eliminare un'inserzione
+    //metodo per eliminare un'inserzione
     public function deleteInsertion(array $param){ //$param=[insertion_id]
         $dql="DELETE FROM insertions
               WHERE insertion_id=?";
@@ -179,7 +179,6 @@ class PersonalareaModel{
             WHERE insertion_id = ?";
         $stm = $this->pdo->prepare($sql);
         $stm->execute([$insertion_id]);
-
         return $stm->rowCount() !== 0;
     }
 

@@ -421,7 +421,7 @@ if(!defined('APP')) die('Accesso negato');
 
 <div class="listings-page">
 
-    <!-- ══ SIDEBAR FILTRI ══ -->
+    <!-- filtri -->
     <aside class="filters-sidebar">
         <h2>🔍 Filtri</h2>
 
@@ -460,7 +460,7 @@ if(!defined('APP')) die('Accesso negato');
                 </select>
             </div>
 
-            <!-- Fascia di prezzo -->
+            <!-- prezzo -->
             <div class="filter-group">
                 <div class="price-label">
                     <span>Prezzo</span>
@@ -519,7 +519,7 @@ if(!defined('APP')) die('Accesso negato');
         </form>
     </aside>
 
-    <!-- ══ AREA RISULTATI ══ -->
+    <!-- inserzioni -->
     <section class="listings-main">
 
         <div class="listings-header">

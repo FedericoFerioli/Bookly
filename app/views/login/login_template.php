@@ -14,9 +14,7 @@ defined('APP') or die('Acceso negato');
 </head>
 <body>
     <div>
-        <header>Area utente registrazione/login</header>
         <main>
-
             <section>
                 <?php include $view?>
             </section>

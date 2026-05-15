@@ -178,9 +178,7 @@ if(!defined('APP')) die('Accesso negato');
 </style>
 
 <div class="details-wrapper">
-    
     <div class="content-column">
-        
         <div class="gallery-container">
             <div class="main-image-preview">
                 <?php if (!empty($insertion['images'])): ?>
@@ -218,7 +216,7 @@ if(!defined('APP')) die('Accesso negato');
                 <ul class="specs-list">
                     <li><strong>Editore:</strong> <?= htmlspecialchars($insertion['publisher'] ?? 'N.D.') ?></li>
                     <li><strong>Materia:</strong> <?= htmlspecialchars($insertion['subject_name'] ?? 'Generale') ?></li>
-                    <li><strong>Condizioni:</strong> <?= htmlspecialchars($insertion['book_condition']) ?></li>
+                    <li><strong>Condizioni:</strong> <?= htmlspecialchars($insertion['book_condition']?? '') ?></li>
                 </ul>
             </div>
         </div>

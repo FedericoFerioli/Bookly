@@ -47,7 +47,7 @@ class listingsModel{
     /**
      * filterAll per il filtraggio 
      *
-     * @param array $filters ARRAY ASSOCIATIVO che contine i dati del form
+     * @param array $filters array che contine i dati del form
      * @return array array associativo con le inserzioni pertinenti al filtraggio
      */
     public function filterAll(array $filters): array {
@@ -131,8 +131,7 @@ class listingsModel{
             WHERE insertions.insertion_state = 'selling'";
         $stm = $this->pdo->prepare($sql);
         $stm->execute();
-        $res = $stm->fetch(PDO::FETCH_ASSOC);
-        return $res['max_p'] ?? 0;
+        return $stm->fetchColumn() ?? 100;
     } 
 
     /**
@@ -146,7 +145,7 @@ class listingsModel{
         $stm = $this->pdo->prepare($sql);
         $stm->execute();
         $res = $stm->fetch(PDO::FETCH_ASSOC);
-        return $res['min_p'] ?? 0;
+        return $stm->fetchColumn() ?? 0;
     }
 
     /**
@@ -188,7 +187,7 @@ class listingsModel{
     /**
      * getPublishers restituisce le case editrici
      *
-     * @return array associativo che contine id e nome della casa editrice
+     * @return array che contine id e nomi della case editrici
      */
     public function getPublishers(){
         $dql = "SELECT DISTINCT publisher FROM books ORDER BY publisher ASC";
@@ -201,7 +200,7 @@ class listingsModel{
     /**
      * Materie
      *
-     * @return array asscociativo che contiene id e nome della materia
+     * @return array che contiene id e nomi della materie
      */
     public function getSubjects(){
         $dql = "SELECT subject_id, name FROM subjects";

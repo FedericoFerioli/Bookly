@@ -10,13 +10,18 @@ Lo schema ER rappresenta le entità principali del sistema e le relazioni che in
 ![Schema ER](../public/images/er_diagram.png)
 
 ### Descrizione delle Relazioni
-* **Utente - Inserzione (1:N)**: Un utente può pubblicare più inserzioni, ma ogni inserzione appartiene a un solo venditore (`selling_user`).
-* **Libro - Inserzione (1:N)**: Un libro (identificato univocamente dall'ISBN) può essere presente in più inserzioni (es. diversi utenti vendono lo stesso titolo).
-* **Transazione (1:1)**: Un'inserzione può essere riservata da un solo acquirente (`buying_user`).
+* **Utente - Inserzione (Pubblicazione) (1:N)**: Un utente può pubblicare più inserzioni, ma ogni singola Inserzione deve essere associata a un solo utente venditore (selling_user). 
+* **Utente - Inserzione (Interesse) (1:1)**: Un'inserzione può essere acquistata da un solo utente (buying_user), mentre un utente può acquistare diverse inserzioni nel tempo. (La relazione è opzionale lato inserzione finché non viene venduta). 
+* **Inserzione - Libro (1:N)**: Un'inserzione mette in vendita un unico libro specifico, ma lo stesso titolo di libro può comparire in molteplici inserzioni diverse caricate da vari utenti. 
+* **Inserzione - Luogo (1:N)**: Un'inserzione specifica un solo luogo per l'incontro e lo scambio, mentre un singolo luogo può essere il punto di riferimento per molte inserzioni differenti. 
+* **Inserzione – Foto (1:N)**: Un'inserzione può essere arricchita da più foto per mostrare le condizioni del libro, ma ogni foto appartiene esclusivamente a quell'annuncio. 
+* **Libro - Materia (1:N)**: Ogni libro è catalogato sotto una sola materia, mentre una materia scolastica comprende una vasta lista di libri di testo. 
+* **Libro - Corso (N:N)**: Un Libro può essere adottato in più Corsi (indirizzi di studio), e ogni Corso prevede l'utilizzo di numerosi libri. 
+* **Libro - Classe (N:N):** Un Libro può essere utilizzato in diverse Classi (es. lo stesso libro di storia per la 4A e la 4B), e ogni Classe ha una lista di più libri da acquistare. 
 
 ---
 
-## 2. Schema SQL (DDL)
+## 2. Schema SQL 
 Di seguito è riportato lo script SQL per la creazione delle tabelle.
 
 ```sql

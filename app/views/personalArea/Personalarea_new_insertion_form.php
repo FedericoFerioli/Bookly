@@ -1,7 +1,7 @@
 <?php 
 if(!defined('APP')) die('Accesso negato'); 
 
-$dati = $_SESSION['new_libro_precaricato'] ?? null; //prendiamo il libro trovato l'isbn dalla sessione
+$dati = $_SESSION['new_libro_precaricato'] ?? null; 
 $errore = $_SESSION['msg_errore'] ?? null; 
 $errore_inserzione = $_SESSION['msg_modifica'] ?? null;
 
@@ -240,14 +240,6 @@ unset($_SESSION['new_libro_precaricato'], $_SESSION['msg_errore']);
                 </div>
             <?php endif; ?>
 
-            <?php if (isset($_SESSION['msg_modifica'])): ?>
-                <div class="success-message">
-                    <?php 
-                        echo $_SESSION['msg_modifica']; 
-                        unset($_SESSION['msg_modifica']);
-                    ?>
-                </div>
-            <?php endif; ?>
 
         <fieldset class="isbn-search-box">
             <legend>Cerca nel database tramite ISBN</legend>
