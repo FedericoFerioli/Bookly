@@ -1757,35 +1757,6 @@ CREATE TABLE `insertions` (
   `confirmation` tinyint(1) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dump dei dati per la tabella `insertions`
---
-
-INSERT INTO `insertions` (`insertion_id`, `price`, `exchange_day`, `book_condition`, `description`, `insertion_state`, `post_date`, `selling_user`, `buying_user`, `place_id`, `book_id`, `confirmation`) VALUES
-(2, 23, '2026-05-19 08:00:00', 'Nuovo con cartellino', 'test ferioli', 'sold', '2026-04-21 12:42:01', 5, 10, 1, 331, 1),
-(3, 13, '2026-04-15 13:00:00', 'Nuovo senza cartellino', '434324', 'sold', '2026-04-22 12:45:09', 5, 4, 84, 12, 1),
-(5, 8.59, '2026-05-09 14:00:00', 'Nuovo senza cartellino', 'completamente disintegrato', 'sold', '2026-04-23 16:49:13', 5, 4, 6, 8, 1),
-(7, 20, '2026-05-22 14:00:00', 'Leggermente usato', 'Utilizzato da me e da mio fratello', 'sold', '2026-04-23 17:55:16', 8, 4, 1, 523, 1),
-(8, 15, NULL, 'usato', 'Libro utilizzato moltissimo, usurato ma ancora utilizzabile', 'selling', '2026-04-23 17:57:40', 8, NULL, NULL, 724, NULL),
-(9, 20, '2026-05-02 08:00:00', 'usato', 'test indirizzo courses', 'reserved', '2026-04-27 18:41:21', 9, 5, 1, 1, NULL),
-(10, 11, '2026-09-15 08:00:00', 'Nuovo con cartellino', 'dadsadasdas', 'reserved', '2026-04-27 18:42:01', 9, 19, 1, 1, 1),
-(12, 30, '2026-05-27 08:00:00', 'ottime condizioni', 'Libro di meccanica ancora utilizzabile', 'reserved', '2026-04-29 15:24:00', 9, 10, 1, 564, NULL),
-(14, 24, NULL, 'Nuovo senza cartellino', 'Utilizzato da un mio amico, e successivamnete mi è stato regalato', 'selling', '2026-04-30 08:56:17', 4, NULL, NULL, 617, NULL),
-(29, 17, NULL, 'ottime condizioni', 'test immagini', 'selling', '2026-04-30 18:05:11', 10, NULL, NULL, 49, NULL),
-(30, 15, '2026-05-29 08:00:00', 'ottime condizioni', 'qualche esercizio svolto', 'reserved', '2026-05-09 08:19:54', 5, 18, 1, 547, NULL),
-(31, 20, '0002-07-17 10:00:00', 'usato', 'Il mio libro di matematica', 'sold', '2026-05-09 08:29:07', 5, 19, 77, 696, 1),
-(32, 19, '2026-05-21 12:00:00', 'ottime condizioni', 'Il mio libro di infrmatica utilizzato durante il mio primo anno', 'reserved', '2026-05-10 19:14:25', 10, 5, 1, 4, NULL),
-(33, 14.99, '2026-05-21 12:00:00', 'usato', 'Con segni e esercizi svolti', 'reserved', '2026-05-10 19:49:07', 10, 5, 1, 2, NULL),
-(36, 18.98, '2026-05-12 13:00:00', 'usato', 'Il mio libro di italiano', 'sold', '2026-05-11 18:12:31', 14, 16, 71, 331, 1),
-(37, 67, '2026-05-07 09:00:00', 'Nuovo con cartellino', 'PROVA ACQUISTO', 'sold', '2026-05-12 08:53:13', 4, 5, 1, 547, 1),
-(41, 31, '2026-05-21 08:00:00', 'Nuovo senza cartellino', 'Libro di AFM', 'sold', '2026-05-13 13:33:10', 19, 5, 1, 525, 1),
-(42, 10, NULL, 'ottime condizioni', 'Libro di letteratura', 'selling', '2026-05-13 13:41:03', 19, NULL, NULL, 473, NULL),
-(44, 19, '2027-05-13 08:00:00', 'usato', 'Il mio libro di matematica', 'reserved', '2026-05-13 16:50:14', 18, 19, 1, 11, NULL),
-(48, 21, '2026-05-29 12:00:00', 'Nuovo senza cartellino', 'Il mio libro di diritto', 'reserved', '2026-05-13 22:33:48', 14, 20, 74, 1, 1),
-(49, 20, NULL, 'Nuovo senza cartellino', 'Il mio libro di francese. Il mio professore non lo utilizza ma l\'ho scartato comunque.', 'selling', '2026-05-14 15:56:45', 20, NULL, NULL, 1, NULL),
-(50, 17.5, NULL, 'usato', 'Libro di francese', 'selling', '2026-05-14 16:14:55', 20, NULL, NULL, 20, NULL);
-
--- --------------------------------------------------------
 
 --
 -- Struttura della tabella `insertion_images`
@@ -1797,42 +1768,6 @@ CREATE TABLE `insertion_images` (
   `insertion_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dump dei dati per la tabella `insertion_images`
---
-
-INSERT INTO `insertion_images` (`image_id`, `image_path`, `insertion_id`) VALUES
-(1, '/var/www/html/ferioli/public/images/insertions/book_69f37db7a7b441.61241889.jpg', 29),
-(2, '/var/www/html/ferioli/public/images/insertions/book_69f37db7a82149.83776111.jpg', 29),
-(3, '/var/www/html/ferioli/public/images/insertions/book_69f37db7a87615.51659666.jpg', 29),
-(4, '/var/www/html/ferioli/public/images/insertions/book_69fed20a96fcf5.17817106.jpg', 30),
-(5, '/var/www/html/ferioli/public/images/insertions/book_69fed20a976202.66503664.jpg', 30),
-(6, '/var/www/html/ferioli/public/images/insertions/book_69fed20a97bfb0.62530048.jpg', 30),
-(7, '/var/www/html/ferioli/public/images/insertions/book_69fed433d782b1.70276168.jpg', 31),
-(8, '/var/www/html/ferioli/public/images/insertions/book_69fed433d7fd15.95905827.jpg', 31),
-(9, '/var/www/html/ferioli/public/images/insertions/book_69fed433d850c9.24100394.jpg', 31),
-(10, '/var/www/html/ferioli/public/images/insertions/book_6a00bcf16c9807.44247753.jpg', 32),
-(11, '/var/www/html/ferioli/public/images/insertions/book_6a00bcf16cf122.08971222.jpg', 32),
-(12, '/var/www/html/ferioli/public/images/insertions/book_6a00bcf16d45c1.47718645.jpg', 32),
-(13, '/var/www/html/ferioli/public/images/insertions/book_6a00c5130724f9.99773267.jpg', 33),
-(14, '/var/www/html/ferioli/public/images/insertions/book_6a00c51307cbb1.63037158.jpg', 33),
-(15, '/var/www/html/ferioli/public/images/insertions/book_6a00c5130815a1.22310940.jpg', 33),
-(20, '/var/www/html/ferioli/public/images/insertions/book_6a01ffef52e076.42212667.jpg', 36),
-(21, '/var/www/html/ferioli/public/images/insertions/book_6a02ce5948d1d0.01075043.jpg', 37),
-(22, '/var/www/html/ferioli/public/images/insertions/book_6a02ce59494230.68036704.jpg', 37),
-(23, '/var/www/html/ferioli/public/images/insertions/book_6a02ce5949a406.14706471.jpg', 37),
-(31, '/var/www/html/ferioli/public/images/insertions/book_6a0461762f0857.92859779.jfif', 41),
-(32, '/var/www/html/ferioli/public/images/insertions/book_6a0461762f62d1.03752467.jfif', 41),
-(33, '/var/www/html/ferioli/public/images/insertions/book_6a04634f7ea016.11557435.jfif', 42),
-(37, '/var/www/html/ferioli/public/images/insertions/book_6a048fa69f3bf1.59564978.jpg', 44),
-(38, '/var/www/html/ferioli/public/images/insertions/book_6a048fa69f9a18.41091281.jpg', 44),
-(41, '/var/www/html/ferioli/public/images/insertions/book_6a04e02c794900.45967920.jpg', 48),
-(42, '/var/www/html/ferioli/public/images/insertions/book_6a05d49dd233a0.36362739.jpg', 49),
-(43, '/var/www/html/ferioli/public/images/insertions/book_6a05d49dd31ca3.15439088.jpg', 49),
-(44, '/var/www/html/ferioli/public/images/insertions/book_6a05d8dfa6eca6.73669185.jpg', 50),
-(45, '/var/www/html/ferioli/public/images/insertions/book_6a05d8dfa75320.22767956.jpeg', 50);
-
--- --------------------------------------------------------
 
 --
 -- Struttura della tabella `places`
@@ -2014,28 +1949,6 @@ CREATE TABLE `users` (
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
---
--- Dump dei dati per la tabella `users`
---
-
-INSERT INTO `users` (`user_id`, `name`, `surname`, `gender`, `email`, `dob`, `password`) VALUES
-(4, 'Federcio', 'Ferioli', 'M', 'a@b.com', '2007-03-07', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92'),
-(5, 'Riccardo', 'Frabetti', 'M', 'riccardo@isit100.fe.it', '2007-06-08', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92'),
-(6, 'Majdoline', 'El Kard', 'M', 'mmm@gmail.com', '2007-08-06', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92'),
-(7, 'Christian', 'Facchini', 'M', 'fsasdas@boh.com', '2007-08-09', '7004b202a30144c3ea8ba1744c4b61c2b5909dd90f22f2da0d74823a365f26dc'),
-(8, 'Federico', 'Ferioli', 'M', 'federico@gmail.com', '2026-04-23', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92'),
-(9, 'Alessandro', 'Ferioli', 'M', 'ale@isit100.fe.it', '2026-04-24', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f'),
-(10, 'Andre', 'Di mary', 'O', 'andre@isit100.fe.it', '2025-11-13', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92'),
-(11, 'illia', 'kiper', 'M', 'kiper@isit100.fe.it', '2006-08-19', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f'),
-(12, 'illia', 'kiper', 'M', 'kiper@isit100.fe.it', '2006-08-19', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f'),
-(13, 'illia', 'kiper', 'M', 'kiper@isit100.fe.it', '2006-08-19', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f'),
-(14, 'Alessandra', 'Landi', 'M', 'landi@isit100.fe.it', '2026-01-21', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225'),
-(15, 'mattia', 'pirazzi', 'M', 'pirazzi@isit100.fe.it', '2026-05-12', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f'),
-(16, 'Matti', 'Govo', 'M', 'govoni.7978@isit100.fe.it', '2007-09-24', 'ef797c8118f02dfb649607dd5d3f8c7623048c9c063d532cc95c5ed7a898a64f'),
-(17, 'Lorenzo', 'Peloso', 'M', 'peloso@gmail.com', '2026-04-23', '$2y$12$nW4JmzQp2XGjYCbuq7oLLuzetDdKK7.mCgWzUcTdKuPi.nwN/8hCG'),
-(18, 'Lorenz', 'Peloso', 'M', 'peloso2@gmail.com', '2026-05-07', '15e2b0d3c33891ebb0f1ef609ec419420c20e320ce94c65fbc8c3312448eb225'),
-(19, 'Christian', 'Facchini', 'M', 'christian@gmail.com', '2006-07-01', '6c7612ff36153024d5677f77a0f2292275d8ccb1791f847258533b5fe7fe777b'),
-(20, 'Federico', 'Ferioli', 'M', 'ferioli.7941@isit100.fe.it', '2007-03-06', '$2y$12$aGE1/.KtIBK6xE5hwRIE4e3l6mClogA4aUOPCkqZYUh5bSTRKfDSy');
 
 --
 -- Indici per le tabelle scaricate
